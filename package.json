@@ -7,7 +7,7 @@
   "license": "MPL 2.0",
   "version": "1",
   "preferences": [{
-  	"name": "name",
+  	"name": "username",
   	"title":  "Your name",
   	"description":  "Visible name",
   	"type": "string"
