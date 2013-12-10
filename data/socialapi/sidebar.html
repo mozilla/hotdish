@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>Demo</title>
+</head>
+
+<body>
+<p>This is my sidebar</p>
+
+<script type="text/javascript">
+function wut () {
+	var loc = location.href;
+	console.log(loc);
+	document.body.innerHTML += "<p>myloc"+loc+"</p>";
+	return loc;
+}
+
+window.addEventListener("receiveMessage", function (event) {
+	document.body.innerHTML += "<p>Message: " + event.detail + "</p>";
+});
+
+setInterval(function () {
+    var event = new CustomEvent("sendMessage", {detail: "hey"});
+    window.dispatchEvent(event);
+	document.body.innerHTML += "<p>.</p>";
+}, 1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title>Demo Social Service</title>
+</head>
+<script>
+var loc = location.href;
+var baseurl = loc.substring(0,loc.lastIndexOf('/'));
+
+var data = {
+  // currently required
+  "name": "Hotdish Social Service",
+  "iconURL": baseurl+"/firefox16.png",
+  "icon32URL": baseurl+"/firefox32.png",
+  "icon64URL": baseurl+"/firefox64.png",
+
+  "sidebarURL": baseurl+"/sidebar.html",
+
+  // should be available for display purposes
+  "description": "A short paragraph about this provider",
+  "author": "Gregg and Ian, Mozilla",
+  "homepageURL": "https://github.com/mixedpuppy/socialapi-demo/",
+
+  // optional
+  "version": "1.0"
+}
+
+function activate(node) {
+  var event = new CustomEvent("ActivateSocialFeature");
+  node.setAttribute("data-service", JSON.stringify(data));
+  node.dispatchEvent(event);
+}
+</script>
+<body>
+  <button onclick="activate(this)" title="activate the demo provider">Activate The Demo Provider</button>
+  <p> colored text </p>
+</body>
+</html>
