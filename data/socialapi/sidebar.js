@@ -47,10 +47,11 @@ var Peer = Class({
   },
 
   addTab: function (msg) {
+    console.log("adding tab", msg);
     var el = getTemplate("url");
     el.find("a").attr("href", msg.url);
     el.find("a").text(msg.title);
-    this.element.find(".url-list ul").prepend(el);
+    this.element.find(".url-list").prepend(el);
   }
 });
 

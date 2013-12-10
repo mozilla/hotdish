@@ -7,6 +7,10 @@ if (! clientId) {
   localStorage.setItem("debugger_id", clientId);
 }
 
+$(function () {
+  $("#sidebar").attr("href", "../socialapi/sidebar.html" + location.search);
+});
+
 function log() {
   var s = [];
   for (var i=0; i<arguments.length; i++) {
