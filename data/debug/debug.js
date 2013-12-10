@@ -1,7 +1,7 @@
 var match = /groupId=(.*)/.exec(location.href);
 var groupId = match[1];
 var hubUrl = "https://hub.togetherjs.com/hub/" + groupId;
-var clientId = "debugger_" + Math.random();
+var clientId = "d_" + Math.floor(Math.random()*1000);
 
 function log() {
   var s = [];
@@ -44,6 +44,7 @@ function sendHello(helloBack) {
 }
 
 sendHello(false);
+
 hub.on("hello", function () {
   sendHello(true);
 });

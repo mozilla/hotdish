@@ -44,6 +44,13 @@ var Peer = Class({
     } else {
       this.element.find(".avatar").hide();
     }
+  },
+
+  addTab: function (msg) {
+    var el = getTemplate("url");
+    el.find("a").attr("href", msg.url);
+    el.find("a").text(msg.title);
+    this.element.find(".url-list").append(el);
   }
 });
 
@@ -81,5 +88,13 @@ $(function () {
     }
     hub.emit(msg.type, msg);
   };
+
+  hub.on("tab-pageshow", function (msg) {
+    if (msg.url.indexOf("about:") === 0
+        || msg.url.indexOf("resource:") === 0) {
+      return;
+    }
+    msg.peer.addTab(msg);
+  });
 
 });
