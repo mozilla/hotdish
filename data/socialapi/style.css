@@ -2,10 +2,10 @@ body {
     font-family: sans-serif;
 }
 
-#messages li {
+#messages li, #peers li {
     list-type: none;
 }
 
-#messages {
+#messages, #peers {
     padding: 0;
 }
