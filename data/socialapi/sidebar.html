@@ -1,29 +1,40 @@
+<!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <meta chaset="UTF-8">
     <title>Demo</title>
-</head>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="../channels/channels.js"></script>
+    <script src="util.js"></script>
+    <script src="sidebar.js"></script>
+  </head>
 
-<body>
-<p>This is my sidebar</p>
+  <body>
+    <h2>Hotdish</h2>
 
-<script type="text/javascript">
-function wut () {
-	var loc = location.href;
-	console.log(loc);
-	document.body.innerHTML += "<p>myloc"+loc+"</p>";
-	return loc;
-}
+    <ul id="peers">
+    </ul>
 
-window.addEventListener("receiveMessage", function (event) {
-	document.body.innerHTML += "<p>Message: " + event.detail + "</p>";
-});
+    <ul id="messages">
+    </ul>
 
-setInterval(function () {
-    var event = new CustomEvent("sendMessage", {detail: "hey"});
-    window.dispatchEvent(event);
-	document.body.innerHTML += "<p>.</p>";
-}, 1000);
-</script>
+    <div style="display: none">
+      <li id="template-message"><pre></pre></li>
 
-</body>
+      <li id="template-peer">
+        <div class="bgcolor">Name: <span class="name"></span></div>
+        <img src="" class="avatar">
+        <div class="url-list">
+          <ul>
+          </ul>
+        </div>
+      </li>
+
+      <li id="template-url">
+        <a href="#" target="_blank"></a>
+      </li>
+    </div>
+
+  </body>
 </html>
