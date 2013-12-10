@@ -63,6 +63,7 @@ function getTemplate(name) {
   return el;
 }
 
+
 $(function () {
 
   var channel = WebSocketChannel(hubUrl);
@@ -89,12 +90,27 @@ $(function () {
     hub.emit(msg.type, msg);
   };
 
+  $("#request-current").click(function () {
+    send({
+      type: "request-current"
+    });
+  });
+
+  function send(msg) {
+    msg.sidebar = clientId;
+    channel.send(msg);
+  }
+
   hub.on("tab-pageshow", function (msg) {
     if (msg.url.indexOf("about:") === 0
         || msg.url.indexOf("resource:") === 0) {
       return;
     }
     msg.peer.addTab(msg);
+  });
+
+  send({
+    type: "ready"
   });
 
 });

@@ -1,7 +1,11 @@
 var match = /groupId=(.*)/.exec(location.href);
 var groupId = match[1];
 var hubUrl = "https://hub.togetherjs.com/hub/" + groupId;
-var clientId = "d_" + Math.floor(Math.random()*1000);
+var clientId = localStorage.getItem("debugger_id");
+if (! clientId) {
+  clientId = "d_" + Math.floor(Math.random()*1000);
+  localStorage.setItem("debugger_id", clientId);
+}
 
 function log() {
   var s = [];
