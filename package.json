@@ -9,7 +9,7 @@
   "preferences": [{
   	"name": "name",
   	"title":  "Your name",
-  	"description":  "Visisble name",
+  	"description":  "Visible name",
   	"type": "string"
   },
   {
@@ -29,5 +29,12 @@
     "type": "file",
     "name": "avatar",
     "title": "choose your avatar"
-  }]
+  },
+  {
+    "name": "clientId",
+    "title":  "clientId",
+    "description":  "stable client id",
+    "type": "string"
+  }
+  ]
 }
