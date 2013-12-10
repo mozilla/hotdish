@@ -1,0 +1,33 @@
+{
+  "name": "hotdish",
+  "fullName": "hotdish",
+  "id": "hotdish@labs.mozilla.com",
+  "description": "Work together!",
+  "author": "Gregg and Ian, who rulez",
+  "license": "MPL 2.0",
+  "version": "1",
+  "preferences": [{
+  	"name": "name",
+  	"title":  "Your name",
+  	"description":  "Visisble name",
+  	"type": "string"
+  },
+  {
+    "type": "color",
+    "name": "color",
+    "value": "#6a5acd",
+    "title": "your color"
+  },
+  {
+  	"name": "groupId",
+  	"title":  "groupId",
+  	"description":  "groupId",
+  	"type": "string",
+  	"value":  "hotdishgroup"
+  },
+  {
+    "type": "file",
+    "name": "avatar",
+    "title": "choose your avatar"
+  }]
+}
