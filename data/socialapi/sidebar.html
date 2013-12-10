@@ -6,12 +6,27 @@
     <link href="style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="../channels/channels.js"></script>
+    <script src="util.js"></script>
     <script src="sidebar.js"></script>
   </head>
 
   <body>
     <h2>Hotdish</h2>
+
+    <ul id="peers">
+    </ul>
+
     <ul id="messages">
     </ul>
+
+    <div style="display: none">
+      <li id="template-message"><pre></pre></li>
+
+      <li id="template-peer">
+        <div class="bgcolor">Name: <span class="name"></span></div>
+        <img src="" class="avatar">
+      </li>
+    </div>
+
   </body>
 </html>

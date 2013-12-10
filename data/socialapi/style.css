@@ -1,3 +1,11 @@
 body {
     font-family: sans-serif;
 }
+
+#messages li {
+    list-type: none;
+}
+
+#messages {
+    padding: 0;
+}
