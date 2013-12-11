@@ -28,6 +28,8 @@ var Peer = Class({
     this.element = getTemplate("peer");
     $("#peers").append(this.element);
     this.update({});
+    this.tabs = {};
+    this.activeTabId = null;
   },
 
   update: function (msg) {
@@ -52,19 +54,94 @@ var Peer = Class({
     }
   },
 
-  addTab: function (msg) {
-    console.log("adding tab", msg);
-    var el = getTemplate("url");
-    el.find("a").attr("href", msg.url);
-    el.find("a").text(msg.title);
-    this.element.find(".url-list").prepend(el);
+  updateTab: function (msg) {
+    if (! this.tabs[msg.tabid]) {
+      this.tabs[msg.tabid] = {id: msg.tabid};
+    }
+    var t = this.tabs[msg.tabid];
+    assert(t.id == msg.tabid);
+    t.windowid = msg.windowid;
+    t.index = msg.index;
+    if (msg.pinned !== undefined) {
+      t.pinned = msg.pinned;
+    }
+    if (msg.title !== undefined) {
+      t.title = msg.title;
+    }
+    if (msg.url !== undefined) {
+      t.url = msg.url;
+    }
+    if (msg.favicon !== undefined) {
+      t.favicon = msg.favicon;
+    }
+    this.viewTabs();
+  },
+
+  tabEl: function (tabId) {
+    return $("#tab-" + this.clientId + "-" + tabId);
+  },
+
+  makeTabEl: function (tabId) {
+    var el = getTemplate("tab");
+    el.attr("id", "tab-" + this.clientId + "-" + tabId);
+    console.log("return", el[0].outerHTML);
+    return el;
+  },
+
+  activateTab: function (msg) {
+    var t;
+    if (this.activeTabId) {
+      t = this.tabEl(this.activeTabId);
+      t.removeClass("active-tab");
+    }
+    this.activeTabId = msg.tabid;
+    t = this.tabEl(this.activeTabId);
+    var parent = t.closest("ul, ol");
+    t.remove();
+    parent.prepend(t);
+  },
+
+  viewTabs: function () {
+    var tabs = [];
+    var urlList = this.element.find(".url-list");
+    for (var tabId in this.tabs) {
+      var tab = this.tabs[tabId];
+      tabs.push(tab);
+      var el = this.tabEl(tab.id);
+      if (! el.length) {
+        el = this.makeTabEl(tab.id);
+        urlList.append(el);
+      }
+      console.log("got it", el[0], this.tabEl(tab.id)[0]);
+      el.find("a").attr("href", tab.url);
+      if (tab.pinned) {
+        el.find("a").addClass("pinned");
+      } else {
+        el.find("a").removeClass("pinned");
+      }
+      el.find(".title").text(tab.title || tab.url);
+      if (tab.favicon) {
+        el.find(".favicon").show().attr("src", tab.favicon);
+      } else {
+        el.find(".favicon").hide();
+      }
+    }
+    tabs.sort(function (a, b) {
+      return a.index < b.index;
+    });
+    for (var i=tabs.length-1; i>=0; i--) {
+      tab = tabs[i];
+      urlList.prepend(this.tabEl(tab.id));
+    }
+    console.log("done", tabs, urlList.html());
   }
+
 });
 
 
 function getTemplate(name) {
   var el = $("#template-" + name);
-  assert(el.length);
+  assert(el.length, "No template with the name", name);
   el = el.clone();
   el.attr("id", null);
   return el;
@@ -124,12 +201,21 @@ $(function () {
     channel.send(msg);
   }
 
+  function ignoreTab(msg) {
+    return msg.url.indexOf("about:") === 0 ||
+        msg.url.indexOf("resource:") === 0;
+  }
+
   hub.on("tab-pageshow", function (msg) {
-    if (msg.url.indexOf("about:") === 0
-        || msg.url.indexOf("resource:") === 0) {
-      return;
+    if (! ignoreTab(msg)) {
+      msg.peer.updateTab(msg);
     }
-    msg.peer.addTab(msg);
+  });
+
+  hub.on("tab-activate", function (msg) {
+    if (! ignoreTab(msg)) {
+      msg.peer.activateTab(msg);
+    }
   });
 
   send({
