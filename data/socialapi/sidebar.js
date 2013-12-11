@@ -19,11 +19,12 @@ var list = {
 };
 
 var Peer = Class({
-  constructor: function (clientId) {
-    this.clientId = clientId;
+  constructor: function (id) {
+    this.clientId = id;
     this.avatar = null;
     this.name = null;
     this.color = null;
+    this.isSelf = this.clientId == clientId;
     this.element = getTemplate("peer");
     $("#peers").append(this.element);
     this.update({});
@@ -43,6 +44,11 @@ var Peer = Class({
       this.element.find(".avatar").show().attr("src", this.avatar);
     } else {
       this.element.find(".avatar").hide();
+    }
+    if (this.isSelf) {
+      this.element.find("if-self").show();
+    } else {
+      this.element.find("if-self").hide();
     }
   },
 
@@ -94,6 +100,22 @@ $(function () {
   $("#request-current").click(function () {
     send({
       type: "request-current"
+    });
+  });
+
+  $("#show-messages").click(function () {
+    $("#messages-container").show();
+    $("#messages-hidden").hide();
+  });
+
+  $("#hide-messages").click(function () {
+    $("#messages-container").hide();
+    $("#messages-hidden").show();
+  });
+
+  $(document).on("click", ".show-edit", function () {
+    send({
+      type: "show-edit"
     });
   });
 
