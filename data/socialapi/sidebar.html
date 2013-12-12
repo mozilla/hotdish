@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Hotdish</title>
-    <link href="style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-    <script src="jquery-1.10.2.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <script src="../channels/channels.js"></script>
-    <script src="util.js"></script>
-    <script src="sidebar.js"></script>
-    <script src="bootstrap.min.js"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </head>
 
   <body class="sidepanel">  <!-- START SIDEBAR -->
@@ -46,7 +46,7 @@
         </li>
 
         <li id="template-peer" class="peer panel panel-default"> <!-- START Person box -->
-          <header class="bgcolor panel-heading">
+          <header class="bgcolor panel-heading"> <!-- Start Panel header -->
             <div class="if-self edit-container">
               <button class="show-edit">edit</button>
               <button type="button" class="btn btn-default btn-xs">
@@ -57,10 +57,12 @@
               <img src="" class="avatar">
             </div>
             <h3 class="name panel-title"></h3>
-          </header>
+          </header> <!-- End Panel header -->
           <div class="panel-body"> <!-- START Activity List -->
             <h5>Activity stream</h5>
-            <button id="request-current" class="pull-right"><- Tell everyone to open this page</button>
+            <button id="request-current" class="pull-right btn btn-default btn-xs" type="button">
+              <span class="glyphicon glyphicon-share-alt"></span>
+            </button>
             <ul class="url-list">
             </ul>
           </div> <!-- End Activity List -->
