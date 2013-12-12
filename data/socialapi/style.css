@@ -55,3 +55,13 @@ body {
 .url-list {
     padding: 0 0 0 5px;
 }
+
+
+/*Participant component */
+
+.avatar-holder {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #000;
+  border-radius: 50px;
+}

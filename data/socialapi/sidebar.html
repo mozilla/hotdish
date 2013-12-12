@@ -19,19 +19,21 @@
     </section> <!-- END HEADER -->
 
     <div id="content">
-      <button id="request-current" class="pull-right">Tell everyone to open</button>
 
       <ul id="peers">
       </ul>
 
       <!-- FIX ME: Do we need this?  Can we hide this?  or is this just for testing? -->
       <div id="messages-container" style="display: none">
-        <header><button id="hide-messages">-</button> Messages:</header>
+        <header>
+          <button id="hide-messages">-</button>
+          Messages:
+        </header>
         <ul id="messages">
         </ul>
       </div>
       <div id="messages-hidden">
-        <button id="show-messages">Show messages</button>
+        <!-- <button id="show-messages">Show messages</button> -->
       </div>
 
 
@@ -45,12 +47,20 @@
 
         <li id="template-peer" class="peer panel panel-default"> <!-- START Person box -->
           <header class="bgcolor panel-heading">
-            <div class="if-self edit-container"><button class="show-edit">edit</button></div>
-            <img src="" class="avatar">
+            <div class="if-self edit-container">
+              <button class="show-edit">edit</button>
+              <button type="button" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button>
+            </div>
+            <div class="avatar-holder pull-left">
+              <img src="" class="avatar">
+            </div>
             <h3 class="name panel-title"></h3>
           </header>
           <div class="panel-body"> <!-- START Activity List -->
-            <h3>Activity</h3>
+            <h5>Activity stream</h5>
+            <button id="request-current" class="pull-right"><- Tell everyone to open this page</button>
             <ul class="url-list">
             </ul>
           </div> <!-- End Activity List -->
