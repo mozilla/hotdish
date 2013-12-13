@@ -46,6 +46,7 @@ body {
 
 .url-list li {
     list-type: none;
+    margin-left: 10px;
 }
 
 .url-list a {
@@ -64,5 +65,19 @@ body {
   height: 25px;
   border: 1px solid #000;
   border-radius: 50px;
-  margin: 10px;
+  margin: -4px 10px 0px -4px;
+  background: #fff;
 }
+
+.btn-minimize {
+  margin: -20px 0px;
+}
+
+.activity-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  margin: -4px 10px 0px -4px;
+  background: green;
+}
+
