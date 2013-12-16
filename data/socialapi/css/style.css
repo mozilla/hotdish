@@ -3,13 +3,13 @@ html, body {
 }
 
 #content {
-    padding: 4px;
+    padding: 10px;
 }
 
 h1#header {
     margin: 0;
-    padding: 5px;
-    background-color: #000;
+    padding: 10px;
+    background-color: #44463f;
     color: #fff;
     font-size: 90%;
 }
@@ -27,12 +27,20 @@ body {
     font-family: sans-serif;
 }
 
+ul#peers {
+  list-style: none;
+}
+
 #messages li, #peers li {
-    list-type: none;
+  list-style: none;
 }
 
 #messages, #peers {
     padding: 0;
+}
+
+#peers h6 {
+  text-transform: uppercase;
 }
 
 .edit-container {
@@ -46,7 +54,7 @@ body {
 
 .url-list li {
     list-type: none;
-    margin-left: 10px;
+    margin-left: 0px;
 }
 
 .url-list a {
@@ -54,7 +62,7 @@ body {
 }
 
 .url-list {
-    padding: 0 0 0 5px;
+    padding: 0 0 0 0px;
 }
 
 
@@ -67,6 +75,10 @@ body {
   border-radius: 50px;
   margin: -4px 10px 0px -4px;
   background: #fff;
+}
+
+.user-avatar {
+  margin-right: 10px;
 }
 
 .btn-minimize {

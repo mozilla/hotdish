@@ -19,13 +19,13 @@
     </section> <!-- END HEADER -->
 
     <div id="content">
-      
+
       <!-- <div class="if-self edit-container">
         <button class="show-edit">edit</button>
       </div> -->
 
       <ul id="peers">
-        <h6>Current participants</h6>
+        <h6 class="text-muted">Participants</h6>
       </ul>
 
       <!-- FIX ME: Do we need this?  Can we hide this?  or is this just for testing? -->
@@ -52,13 +52,14 @@
 
         <li id="template-peer" class="peer panel panel-default"> <!-- START Person box -->
           <header class="bgcolor panel-heading"> <!-- Start Panel header -->
+            <span class="glyphicon glyphicon-user pull-left user-avatar"></span>
             <h3 class="name panel-title"></h3>
-            <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
+            <!-- <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
               <span class="glyphicon glyphicon-minus"></span>
-            </button>
+            </button> -->
           </header> <!-- End Panel header -->
           <div class="panel-body"> <!-- START Activity List -->
-            <h5>Activity stream</h5>
+            <h5>Current page location:</h5>
             <ul class="url-list">
             </ul>
           </div> <!-- End Activity List -->
