@@ -20,36 +20,14 @@
       <h1 id="header">Hotdish</h1>
     </section> <!-- END HEADER -->
 
-    <section id="my-module" class="peer panel panel-default" style="background: green">
-      <div class="panel-body">
-        <div class="mylivevideostream col-xs-4" style="background: red">
-          video box
-        </div>
-        <div class="myname col-xs-8" style="background: blue">
-          <h4>Name<h4>
-          <div class="if-self edit-container">
-            <button class="show-edit">edit</button>
-          </div>
-        </div>
-        <div class="myactivity stream">
-          <h5>Activity</h5>
-          <button id="request-current" class="btn btn-default btn-xs" type="button">
-            <span class="glyphicon glyphicon-share-alt">
-              Share
-            </span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section id="participants">
-
-    </section>
-
     <div id="content">
 
+      <!-- <div class="if-self edit-container">
+        <button class="show-edit">edit</button>
+      </div> -->
+
       <ul id="peers">
-        <h6>Current participants</h6>
+        <h6 class="text-muted">Participants</h6>
       </ul>
 
       <!-- FIX ME: Do we need this?  Can we hide this?  or is this just for testing? -->
@@ -76,20 +54,19 @@
 
         <li id="template-peer" class="peer panel panel-default"> <!-- START Person box -->
           <header class="bgcolor panel-heading"> <!-- Start Panel header -->
-            <div class="activity-indicator">
-            </div>
+            <span class="glyphicon glyphicon-user pull-left user-avatar"></span>
             <h3 class="name panel-title"></h3>
-            <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
+            <!-- <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
               <span class="glyphicon glyphicon-minus"></span>
-            </button>
+            </button> -->
           </header> <!-- End Panel header -->
           <div class="panel-body"> <!-- START Activity List -->
-            <h5>Activity stream</h5>
+            <h5>Current page location:</h5>
+            <a id="request-current" href="#" data-placement="top" class="link btn btn-default btn-xs pull-right" data-original-title="Push this page to the other participants."><span class="glyphicon glyphicon-share-alt"> <span class="push-btn-txt">Push</span></span></a>
             <ul class="url-list">
             </ul>
           </div> <!-- End Activity List -->
         </li> <!-- End Person box -->
-
         <li id="template-tab" class="tab">
           <a href="#" target="_blank"><img class="favicon" src=""> <span class="title"></span></a>
         </li>
