@@ -3,14 +3,34 @@
   <head>
     <meta charset="UTF-8">
     <title>Debug This Thing</title>
-    <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
     <script src="../channels/channels.js"></script>
-    <script src="../socialapi/util.js"></script>
-    <script src="debug.js"></script>
+    <script src="../socialapi/js/util.js"></script>
     <style>
-      #messages li {
+      .message-list {
+        padding: 0;
+      }
+      .message-list li {
         list-type: none;
       }
+      pre {
+        background-color: #eee;
+        border: 1px solid #ddd;
+        overflow: auto;
+      }
+      body {
+        font-family: sans-serif;
+      }
+      #messages {
+        position: relative;
+        width: 50%;
+      }
+      #internal {
+        position: relative;
+        width: 50%;
+        margin-left: 50%;
+      }
+
     </style>
   </head>
   <body>
@@ -18,10 +38,15 @@
 
     <p>
       <a href="#" target="_blank" id="sidebar">Run sidebar in content</a>
+      <button id="start-user">Add fake participant</button>
     </p>
 
-    <ul id="messages">
+    <ul id="messages" class="message-list">
     </ul>
 
+    <ul id="internal" class="message-list">
+    </ul>
+
+    <script src="debug.js"></script>
   </body>
 </html>
