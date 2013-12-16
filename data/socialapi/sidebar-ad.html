@@ -18,29 +18,14 @@
       <h1 id="header">Hotdish</h1>
     </section> <!-- END HEADER -->
 
-    <section id="toolbar">
-      <button id="request-current" class="btn btn-default btn-xs" type="button">
-        <span class="glyphicon glyphicon-share-alt">
-          Share current my page
-        </span>
-      </button>
-    </div>
-
-    <section id="my-module">
-      <div class="myname">
-
-      </div>
-
-
-    </section>
-
-    <section id="participants">
-
-    </section>
-
     <div id="content">
+      
+      <!-- <div class="if-self edit-container">
+        <button class="show-edit">edit</button>
+      </div> -->
 
       <ul id="peers">
+        <h6>Current participants</h6>
       </ul>
 
       <!-- FIX ME: Do we need this?  Can we hide this?  or is this just for testing? -->
@@ -65,20 +50,12 @@
           <pre></pre>
         </li>
 
-
-
         <li id="template-peer" class="peer panel panel-default"> <!-- START Person box -->
           <header class="bgcolor panel-heading"> <!-- Start Panel header -->
-            <div class="if-self edit-container">
-              <button class="show-edit">edit</button>
-              <button type="button" class="btn btn-default btn-xs">
-                <span class="glyphicon glyphicon-minus"></span>
-              </button>
-            </div>
-            <div class="avatar-holder pull-left">
-              <img src="" class="avatar">
-            </div>
             <h3 class="name panel-title"></h3>
+            <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
           </header> <!-- End Panel header -->
           <div class="panel-body"> <!-- START Activity List -->
             <h5>Activity stream</h5>

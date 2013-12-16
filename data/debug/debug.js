@@ -8,7 +8,7 @@ if (! clientId) {
 }
 
 $(function () {
-  $("#sidebar").attr("href", "../socialapi/sidebar.html" + location.search);
+  $("#sidebar").attr("href", "../socialapi/sidebar-ad.html" + location.search);
 });
 
 function log() {
