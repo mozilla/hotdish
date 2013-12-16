@@ -110,7 +110,7 @@ var Peer = Class({
       var el = this.tabEl(tab.id);
       if (! el.length) {
         el = this.makeTabEl(tab.id);
-        urlList.append(el);
+        urlList.html(el);
       }
       console.log("got it", el[0], this.tabEl(tab.id)[0]);
       el.find("a").attr("href", tab.url);
