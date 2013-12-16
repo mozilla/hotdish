@@ -14,6 +14,10 @@ h1#header {
     font-size: 90%;
 }
 
+h3.name {
+  color: #fff;
+}
+
 button {
     border: 1px solid #999;
     border-radius: 1px;
