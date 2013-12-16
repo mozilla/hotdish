@@ -132,7 +132,7 @@ var Peer = Class({
     for (var i=tabs.length-1; i>=0; i--) {
       tab = tabs[i];
       urlList.prepend(this.tabEl(tab.id));
-      urlList.prepend('<a id="request-current" href="#" class="link btn btn-default btn-xs" data-original-title="Push this page to everyone else."><span class="glyphicon glyphicon-share-alt"></span></a>');
+      $("#request-current").show();
       $('.link').tooltip();
     }
     console.log("done", tabs, urlList.html());

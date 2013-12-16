@@ -68,6 +68,10 @@ ul#peers {
 
 /*Participant component */
 
+#request-current {
+  display: none;
+}
+
 .avatar-holder {
   width: 25px;
   height: 25px;
