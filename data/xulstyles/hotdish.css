@@ -5,5 +5,7 @@
 */
 
 .hotdish #tabbrowser-tabs {
-	background-color: red;
+	//background-color: blue;
+	background: url('images/eye-icon.png');
+	background-repeat: repeat-x;
 }
