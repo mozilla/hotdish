@@ -1,11 +1,17 @@
-var match = /groupId=([^&]*)/.exec(location.search);
-var groupId = match[1];
-match = /clientId=([^&]*)/.exec(location.search);
-var clientId = match[1];
-var hubUrl = "https://hub.togetherjs.com/hub/" + groupId;
+var groupId;
+var selfIdentity;
+var clientId;
+
+addon.port.on("init", function (options) {
+  groupId = options.groupName;
+  selfIdentity = options.selfIdentity;
+  clientId = options.selfIdentity.clientId;
+  //$("#header").text("Hotdish " + groupName);
+});
+
+addon.port.emit("ready-init");
 
 var hub = mixinEvents({});
-var addon = mixinEvents({});
 
 var list = {
   _peers: {},
@@ -152,21 +158,11 @@ function getTemplate(name) {
 
 $(function () {
 
-  var channel = WebSocketChannel(hubUrl);
-  channel.onmessage = function (msg) {
+  function message(msg) {
     var li = getTemplate("message");
     li.find("pre").text(JSON.stringify(msg, null, 2));
     $("#messages").append(li);
     if (msg.type == "init-connection") {
-      return;
-    }
-    if (msg.addon) {
-      if (msg.addon == clientId) {
-        addon.emit(msg.type, msg);
-      }
-      return;
-    }
-    if (msg.sidebar) {
       return;
     }
     msg.peer = list.get(msg.clientId);
@@ -176,10 +172,16 @@ $(function () {
     hub.emit(msg.type, msg);
   };
 
+  addon.port.on("message", message);
+  addon.port.on("internalMessage", function (msg) {
+    msg.self = true;
+    msg.clientId = clientId;
+    msg.peer = selfIdentity;
+    message(msg);
+  });
+
   $("#request-current").click(function () {
-    send({
-      type: "request-current"
-    });
+    addon.port.emit("shareTab");
   });
 
   $("#show-messages").click(function () {
@@ -192,15 +194,8 @@ $(function () {
     $("#messages-hidden").show();
   });
 
-  $(document).on("click", ".show-edit", function () {
-    send({
-      type: "show-edit"
-    });
-  });
-
   function send(msg) {
-    msg.sidebar = clientId;
-    channel.send(msg);
+    addon.port.emit("send", msg);
   }
 
   function ignoreTab(msg) {
@@ -208,22 +203,26 @@ $(function () {
         msg.url.indexOf("resource:") === 0;
   }
 
-  hub.on("tab-pageshow", function (msg) {
-    if (! ignoreTab(msg)) {
-      msg.peer.updateTab(msg);
+  hub.on("pageshow", function (msg) {
+    if (! ignoreTab(msg.tab)) {
+      msg.peer.updateTab(msg.tab);
     }
   });
 
-  hub.on("tab-activate", function (msg) {
-    if (! ignoreTab(msg)) {
-      msg.peer.activateTab(msg);
+  hub.on("activate", function (msg) {
+    if (! ignoreTab(msg.tab)) {
+      msg.peer.activateTab(msg.tab);
     }
   });
 
-  send({
-    type: "ready"
+  hub.on("tab-init", function (msg) {
+    msg.tabs.forEach(function (tab) {
+      if (! ignoreTab(tab)) {
+        msg.peer.updateTab(msg.tab);
+      }
+    });
   });
+
+  addon.port.emit("ready");
 
 });
-
-

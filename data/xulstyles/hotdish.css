@@ -4,6 +4,8 @@
 }
 */
 
-.hotdish {
-	background-color: red;
+.hotdish #tabbrowser-tabs {
+	//background-color: blue;
+	background: url('images/eye-icon.png');
+	background-repeat: repeat-x;
 }
