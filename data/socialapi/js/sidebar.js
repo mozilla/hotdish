@@ -110,7 +110,7 @@ var Peer = Class({
       var el = this.tabEl(tab.id);
       if (! el.length) {
         el = this.makeTabEl(tab.id);
-        urlList.append(el);
+        urlList.html(el);
       }
       console.log("got it", el[0], this.tabEl(tab.id)[0]);
       el.find("a").attr("href", tab.url);
@@ -132,6 +132,8 @@ var Peer = Class({
     for (var i=tabs.length-1; i>=0; i--) {
       tab = tabs[i];
       urlList.prepend(this.tabEl(tab.id));
+      $("#request-current").show();
+      $('.link').tooltip();
     }
     console.log("done", tabs, urlList.html());
   }
@@ -223,3 +225,5 @@ $(function () {
   });
 
 });
+
+

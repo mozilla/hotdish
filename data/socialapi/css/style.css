@@ -1,0 +1,108 @@
+html, body {
+    margin: 0;
+}
+
+#content {
+    padding: 10px;
+}
+
+h1#header {
+    margin: 0;
+    padding: 10px;
+    background-color: #44463f;
+    color: #fff;
+    font-size: 90%;
+}
+
+h3.name {
+  color: #fff;
+}
+
+button {
+    border: 1px solid #999;
+    border-radius: 1px;
+}
+
+button:hover {
+    background-color: #bbb;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+ul#peers {
+  list-style: none;
+}
+
+#messages li, #peers li {
+  list-style: none;
+}
+
+#messages, #peers {
+    padding: 0;
+}
+
+#peers h6 {
+  text-transform: uppercase;
+}
+
+.edit-container {
+    float: right;
+}
+
+.peer {
+    border: 1px solid #999;
+    margin-bottom: 4px;
+}
+
+.url-list li {
+    list-type: none;
+    margin-left: 0px;
+}
+
+.url-list a {
+    text-decoration: none;
+}
+
+.url-list {
+    padding: 0 0 0 0px;
+}
+
+
+/*Participant component */
+
+#request-current {
+  display: none;
+  margin-right: 0px;
+}
+
+.push-btn-txt {
+  font-family: Helvetica, sans-serif;
+}
+
+.avatar-holder {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #000;
+  border-radius: 50px;
+  margin: -4px 10px 0px -4px;
+  background: #fff;
+}
+
+.user-avatar {
+  margin-right: 10px;
+}
+
+.btn-minimize {
+  margin: -20px 0px;
+}
+
+.activity-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  margin: -4px 10px 0px -4px;
+  background: green;
+}
+

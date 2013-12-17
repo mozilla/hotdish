@@ -1,4 +1,4 @@
-hotdish
+Hotdish
 =======
 
-A prototype of social tab and general browser experience sharing
+A prototype of social tab and general browser experience sharing.
