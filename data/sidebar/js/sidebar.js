@@ -4,8 +4,8 @@ var clientId;
 
 addon.port.on("init", function (options) {
   groupId = options.groupName;
-  selfIdentity = selfIdentity;
-  clientId = selfIdentity.clientId;
+  selfIdentity = options.selfIdentity;
+  clientId = options.selfIdentity.clientId;
   //$("#header").text("Hotdish " + groupName);
 });
 
@@ -203,16 +203,24 @@ $(function () {
         msg.url.indexOf("resource:") === 0;
   }
 
-  hub.on("tab-pageshow", function (msg) {
-    if (! ignoreTab(msg)) {
-      msg.peer.updateTab(msg);
+  hub.on("pageshow", function (msg) {
+    if (! ignoreTab(msg.tab)) {
+      msg.peer.updateTab(msg.tab);
     }
   });
 
-  hub.on("tab-activate", function (msg) {
-    if (! ignoreTab(msg)) {
-      msg.peer.activateTab(msg);
+  hub.on("activate", function (msg) {
+    if (! ignoreTab(msg.tab)) {
+      msg.peer.activateTab(msg.tab);
     }
+  });
+
+  hub.on("tab-init", function (msg) {
+    msg.tabs.forEach(function (tab) {
+      if (! ignoreTab(tab)) {
+        msg.peer.updateTab(msg.tab);
+      }
+    });
   });
 
   addon.port.emit("ready");
