@@ -12,12 +12,12 @@
       uploadbutton = document.querySelector('#uploadbutton'),
       urlfield     = document.querySelector('#uploaded input'),
       urllink      = document.querySelector('#uploaded a');
-      
+
  var ctx    = canvas.getContext('2d'),
      streaming    = false,
-     width  = 600,
-     height = 450,
-     state  = 'intro';
+     width  = 200,
+     height = 200,
+     state  = 'playing';
 
  var audio = document.querySelectorAll('audio'),
      sounds = {
@@ -27,10 +27,10 @@
       };
 
   /* BRANDING */
-  var img = new Image(),
+  /*var img = new Image(),
       imgwidth = 150,
       imgheight = 150;
-  img.src = 'mozcamp.png';
+  img.src = 'mozcamp.png';*/
 
   if (location.hostname.indexOf('localhost')!== -1) {
     document.querySelector('#imgurform').style.display = 'none';
@@ -66,6 +66,18 @@
     );
   }
 
+  init();
+
+  function sendAvatar(imgdata,imgfile) {
+    var myEvent = new CustomEvent("set-avatar", {
+      detail: {
+        imgdata: imgdata,
+      }
+    });
+    window.dispatchEvent(myEvent);
+  };
+
+
   function takepicture() {
     sounds.shutter.play();
     ctx.save();
@@ -73,8 +85,11 @@
     ctx.scale(-1, 1);
     ctx.drawImage(video, 0, 0, width, finalheight);
     ctx.restore();
-    ctx.scale(1, 1);
-    ctx.drawImage(img, 590 - imgwidth, 440 - imgheight, imgwidth, imgheight);
+    //ctx.scale(1, 1);
+    //ctx.drawImage(img, 590 - imgwidth, 440 - imgheight, imgwidth, imgheight);
+
+    // take picture and upload are the same!
+    sendAvatar(canvas.toDataURL('image/jpeg', 0.9));
   }
 
   function reshoot() {
@@ -137,7 +152,7 @@
       xhr.send(fd);
     }
   }
-  
+
  function setstate(newstate) {
     state = newstate;
     document.body.className = newstate;
@@ -159,7 +174,7 @@
       video.setAttribute('height', finalheight);
       canvas.width = width;
       canvas.height = finalheight;
-      ctx.drawImage(img, 590 - imgwidth, 440 - imgheight, imgwidth, imgheight);
+      //ctx.drawImage(img, 590 - imgwidth, 440 - imgheight, imgwidth, imgheight);
       streaming = true;
       vidcontainer.classname = 'playing';
     }
@@ -169,20 +184,16 @@
     if (ev.which === 32 || ev.which === 37 || ev.which === 39) {
       ev.preventDefault();
     }
-    if (ev.which === 32) {
-      if (state === 'intro') {
-        setstate('playing');
-        init();
-      } else {
-        setstate('reviewing');
-        takepicture();
-      }
+    if (ev.which === 32) {   // space
+      setstate('reviewing');
+      takepicture();
     }
-    if (ev.which === 37) {
+    if (ev.which === 37) {    // left
       reshoot();
     }
-    if (ev.which === 39) {
-      initiateupload();
+    if (ev.which === 39) {    // right
+      console.log("right",new Date());
+      //initiateupload();
     }
   },false);
 

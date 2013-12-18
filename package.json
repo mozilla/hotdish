@@ -26,11 +26,6 @@
   	"value":  "hotdishgroup"
   },
   {
-    "type": "file",
-    "name": "avatar",
-    "title": "choose your avatar"
-  },
-  {
     "name": "clientId",
     "title":  "clientId",
     "description":  "stable client id",

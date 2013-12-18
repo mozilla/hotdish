@@ -30,15 +30,24 @@ video {
 }
 #videocontainer, canvas {
   position: absolute;
-  width: 600px;
+  width: 200px;
   top: 50%;
-  left: 50%;
+  border: 1px solid red;
   -webkit-transform: translate(-50%, -50%);
      -moz-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
        -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
+
+#videocontainer {
+  left: 30%;
+}
+
+canvas {
+  left: 60%;
+}
+
 #videocontainer img {
   position: absolute;
   display: none;
@@ -51,7 +60,7 @@ video {
 }
 #controls, #uploaded, #uploading {
   position: absolute;
-  width: 600px;
+  width: 200px;
   text-align: center;
   top: -50%;
   left: 50%;
@@ -96,7 +105,7 @@ header p {
   line-height: 1.3em;
   padding-bottom: 10px;
 }
-.intro header {
+.playing header, .reviewing header {
   top: 25%;
 }
 #controls {
@@ -159,9 +168,9 @@ header p {
       -ms-animation: flash 1s;
           animation: flash 1s;
 }
-/* 
-  TODO: 
-  I turned off the flash animation for Opera as it got stuck 
+/*
+  TODO:
+  I turned off the flash animation for Opera as it got stuck
 */
 
 @-webkit-keyframes flash {
@@ -195,8 +204,8 @@ header p {
 .intro #videocontainer, .testing #videocontainer, .testing #canvas { display: none; }
 .playing #videocontainer { display: block; }
 .playing #canvas { display: block; }
-.reviewing #videocontainer { display: none; }
+/*.reviewing #videocontainer { display: none; } */
 .reviewing #canvas { display: block; }
-.reviewing #controls { top: 10%; }
+/*.reviewing #controls { top: 10%; }
 .uploaded #uploaded { top: 15%; }
-.uploading #uploading { top: 10%; }
+.uploading #uploading { top: 10%; }*/
