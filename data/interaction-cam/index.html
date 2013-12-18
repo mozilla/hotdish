@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Interaction Cam</title>
+<link rel="stylesheet" href="interactioncam.css">
+</head>
+<body>
+  <header>
+    <h1>Hotdish Cam</h1>
+    <p>press SPACE to selfie</p>
+
+  </header>
+  <div id="videocontainer">
+  <video id="video"></video>
+  </div>
+  <canvas id="canvas"></canvas>
+  <div id="controls">
+    <button id="resetbutton">&lt; Try again? </button>
+    <button id="uploadbutton">Use it! &gt;</button>
+  </div>
+  <div id="cover"></div>
+  <div id="uploading">Uploading&hellip;</div>
+  <div id="uploaded">
+    <form id="imgurform">
+      Uploaded: <input type="text" id="url">
+      <a href="#">link</a>
+    </form>
+    <button id="startbutton">&lt; Take another</button>
+  </div>
+  <footer>
+    <p>
+      <a href="https://github.com/codepo8/interaction-cam">Original</a> by <a href="http://twitter.com/codepo8">Chris Heilmann</a>.
+      <a href="https://github.com/mozilla/hotdish/">Fork Ours on GitHub<a>
+    </p>
+  </footer>
+  <audio src="snap.wav"></audio>
+  <!-- http://www.freesound.org/people/thecheeseman/sounds/51360/ -->
+  <audio src="rip.wav"></audio>
+  <!-- http://www.freesound.org/people/aboe/sounds/68900/ -->
+  <audio src="takeoff.wav"></audio>
+  <!-- http://www.freesound.org/people/duckduckpony/sounds/130508/ -->
+  <script src="interactioncam.js"></script>
+</body>
+</html>
