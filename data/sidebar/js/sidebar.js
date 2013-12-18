@@ -2,6 +2,21 @@ var groupId;
 var selfIdentity;
 var clientId;
 
+if (location.href.search(/debug/) != -1) {
+  addon = {
+    port: {
+      on: function (type, handler) {
+      },
+      emit: function (type) {
+      }
+    }
+  };
+  $(function () {
+    document.documentElement.classList.add("debug-html");
+    document.body.classList.add("debug");
+  });
+}
+
 addon.port.on("init", function (options) {
   groupId = options.groupName;
   selfIdentity = options.selfIdentity;
