@@ -106,3 +106,27 @@ ul#peers {
   background: green;
 }
 
+#debug-panel {
+  display: none;
+}
+
+/* Some debug overrides: */
+
+body.debug #main-content {
+  max-width: 300px;
+  border-right: 1px solid #777;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+html.debug-html, body.debug {
+  height: 100%;
+}
+
+body.debug #debug-panel {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 300px;
+  padding: 10px;
+}
