@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body, html {
+  background: #1f1f1f;
+  color: #fff;
+  font-family: "Open Sans", helvetica, sans-serif;
+}
+footer {
+  display: block;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+footer p {
+  font-size: 12px;
+  color: #999;
+}
+footer p a {
+  color: #ccc;
+}
+video {
+  display: block;
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+#videocontainer, canvas {
+  position: absolute;
+  width: 600px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+     -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+       -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+#videocontainer img {
+  position: absolute;
+  display: none;
+  display: block;
+  bottom: 0;
+  left: 0;
+}
+#videocontainer.playing img {
+  display: block;
+}
+#controls, #uploaded, #uploading {
+  position: absolute;
+  width: 600px;
+  text-align: center;
+  top: -50%;
+  left: 50%;
+  -webkit-transition: 1s 0.5s;
+     -moz-transition: 1s 0.5s;
+      -ms-transition: 1s 0.5s;
+       -o-transition: 1s 0.5s;
+          transition: 1s 0.5s;
+  -webkit-transform: translate(-50%, -50%);
+     -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+       -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+header {
+  position: absolute;
+  width: 600px;
+  top: -50%;
+  left: 50%;
+  background: #333;
+  padding: 10px 20px;
+  border-radius: 10px;
+  -webkit-transition: 1s 0.5s;
+     -moz-transition: 1s 0.5s;
+      -ms-transition: 1s 0.5s;
+       -o-transition: 1s 0.5s;
+          transition: 1s 0.5s;
+  -webkit-transform: translate(-50%, -50%);
+     -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+       -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+header h1 {
+  color: #eee;
+  font-size: 32px;
+  padding-bottom: 10px;
+}
+header p {
+  font-size: 20px;
+  color: #ccc;
+  line-height: 1.3em;
+  padding-bottom: 10px;
+}
+.intro header {
+  top: 25%;
+}
+#controls {
+  z-index: 20;
+}
+#controls button, #uploaded form, #uploaded button, #uploading  {
+  border: none;
+  font-size: 18px;
+  color: #fff;
+  width: 48%;
+  background: green;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+#uploaded form, #uploaded button {
+  width: auto;
+}
+#uploaded form {
+  background: #999;
+  margin-bottom: 10px;
+}
+#uploading, #uploaded {
+  text-align:center;
+  width: auto;
+  min-height: auto;
+}
+#uploading {
+  background: #999;
+}
+#controls #resetbutton {
+  background: #c00;
+  border: none;
+  font-size: 18px;
+  color: #fff;
+  width: 48%;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+#uploaded a {
+  color: #fff;
+}
+#uploaded input {
+  font-size: inherit;
+}
+#cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: transparent;
+  display: none;
+}
+.reviewing #cover {
+  display: block;
+  -webkit-animation: flash 1s;
+     -moz-animation: flash 1s;
+   /*-o-animation: flash 1s;*/
+      -ms-animation: flash 1s;
+          animation: flash 1s;
+}
+/* 
+  TODO: 
+  I turned off the flash animation for Opera as it got stuck 
+*/
+
+@-webkit-keyframes flash {
+  0% { background: transparent; }
+  50% { background: #fff; }
+  100% { background: transparent;}
+}
+/*@-o-keyframes flash {
+  0% { background: transparent; }
+  50% { background: #fff; }
+  100% { background: transparent;}
+}*/
+
+@-moz-keyframes flash {
+  0% { background: transparent; }
+  50% { background: #fff; }
+  100% { background: transparent;}
+}
+@-ms-keyframes flash {
+  0% { background: transparent; }
+  50% { background: #fff; }
+  100% { background: transparent;}
+}
+@keyframes flash {
+  0% { background: transparent; }
+  50% { background: #fff; }
+  100% { background: transparent;}
+}
+
+/* states */
+.intro #videocontainer, .testing #videocontainer, .testing #canvas { display: none; }
+.playing #videocontainer { display: block; }
+.playing #canvas { display: block; }
+.reviewing #videocontainer { display: none; }
+.reviewing #canvas { display: block; }
+.reviewing #controls { top: 10%; }
+.uploaded #uploaded { top: 15%; }
+.uploading #uploading { top: 10%; }
