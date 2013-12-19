@@ -67,6 +67,8 @@ ul#peers {
 
 .url-list {
     padding: 0 0 0 0px;
+    max-height: 80px;
+    overflow-y: hidden;
 }
 
 
