@@ -18,61 +18,64 @@
 
   <body class="sidepanel">  <!-- START SIDEBAR -->
 
-    <div id="main-content">
+    <div id="main-content"> <!-- Start maincontentt -->
 
-    <section> <!-- START HEADER -->
-      <h1 id="header">Hotdish</h1>
-    </section> <!-- END HEADER -->
+    <!-- <section> --> <!-- START HEADER -->
+      <!-- <h1 id="header">Hotdish</h1> -->
+    <!-- </section> --> <!-- END HEADER -->
 
-    <div id="content">
+      <div id="content"> <!-- Start contentt -->
 
-      <ul id="peers">
-        <h6 class="text-muted">Participants</h6>
-      </ul>
-
-      <!-- FIX ME: Do we need this?  Can we hide this?  or is this just for testing? -->
-      <div id="messages-container" style="display: none">
-        <header>
-          <button id="hide-messages">-</button>
-          Messages:
-        </header>
-        <ul id="messages">
+        <ul id="peers">
+          <h6 class="text-muted">Participants</h6>
         </ul>
-      </div>
-      <div id="messages-hidden">
-        <!-- <button id="show-messages">Show messages</button> -->
-      </div>
 
+        <!-- FIX ME: Do we need this?  Can we hide this?  or is this just for testing? -->
+        <div id="messages-container" style="display: none">
+          <header>
+            <button id="hide-messages">-</button>
+            Messages:
+          </header>
+          <ul id="messages">
+          </ul>
+        </div>
+        <div id="messages-hidden">
+          <!-- <button id="show-messages">Show messages</button> -->
+        </div>
 
-      <!------------------------------
-        Templates
-        -->
-      <div style="display: none">
-        <li id="template-message">
-          <pre></pre>
-        </li>
+        <!------------------------------
+          Templates
+          -->
+        <div style="display: none">
+          <li id="template-message">
+            <pre></pre>
+          </li>
+          <li id="template-peer" class="peer panel panel-default"> <!-- START Person box -->
+            <header class="bgcolor panel-heading"> <!-- Start Panel header -->
+              <span class="glyphicon glyphicon-user pull-left user-avatar"></span>
+              <h3 class="name panel-title"></h3>
+              <!-- <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button> -->
+            </header> <!-- End Panel header -->
+            <div class="panel-body"> <!-- START Activity List -->
+              <h5>Current page location:</h5>
+              <a id="request-current" href="#" data-placement="top" class="push link btn btn-default btn-xs pull-right" data-original-title="Push this page to the other participants."><span class="glyphicon glyphicon-share-alt"> <span class="push-btn-txt">Push</span></span></a>
+              <ul class="url-list">
+                <span class="no-page-list text-muted">Not on any page.</span>
+              </ul>
+            </div> <!-- End Activity List -->
+          </li> <!-- End Person box -->
+          <li id="template-tab" class="tab">
+            <a href="#" target="_blank"><img class="favicon" src="" style="height: 16px; width: 16px;"> <span class="title"></span></a>
+          </li>
+        </div>
 
-        <li id="template-peer" class="peer panel panel-default"> <!-- START Person box -->
-          <header class="bgcolor panel-heading"> <!-- Start Panel header -->
-            <span class="glyphicon glyphicon-user pull-left user-avatar"></span>
-            <h3 class="name panel-title"></h3>
-            <!-- <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
-              <span class="glyphicon glyphicon-minus"></span>
-            </button> -->
-          </header> <!-- End Panel header -->
-          <div class="panel-body"> <!-- START Activity List -->
-            <h5>Current page location:</h5>
-            <a id="request-current" href="#" data-placement="top" class="push link btn btn-default btn-xs pull-right" data-original-title="Push this page to the other participants."><span class="glyphicon glyphicon-share-alt"> <span class="push-btn-txt">Push</span></span></a>
-            <ul class="url-list">
-              <span class="no-page-list text-muted">Not on any page.</span>
-            </ul>
-          </div> <!-- End Activity List -->
-        </li> <!-- End Person box -->
-        <li id="template-tab" class="tab">
-          <a href="#" target="_blank"><img class="favicon" src="" style="height: 16px; width: 16px;"> <span class="title"></span></a>
-        </li>
-      </div>
-    </div>
+      </div> <!-- end content -->
+
+      <p class="email-feedback">
+        <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback"><span class="glyphicon glyphicon-send"></span> Email feedback</a>
+      </p>
 
     </div><!-- /#main-content -->
 

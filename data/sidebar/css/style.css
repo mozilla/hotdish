@@ -110,6 +110,13 @@ ul#peers {
   display: none;
 }
 
+/*Misc*/
+
+.email-feedback {
+  margin: 0px 10px 0px 10px;
+}
+
+
 /* Some debug overrides: */
 
 body.debug #main-content {
