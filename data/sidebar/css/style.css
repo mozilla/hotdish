@@ -72,15 +72,22 @@ ul#peers {
     overflow-y: hidden;
 }
 
-
-/*Participant component */
-
-/*active tab*/
+/* highlight active tab*/
 .url-list li:first-child {
   background: rgba(235, 235, 235, 1);
   padding: 6px 6px 8px 6px;
   border-radius: 2px;
 }
+
+/*hide other Push btns for other participants*/
+
+li#template-peer {
+  //background: green;
+  //border:1px solid red;
+}
+
+
+/*Participant component */
 
 .url-list li:nth-child(n+2) a#request-current {
   //background: green;
