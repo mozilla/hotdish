@@ -1,9 +1,9 @@
 {
   "name": "hotdish",
   "fullName": "hotdish",
-  "id": "hotdish@labs.mozilla.com",
+  "id": "hotdish@mozilla.com",
   "description": "Work together!",
-  "author": "Gregg and Ian, who rulez",
+  "author": "Mozilla Hotdish Team",
   "license": "MPL 2.0",
   "version": "1",
   "preferences": [{
