@@ -3,6 +3,8 @@ var selfIdentity;
 var clientId;
 
 if (location.href.search(/debug/) != -1) {
+  var match = /groupId=([^&]*)/.exec(location.href);
+  groupId = match[1];
   addon = {
     port: {
       on: function (type, handler) {
@@ -14,6 +16,34 @@ if (location.href.search(/debug/) != -1) {
   $(function () {
     document.documentElement.classList.add("debug-html");
     document.body.classList.add("debug");
+    var iframeSrc = "./listener.html?groupId=" + groupId;
+    var iframe = $("<iframe>").attr("src", iframeSrc).attr("id", "debug-listener");
+    $("#debug-panel").append($("<div>").append(iframe));
+    var addTabIndex = 0;
+    var fakers = 0;
+    $("#add-tab").click(function () {
+      hub.emit("tab-pageshow", {
+        clientId: "faker" + fakers,
+        windowid: 0,
+        tabid: parseInt($("#add-tab-tabid").val(), 10),
+        index: addTabIndex++,
+        pinned: false,
+        title: "Some page " + addTabIndex,
+        url: $("#add-tab-url").val(),
+        favicon: null
+      });
+      $("#add-tab-url").val("");
+      $("#add-tab-tabid").val(parseInt($("#add-tab-tabid").val(), 10) + 11);
+    });
+    $("#add-person").click(function () {
+      fakers++;
+      hub.emit("hello", {
+        name: "Faker " + fakers,
+        avatar: null,
+        color: "#" + fakers + "f8" + fakers,
+        clientId: "faker" + fakers
+      });
+    });
   });
 }
 

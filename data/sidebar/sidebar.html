@@ -79,8 +79,25 @@
 
     </div><!-- /#main-content -->
 
-    <div id="debug-panel">
-      I am debuggy!
+    <div id="debug-panel-container">
+      <div id="debug-panel">
+        <fieldset>
+          <legend>
+            Add a tab
+          </legend>
+          <input type="text" id="add-tab-url" value="http://google.com" style="width: 20em">
+          <input type="text" id="add-tab-tabid" value="1234" style="width: 4em">
+          <button id="add-tab">Add</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+          Add a person
+          </legend>
+          <input type="text" id="add-person-name" value="Jane Doe" style="width: 20em">
+          <button id="add-person">Add</button>
+        </fieldset>
+      </div>
     </div>
 
   </body> <!-- END SIDEBAR -->
