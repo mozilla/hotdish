@@ -74,8 +74,9 @@ ul#peers {
 
 /*Participant component */
 
-.active-tab {
-  background: blue;
+/*active tab*/
+.url-list li:first-child {
+  background: yellow;
 }
 
 #request-current {
