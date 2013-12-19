@@ -74,6 +74,10 @@ ul#peers {
 
 /*Participant component */
 
+.active-tab {
+  background: blue;
+}
+
 #request-current {
   display: none;
   margin-right: 0px;
