@@ -104,6 +104,7 @@ var Peer = Class({
     }
     this.activeTabId = msg.tabid;
     t = this.tabEl(this.activeTabId);
+    t.addClass("active-tab");
     var parent = t.closest("ul, ol");
     t.remove();
     parent.prepend(t);
