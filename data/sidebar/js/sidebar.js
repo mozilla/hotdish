@@ -227,12 +227,8 @@ function init() {
   });
 
   $(document).on("click", ".push", function (ev) {
-    var link = $(ev.target);
-    if (! link.attr("href")) {
-      link = link.closest("a");
-    }
-    var href = link[0].href;
-    addon.port.emit("push", href);
+    addon.port.emit("push");
+    return false;
   });
 
   function updateSelf() {
