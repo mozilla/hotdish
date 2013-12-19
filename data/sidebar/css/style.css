@@ -125,6 +125,8 @@ html.debug-html, body.debug {
 
 body.debug #debug-panel-container {
   display: block;
+  /* FIXME: pointer-events here is too much */
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0px;
@@ -134,6 +136,7 @@ body.debug #debug-panel-container {
 
 body.debug #debug-panel {
   padding: 10px;
+  pointer-events: auto;
 }
 
 body.debug #debug-listener {

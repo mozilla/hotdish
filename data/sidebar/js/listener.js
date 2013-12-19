@@ -6,13 +6,15 @@ channel.onmessage = function (msg) {
   logMessage(msg);
 };
 
-function Logger(container) {
+function Logger(container, echo) {
   container = $(container);
   if (! container.length) {
     throw new Error("Bad container");
   }
   function log() {
-    console.log.apply(console, arguments);
+    if (echo) {
+      console.log.apply(console, arguments);
+    }
     var s;
     if (arguments.length == 1 && typeof arguments[0] == "object") {
       s = JSON.stringify(arguments[0], null, 2);

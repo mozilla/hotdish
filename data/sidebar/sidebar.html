@@ -8,6 +8,7 @@
     <script src="../channels/channels.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/util.js"></script>
+    <script src="js/sidebar-debug.js"></script>
     <script src="js/sidebar.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/collapse.js"></script>
@@ -24,10 +25,6 @@
     </section> <!-- END HEADER -->
 
     <div id="content">
-
-      <!-- <div class="if-self edit-container">
-        <button class="show-edit">edit</button>
-      </div> -->
 
       <ul id="peers">
         <h6 class="text-muted">Participants</h6>
@@ -65,20 +62,22 @@
           </header> <!-- End Panel header -->
           <div class="panel-body"> <!-- START Activity List -->
             <h5>Current page location:</h5>
-            <a id="request-current" href="#" data-placement="top" class="link btn btn-default btn-xs pull-right" data-original-title="Push this page to the other participants."><span class="glyphicon glyphicon-share-alt"> <span class="push-btn-txt">Push</span></span></a>
+            <a id="request-current" href="#" data-placement="top" class="push link btn btn-default btn-xs pull-right" data-original-title="Push this page to the other participants."><span class="glyphicon glyphicon-share-alt"> <span class="push-btn-txt">Push</span></span></a>
             <ul class="url-list">
               <span class="no-page-list text-muted">Not on any page.</span>
             </ul>
           </div> <!-- End Activity List -->
         </li> <!-- End Person box -->
         <li id="template-tab" class="tab">
-          <a href="#" target="_blank"><img class="favicon" src=""> <span class="title"></span></a>
+          <a href="#" target="_blank"><img class="favicon" src="" style="height: 16px; width: 16px;"> <span class="title"></span></a>
         </li>
       </div>
     </div>
 
     </div><!-- /#main-content -->
 
+
+    <!-- Debugging; only shown in content -->
     <div id="debug-panel-container">
       <div id="debug-panel">
         <fieldset>
@@ -87,6 +86,7 @@
           </legend>
           <input type="text" id="add-tab-url" value="http://google.com" style="width: 20em">
           <input type="text" id="add-tab-tabid" value="1234" style="width: 4em">
+          <label for="add-tab-local">Local? <input type="checkbox" id="add-tab-local"></label>
           <button id="add-tab">Add</button>
         </fieldset>
 

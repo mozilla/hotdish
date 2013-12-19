@@ -2,61 +2,19 @@ var groupId;
 var selfIdentity;
 var clientId;
 
-if (location.href.search(/debug/) != -1) {
-  var match = /groupId=([^&]*)/.exec(location.href);
-  groupId = match[1];
-  addon = {
-    port: {
-      on: function (type, handler) {
-      },
-      emit: function (type) {
-      }
-    }
-  };
-  $(function () {
-    document.documentElement.classList.add("debug-html");
-    document.body.classList.add("debug");
-    var iframeSrc = "./listener.html?groupId=" + groupId;
-    var iframe = $("<iframe>").attr("src", iframeSrc).attr("id", "debug-listener");
-    $("#debug-panel").append($("<div>").append(iframe));
-    var addTabIndex = 0;
-    var fakers = 0;
-    $("#add-tab").click(function () {
-      hub.emit("tab-pageshow", {
-        clientId: "faker" + fakers,
-        windowid: 0,
-        tabid: parseInt($("#add-tab-tabid").val(), 10),
-        index: addTabIndex++,
-        pinned: false,
-        title: "Some page " + addTabIndex,
-        url: $("#add-tab-url").val(),
-        favicon: null
-      });
-      $("#add-tab-url").val("");
-      $("#add-tab-tabid").val(parseInt($("#add-tab-tabid").val(), 10) + 11);
-    });
-    $("#add-person").click(function () {
-      fakers++;
-      hub.emit("hello", {
-        name: "Faker " + fakers,
-        avatar: null,
-        color: "#" + fakers + "f8" + fakers,
-        clientId: "faker" + fakers
-      });
-    });
-  });
-}
+var hub = mixinEvents({});
 
 addon.port.on("init", function (options) {
   groupId = options.groupName;
   selfIdentity = options.selfIdentity;
   clientId = options.selfIdentity.clientId;
   //$("#header").text("Hotdish " + groupName);
+  if (docReady) {
+    init();
+  }
 });
 
 addon.port.emit("ready-init");
-
-var hub = mixinEvents({});
 
 var list = {
   _peers: {},
@@ -135,7 +93,6 @@ var Peer = Class({
   makeTabEl: function (tabId) {
     var el = getTemplate("tab");
     el.attr("id", "tab-" + this.clientId + "-" + tabId);
-    console.log("return", el[0].outerHTML);
     return el;
   },
 
@@ -161,9 +118,8 @@ var Peer = Class({
       var el = this.tabEl(tab.id);
       if (! el.length) {
         el = this.makeTabEl(tab.id);
-        urlList.html(el);
+        urlList.append(el);
       }
-      console.log("got it", el[0], this.tabEl(tab.id)[0]);
       el.find("a").attr("href", tab.url);
       if (tab.pinned) {
         el.find("a").addClass("pinned");
@@ -186,7 +142,6 @@ var Peer = Class({
       $("#request-current").show();
       $('.link').tooltip();
     }
-    console.log("done", tabs, urlList.html());
   }
 
 });
@@ -201,7 +156,7 @@ function getTemplate(name) {
 }
 
 
-$(function () {
+function init() {
 
   function message(msg) {
     var li = getTemplate("message");
@@ -249,25 +204,60 @@ $(function () {
   }
 
   hub.on("pageshow", function (msg) {
+    assert(msg.tab, "No tab in pageshow message");
     if (! ignoreTab(msg.tab)) {
       msg.peer.updateTab(msg.tab);
     }
   });
 
   hub.on("activate", function (msg) {
+    assert(msg.tab, "No tab in activate message");
     if (! ignoreTab(msg.tab)) {
       msg.peer.activateTab(msg.tab);
     }
   });
 
   hub.on("tab-init", function (msg) {
+    assert(msg.tabs, "No tabs in tab-init message");
     msg.tabs.forEach(function (tab) {
       if (! ignoreTab(tab)) {
-        msg.peer.updateTab(msg.tab);
+        msg.peer.updateTab(tab);
       }
     });
   });
 
+  $(document).on("click", ".push", function (ev) {
+    var link = $(ev.target);
+    if (! link.attr("href")) {
+      link = link.closest("a");
+    }
+    var href = link[0].href;
+    addon.port.emit("push", href);
+  });
+
+  function updateSelf() {
+    message({
+      type: "hello",
+      avatar: selfIdentity.avatar,
+      name: selfIdentity.name,
+      color: selfIdentity.color,
+      clientId: clientId
+    });
+  }
+
+  addon.port.on("init", updateSelf);
+
+  updateSelf();
+
   addon.port.emit("ready");
 
+}
+
+var docReady = false;
+
+$(function () {
+  docReady = true;
+  if (selfIdentity) {
+    init();
+  }
 });
