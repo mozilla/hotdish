@@ -1,6 +1,6 @@
 var match = /groupId=([^&]*)/.exec(location.href);
 var groupId = match[1];
-var hubUrl = "https://hub.togetherjs.com/hub/" + groupId;
+var hubUrl = "https://hub.togetherjs.com/hub/" + ("hotdish_" + groupId);
 var channel = WebSocketChannel(hubUrl);
 channel.onmessage = function (msg) {
   logMessage(msg);
