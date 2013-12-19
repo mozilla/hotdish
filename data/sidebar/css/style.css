@@ -68,7 +68,7 @@ ul#peers {
 .url-list {
     padding: 0 0 0 0px;
     max-height: 80px;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 
@@ -77,6 +77,11 @@ ul#peers {
 /*active tab*/
 .url-list li:first-child {
   background: yellow;
+}
+
+.panel-body h6 {
+  margin-top: 0px;
+  opacity: 0.5;
 }
 
 #request-current {
