@@ -205,6 +205,8 @@ function init() {
   }
 
   function ignoreTab(msg) {
+    return false;
+    // For now we want to show everything
     return msg.url.indexOf("about:") === 0 ||
         msg.url.indexOf("resource:") === 0;
   }
