@@ -239,6 +239,19 @@ function init() {
     return false;
   });
 
+  $("#chat").on("keypress", function (ev) {
+    if (ev.which == 13) { // Enter
+      var val = $("#chat").val();
+      if (! val) {
+        return false;
+      }
+      addon.port.emit("chat", val);
+      $("#chat").val("");
+      return false;
+    }
+    return undefined;
+  });
+
   function updateSelf() {
     message({
       type: "hello",

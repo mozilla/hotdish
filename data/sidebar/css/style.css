@@ -79,6 +79,10 @@ ul#peers {
     overflow-y: scroll;
 }
 
+#chat {
+    width: 100%;
+}
+
 /* highlight active tab*/
 .url-list li:first-child {
   background: rgba(235, 235, 235, 1);
