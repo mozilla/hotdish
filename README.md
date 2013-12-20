@@ -14,8 +14,8 @@ Install/Usage
 -------------
 
 1. Click https://people.mozilla.com/~glind/hotdish.xpi
-2. `View > sidebar > Share with hotdishgroup`
-3. Close the sidebar to stop collaborating.
+2. In Firefox, go to `View > Sidebar > Share with hotdishgroup`
+3. Close the Sidebar to stop collaborating.
 4. Be aware everyone in the group sees everything you open *in that window*.
 
 Everything you do in the window with that sidebar opened will be shared with everyone else in the hotdishgroup group.
@@ -26,7 +26,7 @@ If you want to change your group, open the Addon preferences for the addon, chan
 Find Us!
 ---------
 
-[Ian Bicking](http://www.ianbicking.org), [Gregg Lind](http://writeonly.wordpress.com/), [Aaron Druck](https://twitter.com/adruck), [Ilana Segall](https://twitter.com/Sandwichface17), and others.
+[Ian Bicking](http://www.ianbicking.org), [Gregg Lind](http://writeonly.wordpress.com/), [Aaron Druck](https://www.whatthedruck.com), [Ilana Segall](https://twitter.com/Sandwichface17), and others.
 
 Talk to us via hotdish@mozilla.com or on the #hotdish IRC channel on irc.mozilla.org
 

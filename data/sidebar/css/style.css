@@ -114,21 +114,22 @@ ul#peers {
   margin-right: 0px;
 }
 
+.panel-heading {
+  padding: 20px 10px !important;
+}
+
 .push-btn-txt {
   font-family: Helvetica, sans-serif;
 }
 
-.avatar-holder {
-  width: 25px;
-  height: 25px;
-  border: 1px solid #000;
-  border-radius: 50px;
-  margin: -4px 10px 0px -4px;
-  background: #fff;
-}
-
-.user-avatar {
+.avatar {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255,255,255,1);
+  border-radius: 120px;
   margin-right: 10px;
+  margin-top: -14px !important;
+  //padding-top: -10px !important;
 }
 
 .btn-minimize {
