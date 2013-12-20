@@ -22,8 +22,22 @@ var list = {
     if (! this._peers[clientId]) {
       var peer = Peer(clientId);
       this._peers[clientId] = peer;
+      list.sortElements();
     }
     return this._peers[clientId];
+  },
+  sortElements: function () {
+    var peers = [];
+    for (var clientId in this._peers) {
+      peers.push(this._peers[clientId]);
+    }
+    peers.sort(function (a, b) {
+      return a._sortKey() < b._sortKey();
+    });
+    console.log("sorting peers", peers.map(function (p) {return p.name + ":" + p.clientId + ":" + p._sortKey();}));
+    for (var i=peers.length-1; i>=0; i--) {
+      $("#peers").prepend(peers[i].element);
+    }
   }
 };
 
@@ -44,6 +58,15 @@ var Peer = Class({
     this.update({});
     this.tabs = {};
     this.activeTabId = null;
+    this.lastMessage = Date.now();
+  },
+
+  _sortKey: function () {
+    if (this.isSelf) {
+      return Date.now() + 1000;
+    } else {
+      return this.lastMessage;
+    }
   },
 
   update: function (msg) {
@@ -172,6 +195,7 @@ function init() {
       return;
     }
     msg.peer = list.get(msg.clientId);
+    msg.peer.lastMessage = Date.now();
     if (msg.type == "hello" || msg.type == "hello-back") {
       msg.peer.update(msg);
     }
