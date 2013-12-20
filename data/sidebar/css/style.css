@@ -69,7 +69,7 @@ ul#peers {
 .url-list {
     padding: 0 0 0 0px;
     max-height: 100px;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 /* highlight active tab*/
