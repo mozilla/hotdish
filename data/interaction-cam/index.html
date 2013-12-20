@@ -5,29 +5,19 @@
   <title>Interaction Cam</title>
 <link rel="stylesheet" href="interactioncam.css">
 </head>
-<body>
+<body class="reviewing">
   <header>
     <h1>Hotdish Cam</h1>
-    <p>press SPACE to selfie</p>
-
+    <p>press SPACE to take a selfie</p>
+    <p><label for="continuous">Continuous? <input type="checkbox" id="continuous"></label></p>
   </header>
   <div id="videocontainer">
   <video id="video"></video>
   </div>
   <canvas id="canvas"></canvas>
-  <div id="controls">
-    <button id="resetbutton">&lt; Try again? </button>
-    <button id="uploadbutton">Use it! &gt;</button>
-  </div>
-  <div id="cover"></div>
-  <div id="uploading">Uploading&hellip;</div>
-  <div id="uploaded">
-    <form id="imgurform">
-      Uploaded: <input type="text" id="url">
-      <a href="#">link</a>
-    </form>
-    <button id="startbutton">&lt; Take another</button>
-  </div>
+
+  <p id="about">To open Hotdish: <strong>View &gt; Sidebar &gt; Share with hotdishgroup</strong></p>
+
   <footer>
     <p>
       <a href="https://github.com/codepo8/interaction-cam">Original</a> by <a href="http://twitter.com/codepo8">Chris Heilmann</a>.

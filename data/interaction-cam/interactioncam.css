@@ -46,6 +46,8 @@ video {
 
 canvas {
   left: 60%;
+  width: 48px;
+  height: 48px;
 }
 
 #videocontainer img {
@@ -106,7 +108,10 @@ header p {
   padding-bottom: 10px;
 }
 .playing header, .reviewing header {
-  top: 25%;
+  top: 20%;
+}
+#about {
+  padding: 1em;
 }
 #controls {
   z-index: 20;

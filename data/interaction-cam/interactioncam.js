@@ -4,20 +4,16 @@
       //  ^ get your own at https://imgur.com/register/api_anon
       //    as it is limited to 50 uploads an hour!
   var video        = document.querySelector('#video'),
-      cover        = document.querySelector('#cover'),
       canvas       = document.querySelector('#canvas'),
       vidcontainer = document.querySelector('#videocontainer'),
-      resetbutton  = document.querySelector('#resetbutton'),
-      startbutton  = document.querySelector('#startbutton'),
-      uploadbutton = document.querySelector('#uploadbutton'),
-      urlfield     = document.querySelector('#uploaded input'),
-      urllink      = document.querySelector('#uploaded a');
+      continuous   = document.querySelector('#continuous');
 
  var ctx    = canvas.getContext('2d'),
      streaming    = false,
      width  = 200,
-     height = 200,
-     state  = 'playing';
+     height = 200;
+ var iconHeight = 48;
+ var iconWidth = 48;
 
  var audio = document.querySelectorAll('audio'),
      sounds = {
@@ -25,18 +21,6 @@
         rip:     audio[1],
         takeoff: audio[2]
       };
-
-  /* BRANDING */
-  /*var img = new Image(),
-      imgwidth = 150,
-      imgheight = 150;
-  img.src = 'mozcamp.png';*/
-
-  if (location.hostname.indexOf('localhost')!== -1) {
-    document.querySelector('#imgurform').style.display = 'none';
-  }
-
-  setstate(state);
 
   function init() {
     navigator.getMedia = ( navigator.getUserMedia ||
@@ -71,7 +55,7 @@
   function sendAvatar(imgdata,imgfile) {
     var myEvent = new CustomEvent("set-avatar", {
       detail: {
-        imgdata: imgdata,
+        imgdata: imgdata
       }
     });
     window.dispatchEvent(myEvent);
@@ -81,100 +65,43 @@
   function takepicture() {
     sounds.shutter.play();
     ctx.save();
-    ctx.translate(width, 0);
+    ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
-    ctx.drawImage(video, 0, 0, width, finalheight);
+    var chopTop = 0;
+    var chopLeft = 0;
+    var size;
+    if (video.videoHeight > video.videoWidth) {
+      chopTop = (video.videoHeight - video.videoWidth) / 2;
+      size = video.videoWidth;
+    } else {
+      chopLeft = (video.videoWidth - video.videoHeight) / 2;
+      size = video.videoHeight;
+    }
+    ctx.drawImage(
+      video,
+      // Source left/top:
+      chopLeft, chopTop,
+      // Source width/height:
+      size, size,
+      // Dest left/top:
+      0, 0,
+      // Dest width/height:
+      canvas.width, canvas.height
+      );
     ctx.restore();
-    //ctx.scale(1, 1);
-    //ctx.drawImage(img, 590 - imgwidth, 440 - imgheight, imgwidth, imgheight);
 
     // take picture and upload are the same!
     sendAvatar(canvas.toDataURL('image/jpeg', 0.9));
-  }
-
-  function reshoot() {
-    if (state === 'reviewing') {
-      sounds.rip.play();
-    }
-    if (state === 'reviewing' || state === 'uploaded') {
-      canvas.width = width;
-      canvas.height = finalheight;
-      ctx.drawImage(img, 590 - imgwidth, 440 - imgheight, imgwidth, imgheight);
-      setstate('playing');
-    }
-  }
-
-  function initiateupload() {
-    if (state === 'reviewing') {
-      sounds.takeoff.play();
-      setstate('uploading');
-      upload();
-    }
-  }
-
-  function upload() {
-    var head = /^data:image\/(png|jpeg);base64,/,
-        data = '',
-        fd = new FormData(),
-        xhr = new XMLHttpRequest();
-
-    setstate('uploading');
-    data = canvas.toDataURL('image/jpeg', 0.9).replace(head, '');
-
-    if (location.hostname.indexOf('localhost')!== -1) {
-      fd.append('contents', data);
-      xhr.open('POST', 'copy.php');
-      xhr.addEventListener('error', function(ev) {
-        console.log('Upload Error!');
-      }, false);
-      xhr.addEventListener('load', function(ev) {
-        setstate('uploaded');
-      }, false);
-      xhr.send(fd);
-    } else {
-      fd.append('image', data);
-      fd.append('key', API_KEY);
-      xhr.open('POST', 'http://api.imgur.com/2/upload.json');
-      xhr.addEventListener('error', function(ev) {
-        console.log('Upload Error!');
-      }, false);
-      xhr.addEventListener('load', function(ev) {
-        try {
-          var links = JSON.parse(xhr.responseText).upload.links;
-          store(links.imgur_page.replace(/.*\/+/,''));
-          urlfield.value = links.imgur_page;
-          urllink.href = links.imgur_page;
-          setstate('uploaded');
-        } catch(e) {
-          console.log('Upload Error!' + e);
-        }
-      }, false);
-      xhr.send(fd);
-    }
-  }
-
- function setstate(newstate) {
-    state = newstate;
-    document.body.className = newstate;
-  }
-  function store(name) {
-    if (localStorage.interactionphotos === undefined) {
-      localStorage.interactionphotos = '';
-    }
-    localStorage.interactionphotos += ' '+ name;
   }
 
   /* Event Handlers */
 
   video.addEventListener('play', function(ev){
     if (!streaming) {
-      console.log(video.clientHeight);
-      finalheight = video.clientHeight / (video.clientWidth/width);
       video.setAttribute('width', width);
-      video.setAttribute('height', finalheight);
-      canvas.width = width;
-      canvas.height = finalheight;
-      //ctx.drawImage(img, 590 - imgwidth, 440 - imgheight, imgwidth, imgheight);
+      video.setAttribute('height', height);
+      canvas.width = iconWidth;
+      canvas.height = iconHeight;
       streaming = true;
       vidcontainer.classname = 'playing';
     }
@@ -185,43 +112,27 @@
       ev.preventDefault();
     }
     if (ev.which === 32) {   // space
-      setstate('reviewing');
       takepicture();
-    }
-    if (ev.which === 37) {    // left
-      reshoot();
-    }
-    if (ev.which === 39) {    // right
-      console.log("right",new Date());
-      //initiateupload();
     }
   },false);
 
   video.addEventListener('click', function(ev){
-    setstate('reviewing');
     takepicture();
   }, false);
 
-  resetbutton.addEventListener('click', function(ev){
-    if (state === 'reviewing') {
-      setstate('playing');
-    }
-    ev.preventDefault();
-  }, false);
+  var runnerId;
 
-  startbutton.addEventListener('click', function(ev){
-    if (state === 'uploaded') {
-      setstate('playing');
+  continuous.addEventListener('change', function() {
+    var state = continuous.checked;
+    if (! state) {
+      clearTimeout(runnerId);
+    } else {
+      runnerId = setInterval(function () {
+        // FIXME: should have something here to check if the hotdish
+        // window is in the foreground
+        takepicture();
+      }, 1000 * 60 * 5);
     }
-    ev.preventDefault();
-  }, false);
-
-  uploadbutton.addEventListener('click', function(ev){
-    if (state === 'reviewing') {
-      setstate('uploading');
-      upload();
-    }
-    ev.preventDefault();
   }, false);
 
 })();
