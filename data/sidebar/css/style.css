@@ -84,12 +84,6 @@ ul#peers {
 
 /*Participant component */
 
-.url-list li:nth-child(n+2) a#request-current {
-  //background: green;
-  padding: 20px;
-  visibility:hidden;
-}
-
 .panel-body h6 {
   margin-top: 0px;
   opacity: 0.5;
