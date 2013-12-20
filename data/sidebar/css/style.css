@@ -62,6 +62,13 @@ ul#peers {
     padding: 6px 6px;
 }
 
+#template-tab .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100px;
+}
+
 .url-list a {
     text-decoration: none;
 }
