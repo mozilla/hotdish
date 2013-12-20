@@ -36,6 +36,11 @@ var Peer = Class({
     this.isSelf = this.clientId == clientId;
     this.element = getTemplate("peer");
     $("#peers").append(this.element);
+    if (this.isSelf) {
+      this.element.addClass("is-self");
+    } else {
+      this.element.addClass("is-not-self");
+    }
     this.update({});
     this.tabs = {};
     this.activeTabId = null;
@@ -141,7 +146,6 @@ var Peer = Class({
     for (var i=tabs.length-1; i>=0; i--) {
       tab = tabs[i];
       urlList.prepend(this.tabEl(tab.id));
-      $("#request-current").show();
       $('.link').tooltip();
     }
   }
@@ -182,7 +186,7 @@ function init() {
     message(msg);
   });
 
-  $("#request-current").click(function () {
+  $(document).bind("click", ".request-current", function () {
     addon.port.emit("shareTab");
   });
 
