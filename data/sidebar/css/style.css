@@ -187,3 +187,10 @@ body.debug #debug-listener {
   width: 100%;
   height: 10em;
 }
+
+#email-feedback {
+  position:fixed;
+  bottom:0px;
+  height:24px;
+  border-top: 1px solid grey;
+}
