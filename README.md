@@ -36,4 +36,19 @@ You'll probably find lots of bugs, this is pretty alpha, but [feel free to open 
 Developing
 ----------
 
-This is developed as a Firefox addon, requiring Firefox 26 or later, and uses the [Addon-SDK](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/).
+This is developed as a Firefox addon, requiring Firefox 26 or later, and uses the [Addon-SDK](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/).  You should install the [SDK from Github master](https://github.com/mozilla/addon-sdk).
+
+You probably should use `--profiledir Profile` to keep a fixed profile as you develop Hotdish, this allows you to maintain your user settings, and if you turn on the pref for restoring tabs then you can continue your session.  Hotdish is all about dogfooding, and we encourage anyone developing it to eat its dogfood from the very beginning.
+
+When using `cfx` you can use the `--staticargs` command-line option, which takes a JSON object as an argument.  That object accepts the arguments:
+
+`debug: true`: turns on "debug" mode, opens the sidebar as content
+
+`prefs: {name: value}` sets some preferences (as found in `about:config`), or `+localPref`, like `{"+username": "my name"}`
+
+`staticAvatar: true` if true, gives you a fixed avatar (Gregg drinking coffee)
+
+`bgTabs: [urls]` gives URLs to open in the background (to book up with some context)
+
+`focusTab: index` focuses a particular tab (0-indexed) on startup
+
