@@ -81,4 +81,19 @@ if (location.href.search(/debug/) != -1) {
     });
   });
 
+  var source;
+
+  document.documentElement.addEventListener("hotdish-message", function (event) {
+    console.log("got message", event.detail);
+  }, false);
+
+  var i=0;
+  setInterval(function () {
+    i++;
+    var event = document.createEvent('CustomEvent');
+    console.log("sendit!");
+    event.initCustomEvent("hotdish-send", true, true, {type: "yo", i: i});
+    document.documentElement.dispatchEvent(event);
+  }, 1000);
+
 }
