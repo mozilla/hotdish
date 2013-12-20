@@ -120,6 +120,7 @@ var Peer = Class({
       if (! el.length) {
         el = this.makeTabEl(tab.id);
         urlList.append(el);
+        $('.no-page-list').hide();
       }
       el.find("a").attr("href", tab.url);
       if (tab.pinned) {
