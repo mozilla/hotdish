@@ -26,6 +26,30 @@ self.port.on("init", function (data) {
   //console.log("sent message", event.detail);
 });
 
+self.port.on("share", function (tabid) {
+  unsafeWindow.localStorage.setItem("togetherjs.seenWalkthrough", "true");
+  unsafeWindow.TogetherJSConfig = {
+    findRoom: "hotdishshare_" + groupId + "_" + tabid,
+    autoStart: true,
+    getUserName: function () {
+      return selfIdentity.name;
+    },
+    getUserAvatar: function () {
+      return selfIdentity.avatar;
+    },
+    getUserColor: function () {
+      return selfIdentity.color;
+    },
+    toolName: "hotdish",
+    suppressJoinConfirmation: true,
+    suppressInvite: true,
+    disableWebRTC: true
+  };
+  var script = document.createElement("script");
+  script.src = "https://togetherjs.com/togetherjs-min.js";
+  document.head.appendChild(script);
+});
+
 if (location.hash) {
   self.port.emit("hash", location.hash);
 }
