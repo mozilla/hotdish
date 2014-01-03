@@ -122,10 +122,15 @@ var Peer = Class({
     var el = getTemplate("tab");
     el.attr("id", "tab-" + this.clientId + "-" + tabId);
     el.attr("data-tab-id", tabId);
-    el.find("a").click(function (event) {
+    el.find("a.normal").click(function (event) {
       var $this = $(this);
       var url = $this.attr("href");
       addon.port.emit("join", url, tabId);
+      event.preventDefault();
+      return false;
+    });
+    el.find("a.mirror").click(function (event) {
+      addon.port.emit("joinMirror", tabId);
       event.preventDefault();
       return false;
     });
