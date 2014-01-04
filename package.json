@@ -30,6 +30,13 @@
     "title":  "clientId",
     "description":  "stable client id",
     "type": "string"
+  },
+  {
+    "name": "togetherJsLocation",
+    "title": "TogetherJS Location",
+    "description": "The location of togetherjs-min.js",
+    "type": "string",
+    "value": "https://togetherjs.com/togetherjs-min.js"
   }
   ]
 }

@@ -1,13 +1,26 @@
 var clientId;
 var selfIdentity;
 var groupId;
+var togetherJsLocation;
+var tabId;
+var viewerScript;
 //console.log("Started worker", location.href);
+
+var shareTabId;
+var match = /tabId=([^&]*)/.exec(location.search);
+if (match && location.href.search(/^resource:.*blank\.html/) != -1) {
+  shareTabId = match[1];
+}
 
 self.port.on("init", function (data) {
   //console.log("got init");
   clientId = data.clientId;
   selfIdentity = data.selfIdentity;
   groupId = data.groupId;
+  tabId = data.tabId;
+  viewerScript = data.viewerScript;
+  togetherJsLocation = data.togetherJsLocation;
+  //console.log("init", data);
   try {
     var event = document.createEvent('CustomEvent');
   } catch (e) {
@@ -27,8 +40,13 @@ self.port.on("init", function (data) {
 });
 
 self.port.on("share", function (tabid) {
-  unsafeWindow.localStorage.setItem("togetherjs.seenWalkthrough", "true");
-  unsafeWindow.TogetherJSConfig = {
+  activateTogetherJS(tabid, {});
+});
+
+function activateTogetherJS(tabid, overrides) {
+  console.log("activating TJS", tabid, tabId, shareTabId, overrides);
+  var doc = unsafeWindow.document;
+  var options = {
     findRoom: "hotdishshare_" + groupId + "_" + tabid,
     autoStart: true,
     getUserName: function () {
@@ -43,18 +61,41 @@ self.port.on("share", function (tabid) {
     toolName: "hotdish",
     suppressJoinConfirmation: true,
     suppressInvite: true,
-    disableWebRTC: true
+    suppressWalkthrough: true,
+    disableWebRTC: true,
+    disableInvite: true,
+    on: {}
   };
-  var script = document.createElement("script");
-  script.src = "https://togetherjs.com/togetherjs-min.js";
-  document.head.appendChild(script);
-});
+  for (var attr in (overrides || {})) {
+    if (attr == "on") {
+      for (var event in overrides.on) {
+        options.on[event] = overrides.on[event];
+      }
+      continue;
+    }
+    options[attr] = overrides[attr];
+  }
+  unsafeWindow.TogetherJSConfig = options;
+  var script = doc.createElement("script");
+  script.src = togetherJsLocation;
+  doc.head.appendChild(script);
+  var style = doc.createElement("style");
+  style.textContent = [
+    "#togetherjs-menu-update-name {display: none;}",
+    "#togetherjs-menu-update-avatar {display: none;}",
+    "#togetherjs-menu-update-color {display: none;}"
+  ].join("\n");
+  doc.head.appendChild(style);
+}
 
 var emitterTimeout = null;
 
 self.port.on("mirror", function () {
   console.log("Got mirror");
   cancelMirror();
+  activateTogetherJS(tabId, {
+    isSamePage: function () {return true;}
+  });
   emitMirror();
   emitterTimeout = setInterval(emitMirror, 1000);
 });
@@ -162,12 +203,34 @@ var lastIncoming = {
   url: null
 };
 
+var mirrorTogetherJS = false;
+var mirrorScript = false;
+
 self.port.on("mirror-doc", function (msg) {
   if (location.href.search(/^resource:.*blank\.html([?#].*)?$/) == -1) {
     console.warn("Got mirror-doc for a non-blank URL:", location.href);
     return;
   }
   var doc = unsafeWindow.document;
+  if (! mirrorTogetherJS) {
+    mirrorTogetherJS = true;
+    activateTogetherJS(shareTabId, {
+      isSamePage: function () {return true;},
+      on: {
+        close: function () {
+          location.href = lastIncoming.url + location.hash;
+        }
+      }
+    });
+  }
+  if (! mirrorScript) {
+    mirrorScript = true;
+    var script = doc.createElement("script");
+    script.jsmirrorHide = true;
+    script.id = "viewer";
+    script.textContent = viewerScript;
+    doc.head.appendChild(script);
+  }
   if (lastIncoming.url && msg.url != lastIncoming.url) {
     // URL change
     self.port.emit("mirrorReload", msg);
