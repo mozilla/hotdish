@@ -23,12 +23,20 @@
 
         <div id="users">
           <div class="row">
-            <div class="col-xs-6 avatar-box">Person 1</div>
-            <div class="col-xs-6 avatar-box">Person 2</div>
+            <div class="wrapper">
+              <div class="main user-one"></div>
+            </div>
+            <div class="wrapper">
+              <div class="main user-two"></div>
+            </div>
           </div>
           <div class="row">
-            <div class="col-xs-6 avatar-box">Person 3</div>
-            <div class="col-xs-6 avatar-box">Person 4</div>
+            <div class="wrapper">
+              <div class="main user-three"></div>
+            </div>
+            <div class="wrapper">
+              <div class="main user-four"></div>
+            </div>
           </div>
         </div>
 
@@ -36,11 +44,11 @@
           <div class="row">
             <div class="col-xs-12">
               <ul class="list-inline">
-                <li>
-                  <a class="glyphicon glyphicon-th-list" href="#" class="active"></a>
+                <li class="active">
+                  <a class="glyphicon glyphicon-th-list" href="#" title="Activity Stream"></a>
                 </li>
                 <li class="pull-right">
-                  <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback"><span class="glyphicon glyphicon-send"></span></a>
+                  <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback" title="Send feedback"><span class="glyphicon glyphicon-send"></span></a>
                 </li>
               </ul>
             </div>
@@ -54,25 +62,49 @@
                 <li class="media">
                   <a class="pull-left" href="#">
                     <div class="sm-avatar">
-                      <img class="media-object" src="..." alt="...">
+                      <img class="media-object user-avatar" src="" alt="">
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right" href="#"></a>
+                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
                     <h4 class="media-heading username">Gregg</h4>
-                    is currently on <a class="current-location">The New York Times</a>
+                    is currently on <a class="current-location" href="#">The New York Times</a>
                   </div>
                 </li>
                 <li class="media">
                   <a class="pull-left" href="#">
                     <div class="sm-avatar">
-                      <img class="media-object" src="..." alt="...">
+                      <img class="media-object user-avatar" src="" alt="">
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right" href="#"></a>
+                    <span class="timestamp pull-right" href="#">2 mins ago</span>
                     <h4 class="media-heading username">Ian</h4>
-                    What is this about?
+                    "What is this about?"
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-share-alt pull-right" href="#" title="Push this page"></a>
+                    <h4 class="media-heading username">aarondruck</h4>
+                    is currently on <a class="current-location" href="#">Github.com</a>
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+                    <h4 class="media-heading username">ilana</h4>
+                    is currently on <a class="current-location" href="#">espn.com</a>
                   </div>
                 </li>
               </ul>

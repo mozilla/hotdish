@@ -124,12 +124,55 @@ ul#peers {
 }
 
 
-
+.wrapper {
+    width: 50%; /*whatever width you want*/
+    display: inline-block;
+    position: relative;
+    float: left;
+}
+.wrapper:after {
+    padding-top: 75%; /*4:3 ratio*/
+    display: block;
+    content: '';
+}
+.main {
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: 0; /*fill parent*/
+    background-color: rgb(0, 140, 200); /*let's see it!*/
+}
 
 .avatar-box {
   border: 1px solid #999;
-  height: 100px;
-  background: rgba(0,0,0,0.2);
+  height: 150px;
+  //background: rgba(0,0,0,0.2);
+}
+
+.user-one {
+  background: url('../temp-images/avatar-1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.user-two {
+  background: url('../temp-images/avatar-2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.user-three {
+  background: url('../temp-images/avatar-3.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.user-four {
+  background: url('../temp-images/avatar-4.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .avatar-box:hover {
@@ -145,9 +188,14 @@ ul#peers {
   border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 
+.middlebar li.active {
+  border-bottom: 2px solid rgba(0,0,0,0.2);
+  padding-bottom: 7px;
+}
+
 .activity-stream {
-  position: absolute;
-  top: 240px;
+  //position: absolute;
+  //top: 340px;
   bottom: 20px;
   overflow: auto;
   width: 100%;
@@ -166,7 +214,13 @@ li.media {
 }
 
 
-
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255,255,255,1);
+  border-radius: 120px;
+  background: #ccc;
+}
 
 .avatar {
   width: 48px;
