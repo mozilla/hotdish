@@ -122,6 +122,12 @@ ul#peers {
   font-family: Helvetica, sans-serif;
 }
 
+.avatar-box {
+  border: 1px solid #999;
+  height: 100px;
+}
+
+
 .avatar {
   width: 48px;
   height: 48px;
