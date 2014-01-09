@@ -47,16 +47,43 @@
           </div>
         </div>
 
-        <!-- activity list here -->
         <div class="activity-stream">
           <div class="row">
             <div class="">
-              <ul id="peers" class="media-list">
-
+              <ul class="media-list">
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object" src="..." alt="...">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right" href="#"></a>
+                    <h4 class="media-heading username">Gregg</h4>
+                    is currently on <a class="current-location">The New York Times</a>
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object" src="..." alt="...">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right" href="#"></a>
+                    <h4 class="media-heading username">Ian</h4>
+                    What is this about?
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
         </div>
+
+
+        <!-- ><ul id="peers">
+
+        </ul> -->
 
         <div id="messages-hidden">
           <!-- <button id="show-messages">Show messages</button> -->
@@ -70,21 +97,21 @@
             <pre></pre>
           </li>
 
-          <li id="template-peer" class="media peer">
-            <a class="pull-left" href="#">
-              <div class="sm-avatar bgcolor">
-                <img class="media-object avatar" src="" alt="user avatar">
-              </div>
-            </a>
-            <div class="media-body">
-              <a class="glyphicon glyphicon-eye-open pull-right" href="#"></a>
-              <h4 class="name media-heading"></h4>
-              is currently on <ul class="url-list">
+          <li id="template-peer" class="peer"> <!-- START Person box -->
+            <header class="bgcolor"> <!-- Start Panel header -->
+              <!-- <img class='pull-left avatar' src=""></img> -->
+              <h3 class="new-name"></h3>
+              <!-- <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button> -->
+            </header> <!-- End Panel header -->
+            <div class=""> <!-- START Activity List -->
+              <!-- <h6></small>Open tabs:</small></h6> -->
+              <!-- <ul class="url-list">
                   <span class="no-page-list text-muted">No tabs open.</span>
-              </ul><span class="current-location"></span>
-            </div>
-          </li>
-
+              </ul> -->
+            </div> <!-- End Activity List -->
+          </li> <!-- End Person box -->
           <li id="template-tab" class="tab">
             <a class="normal" href="#" target="_blank"><img class="favicon" src="" style="height: 16px; width: 16px;">
               <span class="title"></span>
