@@ -141,12 +141,6 @@ ul#peers {
     background-color: rgb(0, 140, 200); /*let's see it!*/
 }
 
-.avatar-box {
-  border: 1px solid #999;
-  height: 150px;
-  //background: rgba(0,0,0,0.2);
-}
-
 .user-one {
   background: url('../temp-images/avatar-1.jpg');
   background-size: cover;
@@ -176,7 +170,7 @@ ul#peers {
 }
 
 .avatar-box:hover {
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.1);
   cursor: pointer;
 }
 
