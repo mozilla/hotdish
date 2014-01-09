@@ -173,8 +173,8 @@ li.media {
   height: 48px;
   border: 1px solid rgba(255,255,255,1);
   border-radius: 120px;
-  margin-right: 10px;
-  margin-top: -14px !important;
+  //margin-right: 10px;
+  //margin-top: -14px !important;
   //padding-top: -10px !important;
 }
 
@@ -248,5 +248,6 @@ body.debug #debug-listener {
 
 #chat-field .btn {
   border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
