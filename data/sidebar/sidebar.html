@@ -35,20 +35,47 @@
         <div class="middlebar">
           <div class="row">
             <div class="col-xs-12">
-              <i class="glyphicon glyphicon-th-list"></i>
+              <ul class="list-inline">
+                <li>
+                  <a class="glyphicon glyphicon-th-list" href="#" class="active"></a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
         <div class="activity-stream">
-          <ul class="list-unstyled">
-            <li>row 1</li>
-          </ul>
+          <div class="row">
+            <div class="">
+              <ul class="media-list">
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object" src="..." alt="...">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right" href="#"></a>
+                    <h4 class="media-heading username">Gregg</h4>
+                    is currently on page <span class="current-location"></span>
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object" src="..." alt="...">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right" href="#"></a>
+                    <h4 class="media-heading username">Gregg</h4>
+                    is currently on page <span class="current-location"></span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-
-
-        <input id="chat" placeholder="Type here to chat">
-
 
         <ul id="peers">
         </ul>
@@ -97,6 +124,15 @@
               <a href="#" data-placement="top" class="request-current push link btn btn-default btn-xs pull-right" data-original-title="Push this current tab you're on to the other participants."><span class="glyphicon glyphicon-share-alt"> <span class="push-btn-txt"></span></span></a>
             </a>
           </li>
+        </div>
+      </div>
+
+      <div id="chat-field">
+        <div class="input-group input-group">
+          <input id="chat" type="text" class="form-control" placeholder="Type here to chat">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Send</button>
+          </span>
         </div>
       </div>
 

@@ -3,7 +3,7 @@ html, body {
 }
 
 #content {
-    padding: 10px;
+    //padding: 10px;
 }
 
 h1#header {
@@ -81,6 +81,7 @@ ul#peers {
 
 #chat {
     width: 100%;
+    border-top-left-radius: 0px;
 }
 
 /* highlight active tab*/
@@ -127,17 +128,32 @@ ul#peers {
 
 .avatar-box {
   border: 1px solid #999;
-  //height: 200px;
+  height: 100px;
   background: rgba(0,0,0,0.2);
 }
 
 .avatar-box:hover {
   background: rgba(0,0,0,0.9);
+  cursor: pointer;
 }
 
 .middlebar {
   background: #f4f4f4;
   height: 40px;
+  padding: 10px 0px;
+  margin-bottom: 20px;
+}
+
+li.media {
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  padding: 15px;
+  margin: 0px;
+}
+
+.row {
+  margin-right: 0px !important;
+  //margin-left: 0px !important;
+  padding-left: 15px;
 }
 
 
@@ -210,13 +226,18 @@ body.debug #debug-listener {
   height: 10em;
 }
 
-#email-feedback {
+#chat-field {
   position:fixed;
   bottom:0px;
-  height:24px;
-  border-top: 1px solid grey;
-  background-color: white;
+  //height:24px;
+  //border-top: 1px solid grey;
+  //background-color: white;
   width:100%;
-  margin:0;
-  padding:0;
+  //margin:0;
+  //padding:0;
 }
+
+#chat-field .btn {
+  border-top-right-radius: 0px;
+}
+
