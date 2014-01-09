@@ -122,10 +122,25 @@ ul#peers {
   font-family: Helvetica, sans-serif;
 }
 
+
+
+
 .avatar-box {
   border: 1px solid #999;
-  height: 100px;
+  //height: 200px;
+  background: rgba(0,0,0,0.2);
 }
+
+.avatar-box:hover {
+  background: rgba(0,0,0,0.9);
+}
+
+.middlebar {
+  background: #f4f4f4;
+  height: 40px;
+}
+
+
 
 
 .avatar {
