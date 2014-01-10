@@ -157,6 +157,20 @@ ul#peers {
   opacity: 1;
 }
 
+.overlay .username {
+  position: absolute;
+  bottom: 0px;
+  padding: 10px;
+}
+
+.overlay .row {
+  padding-top: 2%;
+}
+
+.overlay button {
+  margin: 6px;
+}
+
 .user-one {
   background: url('../temp-images/avatar-1.jpg');
   background-size: cover;
@@ -204,11 +218,13 @@ ul#peers {
 }
 
 .activity-stream {
-  //position: absolute;
+  //position: fixed;
   //top: 340px;
-  bottom: 20px;
-  overflow: auto;
+  //bottom: 40px;
   width: 100%;
+  height:auto;
+  overflow:scroll;
+  max-height:300px;
 }
 
 li.media {
