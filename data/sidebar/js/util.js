@@ -79,7 +79,6 @@ function mixinEvents(proto) {
     var args = Array.prototype.slice.call(arguments, 1);
     var l = this._listeners[name];
     l.forEach(function (callback) {
-
       callback.apply(this, args);
     }, this);
     delete this._listenerOffs;
@@ -155,4 +154,21 @@ var assert = function (cond) {
     console.trace();
     throw new Error("Assertion Error: " + args.join(" "));
   }
+};
+
+var decodeQuery = function (url) {
+  if (url.indexOf("?") != -1) {
+    url = url.substr(url.indexOf("?")+1);
+  }
+  var result = {};
+  var parts = url.split(/&/g);
+  parts.forEach(function (p) {
+    var names = p.split("=");
+    if (names.length == 1) {
+      result[decodeURIComponent(names[0])] = null;
+    } else {
+      result[decodeURIComponent(names[0])] = decodeURIComponent(names[1]);
+    }
+  });
+  return result;
 };
