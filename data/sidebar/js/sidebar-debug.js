@@ -3,6 +3,11 @@ var selfIdentity;
 var clientId;
 
 if (location.href.search(/debug/) != -1) {
+  turnOnDebug();
+}
+
+function turnOnDebug() {
+
   var match = /groupId=([^&]*)/.exec(location.href);
   groupId = match[1];
   clientId = "testself";
@@ -50,49 +55,70 @@ if (location.href.search(/debug/) != -1) {
     var iframeSrc = "./listener.html?groupId=" + groupId;
     var iframe = $("<iframe>").attr("src", iframeSrc).attr("id", "debug-listener");
     $("#debug-panel").append($("<div>").append(iframe));
+
     var addTabIndex = 0;
     $("#add-tab").click(function () {
       var local = $("#add-tab-local").prop("checked");
+      var msgId = local ? clientId : ("faker"+fakers);
+      var tabId = parseInt($("#add-tab-tabid").val(), 10);
+      addTabIndex++;
       debugSend({
         type: "pageshow",
-        clientId: local ? clientId : null,
+        clientId: msgId,
         tab: {
-          windowid: 0,
-          tabid: parseInt($("#add-tab-tabid").val(), 10),
-          index: addTabIndex++,
+          id: msgId + "-" + tabId,
+          index: addTabIndex,
           pinned: false,
-          title: "Some page " + addTabIndex,
+          title: "Some Page " + tabId,
           url: $("#add-tab-url").val(),
           favicon: null
         }
       });
-      $("#add-tab-url").val("");
+      var newUrl = DEBUG_URLS[Math.floor(Math.random() * DEBUG_URLS.length)];
+      $("#add-tab-url").val(newUrl);
       $("#add-tab-tabid").val(parseInt($("#add-tab-tabid").val(), 10) + 11);
     });
+
     $("#add-person").click(function () {
       fakers++;
-      debugSend({
-        type: "hello",
-        name: "Faker " + fakers,
-        avatar: null,
+      var name = $("#add-person-name").val();
+      var avatar = AVATARS[name];
+      var nameIndex = DEBUG_NAMES.indexOf(name);
+      if (nameIndex >= DEBUG_NAMES.length) {
+        nameIndex = 0;
+      }
+      $("#add-person-name").val(DEBUG_NAMES[nameIndex+1]);
+      addon.port.localEmit("peer", {
+        name: name,
+        avatar: avatar,
         color: "#" + fakers + "f" + fakers,
         clientId: "faker" + fakers
-      });
+      }, true);
     });
+
+    $("#debug-panel-container").append($("#debug"));
+
   });
 
-  /*document.documentElement.addEventListener("hotdish-message", function (event) {
-    console.log("got message", event.detail);
-  }, false);
+  var DEBUG_URLS = [
+    "http://google.com",
+    "http://yahoo.com",
+    "http://mozilla.org",
+    "http://developer.mozilla.org"
+  ];
 
-  var i=0;
-  setInterval(function () {
-    i++;
-    var event = document.createEvent('CustomEvent');
-    console.log("sendit!");
-    event.initCustomEvent("hotdish-send", true, true, {type: "yo", i: i});
-    document.documentElement.dispatchEvent(event);
-  }, 1000);
-  */
+  var DEBUG_NAMES = [
+    "Ian Bicking",
+    "Aaron Druck",
+    "Gregg Lind",
+    "Ilana Segall"
+  ];
+
+  var AVATARS = {
+    "Gregg Lind": 'temp-images/avatar-1.jpg',
+    "Ilana Segall": 'temp-images/avatar-2.jpg',
+    "Ian Bicking": 'temp-images/avatar-3.jpg',
+    "Aaron Druck": 'temp-images/avatar-4.jpg'
+  };
 
 }

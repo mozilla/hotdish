@@ -191,7 +191,7 @@ function dumpState() {
     lines = lines.concat([
       'Peer: ' + peer.id + (peer.isSelf ? ' SELF' : ''),
       '  name: ' + peer.name,
-      '  avatar: <img src="' + peer.avatar + '">',
+      '  avatar: <img height=40 width=40 src="' + peer.avatar + '">',
       '  color: ' + peer.color,
       '  tabs:']);
     for (var tabId in peer.tabs) {
