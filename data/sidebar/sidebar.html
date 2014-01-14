@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="sidebarApp">
   <head>
     <meta charset="UTF-8">
     <title>Hotdish</title>
@@ -10,18 +10,22 @@
     <script src="js/util.js"></script>
     <script src="js/sidebar-debug.js"></script>
     <script src="js/sidebar.js"></script>
+    <script src="http://code.angularjs.org/1.2.8/angular.js"></script>
+    <script src="js/model.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/collapse.js"></script>
     <script src="js/transition.js"></script>
-    <script src="js/angular.min.js"></script>
+    <!--<script src="js/angular.min.js"></script>-->
   </head>
 
   <body class="sidepanel">  <!-- START SIDEBAR -->
 
+    <pre id="debug"></pre>
+
     <div id="main-content">
       <div id="content">
 
-        <div id="users">
+        <div id="users" ng-controller="UserListCtrl">
           <div class="row">
             <div class="wrapper">
               <div class="main user-four">
@@ -140,10 +144,25 @@
           </div>
         </div>
 
-        <div class="activity-stream">
+        <div class="activity-stream" ng-controller="ActivityCtrl">
           <div class="row">
             <div class="">
               <ul class="media-list">
+
+                <!-- Activity template: -->
+                <li ng-repeat="activity in activities">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" ng-src="{{activity.peer.avatar}}" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+                    <h4 class="media-heading username">{{activity.peer.name}}</h4>
+                    is currently on <a class="current-location" href="#">The New York Times</a>
+                  </div>
+                </li> <!-- /activity template -->
+
                 <li class="media">
                   <a class="pull-left" href="#">
                     <div class="sm-avatar">
