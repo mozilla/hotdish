@@ -36,12 +36,15 @@
                 <div class="overlay">
                   <div class="row-fluid">
                     <div class="container text-center">
-                      <div class="col-xs-4">
+                      <div class="col-xs-12">
                         <a href="" class="btn btn-default btn-sm" role="button">
                           Take photo
                         </a>
                         <a href="" class="btn btn-default btn-sm" role="button">
                           Settings
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Profile
                         </a>
                       </div>
                     </div>
@@ -57,7 +60,7 @@
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
-                      <div class="col-xs-4">
+                      <div class="col-xs-12">
                         <a href="" class="btn btn-default btn-sm" role="button">
                           Talk
                         </a>
@@ -83,7 +86,7 @@
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
-                      <div class="col-xs-4">
+                      <div class="col-xs-12">
                         <a href="" class="btn btn-default btn-sm" role="button">
                           Talk
                         </a>
@@ -107,7 +110,7 @@
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
-                      <div class="col-xs-4">
+                      <div class="col-xs-12">
                         <a href="" class="btn btn-default btn-sm" role="button">
                           Talk
                         </a>
@@ -131,7 +134,10 @@
             <div class="col-xs-12">
               <ul class="list-inline">
                 <li class="active">
-                  <a class="glyphicon glyphicon-th-list" href="#" title="Activity Stream"></a>
+                  <a class="glyphicon glyphicon-th-list btn-activity-stream" href="#" title="Activity Stream"></a>
+                </li>
+                <li class="">
+                  <a class="glyphicon glyphicon-comment btn-private-messages" href="#" title="Private Messages"></a>
                 </li>
                 <li class="pull-right">
                   <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback" title="Send feedback"><span class="glyphicon glyphicon-send"></span></a>
@@ -141,7 +147,7 @@
           </div>
         </div>
 
-        <div class="activity-stream" ng-controller="ActivityCtrl">
+        <div class="activity-stream" ng-controller="ActivityCtrl" id="activity-list"> <!-- Activity List -->
           <div class="row">
             <div class="">
               <ul class="media-list">
@@ -212,6 +218,79 @@
             </div>
           </div>
         </div>
+
+        <div class="activity-stream" id="private-messages-list"> <!-- Private Messages -->
+          <div class="row">
+            <div class="">
+              <ul class="media-list">
+
+                <!-- Activity template: -->
+                <li ng-repeat="activity in activities">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" ng-src="{{activity.peer.avatar}}" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">{{activity.peer.name}}</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
+                  </div>
+                </li> <!-- /activity template -->
+
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">111</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <span class="timestamp pull-right" href="#">2 mins ago</span>
+                    <h4 class="media-heading username">Ian</h4>
+                    "What is this about?"
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-share-alt pull-right push-page" href="#" title="Push this page to everyone" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">aarondruck</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">Github.com</a>
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">ilana</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">espn.com</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
 
 
         <!-- ><ul id="peers">
@@ -295,11 +374,40 @@
     $('.spectate-page').tooltip('show');
     $('.push-page').tooltip('show');
 
+    // fade out username
     $('.user-one').hover(function(){
       $('.user-one .username').fadeOut();
     }, function(){
       $('.user-one .username').fadeIn();
     })
+    $('.user-two').hover(function(){
+      $('.user-two .username').fadeOut();
+    }, function(){
+      $('.user-two .username').fadeIn();
+    })
+    $('.user-three').hover(function(){
+      $('.user-three .username').fadeOut();
+    }, function(){
+      $('.user-three .username').fadeIn();
+    })
+    $('.user-four').hover(function(){
+      $('.user-four .username').fadeOut();
+    }, function(){
+      $('.user-four .username').fadeIn();
+    })
+
+    //tabbable activity list area
+    $('.btn-activity-stream').click(function(){
+      $("#activity-list").show();
+      $("#private-messages-list").hide();
+    });
+
+    $('.btn-private-messages').click(function(){
+
+      $("#activity-list").hide();
+      $("#private-messages-list").show();
+    });
+
   </script>
 
 </html>
