@@ -245,10 +245,11 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
-                    <h4 class="media-heading username">111</h4>
-                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
+                    <span class="timestamp pull-right" href="#">13 mins ago</span>
+                    <h4 class="media-heading username">Gregg</h4>
+                    "Ok that sounds good!"
                   </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
                 </li>
                 <li class="media">
                   <a class="pull-left" href="#">
@@ -261,6 +262,7 @@
                     <h4 class="media-heading username">Ian</h4>
                     "What is this about?"
                   </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
                 </li>
                 <li class="media">
                   <a class="pull-left" href="#">
@@ -269,22 +271,11 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-share-alt pull-right push-page" href="#" title="Push this page to everyone" data-toggle="tooltip" data-placement="left"></a>
-                    <h4 class="media-heading username">aarondruck</h4>
-                    is currently on <a class="current-location" href="#" title="View on same page">Github.com</a>
+                    <span class="timestamp pull-right" href="#">5 mins ago</span>
+                    <h4 class="media-heading username">Ilana</h4>
+                    "Yeah I think I saw that page already."
                   </div>
-                </li>
-                <li class="media">
-                  <a class="pull-left" href="#">
-                    <div class="sm-avatar">
-                      <img class="media-object user-avatar" src="" alt="">
-                    </div>
-                  </a>
-                  <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
-                    <h4 class="media-heading username">ilana</h4>
-                    is currently on <a class="current-location" href="#" title="View on same page">espn.com</a>
-                  </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
                 </li>
               </ul>
             </div>
@@ -397,15 +388,21 @@
     })
 
     //tabbable activity list area
+    $("#private-messages-list").hide();
     $('.btn-activity-stream').click(function(){
+      $("#chat-field").show();
       $("#activity-list").show();
       $("#private-messages-list").hide();
+      $('.middlebar li:first-child').addClass('active');
+      $('.middlebar li:nth-child(2)').removeClass('active');
     });
 
     $('.btn-private-messages').click(function(){
-
       $("#activity-list").hide();
+      $("#chat-field").hide();
       $("#private-messages-list").show();
+      $('.middlebar li:nth-child(2)').addClass('active');
+      $('.middlebar li:first-child').removeClass('active');
     });
 
   </script>

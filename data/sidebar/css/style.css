@@ -260,6 +260,22 @@ li.media {
 }
 
 
+/*Private Messages*/
+.timestamp {
+  font-size: 10px;
+  padding-top: 5px;
+}
+
+#private-messages-list li:hover {
+  cursor: pointer;
+  background: rgba(0,0,0,0.2);
+}
+
+.chevron-icon {
+  top: -18px !important;
+  opacity: 0.2;
+}
+
 .user-avatar {
   width: 48px;
   height: 48px;
