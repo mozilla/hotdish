@@ -11,25 +11,24 @@ var SelfAvatar = UI.SelfAvatar = React.createClass({
     return (
       <div className="wrapper">
         <div className="main" style={ {background: "url(" + this.props.avatar + ")"} }>
+          <div className="username">
+            me
+          </div>
           <div className="overlay">
             <div className="row">
               <div className="container text-center">
-                <div className="col-xs-4">
-                  <span className="glyphicon glyphicon-minus-sign"></span>
-                  <br/>Mute
-                </div>
-                <div className="col-xs-4">
-                  <span className="glyphicon glyphicon-camera"></span>
-                  <br/>Take photo
-                </div>
-                <div className="col-xs-4">
-                  <span className="glyphicon glyphicon-cog"></span>
-                  <br/>Settings
+                <div class="col-xs-12">
+                  <a href="#" class="btn btn-default btn-sm" role="button">
+                    Take photo
+                  </a>
+                  <a href="#" class="btn btn-default btn-sm" role="button">
+                    Settings
+                  </a>
+                  <a href="#" class="btn btn-default btn-sm" role="button">
+                    Profile
+                  </a>
                 </div>
               </div>
-            </div>
-            <div className="username">
-              me
             </div>
           </div>
         </div>
@@ -46,7 +45,9 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
         <div className="main">
           <div className="overlay">
             <div className="row">
-              +
+              <button type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-plus-sign"></span> Invite
+              </button>
             </div>
           </div>
         </div>
@@ -78,29 +79,24 @@ var PeerAvatar = UI.PeerAvatar = React.createClass({
     return (
       <div className="wrapper">
         <div className="main" style={ {background: "url(" + this.props.avatar + "}"} }>
+          <div className="username">
+            {this.props.name}
+          </div>
           <div className="overlay">
             <div className="row">
               <div className="container text-center">
-                <div className="col-xs-4">
-                  <span className="glyphicon glyphicon-minus-sign" title="Mute"></span>
-                  <br/>Mute
-                </div>
-                <div className="col-xs-4">
-                  <span className="glyphicon glyphicon-comment"></span>
-                  <br/>Talk
-                </div>
-                <div className="col-xs-4">
-                  <span className="glyphicon glyphicon-user"></span>
-                  <br/>Profile
-                </div>
-                <div className="col-xs-4">
-                  <span className="glyphicon glyphicon-plus-sign"></span>
-                  <br/>Buddy Up
+                <div class="col-xs-12">
+                  <a href="" class="btn btn-default btn-sm" role="button">
+                    Talk
+                  </a>
+                  <a href="" class="btn btn-default btn-sm" role="button">
+                    Profile
+                  </a>
+                  <a href="" class="btn btn-default btn-sm" role="button">
+                    Invite
+                  </a>
                 </div>
               </div>
-            </div>
-            <div className="username">
-              {this.props.name}
             </div>
           </div>
         </div>
@@ -160,7 +156,7 @@ var PageVisit = UI.PageVisit = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar}>
-        <a className="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+        <a className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
         <h4 className="media-heading username">{this.props.name}</h4>
         is currently on <a className="current-location" href={this.props.url}>{this.props.title}</a>
       </Activity>
@@ -228,7 +224,7 @@ var ChatField = UI.ChatField = React.createClass({
     return (
       <div id="chat-field">
         <form className="input-group input-group">
-          <input id="chat" type="text" className="form-control" ref="text" placeholder="Type here to chat" />
+          <input id="chat" type="text" className="form-control" ref="text" placeholder="Type here to chat to the group" />
           <span className="input-group-btn">
             <button className="btn btn-default" type="button">Send</button>
           </span>
