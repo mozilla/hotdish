@@ -233,7 +233,6 @@ function renderUsers() {
     React.renderComponent(userGrid, $("#user-container")[0]);
   }
   var users = [UI.SelfAvatar({avatar: selfIdentity.avatar})];
-  console.log("peers", allPeers(), allPeers().map(function (p) {return p.avatar;}));
   allPeers().forEach(function (p) {
     users.push(UI.PeerAvatar({avatar: p.avatar, name: p.name}));
   });
