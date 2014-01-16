@@ -199,9 +199,9 @@ function getTemplate(name) {
 function init() {
 
   function message(msg) {
-    var li = getTemplate("message");
-    li.find("pre").text(JSON.stringify(msg, null, 2));
-    $("#messages").append(li);
+    //var li = getTemplate("message");
+    //li.find("pre").text(JSON.stringify(msg, null, 2));
+    //$("#messages").append(li);
     if (msg.type == "init-connection") {
       return;
     }
@@ -305,11 +305,9 @@ function init() {
 
   addon.port.emit("ready");
 
-  setInterval(function () {
-    $('#debug').html(dumpState());
-    //console.log("peers:", JSON.stringify(peers, null, "  "));
-    //console.log("activities:", JSON.stringify(activities, null, "  "));
-  }, 1000);
+  renderUsers();
+  renderActivity();
+  renderChatField();
 
 }
 

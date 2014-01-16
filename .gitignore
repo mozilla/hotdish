@@ -1,1 +1,5 @@
 Profile
+.DS_Store
+.lock.pid
+.module-cache
+data/sidebar/js/components.js

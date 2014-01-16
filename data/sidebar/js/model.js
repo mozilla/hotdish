@@ -30,12 +30,15 @@ var Peer = Class(mixinEvents({
     this.isSelf = this.id == clientId;
     this.tabs = {};
     this.lastMessage = Date.now();
+    renderUsers();
   },
 
   update: function (msg) {
     this.avatar = msg.avatar || this.avatar;
     this.name = msg.name || this.name;
     this.color = msg.color || this.color;
+    renderUsers();
+    renderActivity();
   },
 
   getTab: function (tabId) {
@@ -61,6 +64,7 @@ var Peer = Class(mixinEvents({
         this.tabs[id].active = false;
       }
     }
+    renderActivity();
   }
 
 }));
@@ -71,6 +75,7 @@ addon.port.on("peer", function (msg, joined) {
   if (joined) {
     activities.push(JoinActivity(peer));
   }
+  renderActivity();
 });
 
 var Tab = Class({
@@ -96,6 +101,14 @@ var Tab = Class({
     this.currentTitle = page.title;
     this.currentUrl = page.url;
     this.time = Date.now();
+  },
+  activityComponent: function () {
+    return UI.PageVisit({
+      name: this.peer.name,
+      avatar: this.peer.avatar,
+      url: this.currentUrl,
+      title: this.currentTitle
+    });
   }
 });
 
@@ -113,6 +126,7 @@ hub.on("pageshow", function (msg) {
   var page = Page(msg.tab.url, msg.tab.title);
   var tab = msg.peer.getTab(msg.tab.id);
   tab.addPage(page);
+  renderActivity();
 });
 
 hub.on("tab-init", function (msg) {
@@ -121,15 +135,18 @@ hub.on("tab-init", function (msg) {
     var tab = msg.peer.getTab(t.id);
     tab.addPage(page);
   });
+  renderActivity();
 });
 
 hub.on("activate", function (msg) {
   var tab = msg.peer.setActiveTab(msg.tab.id);
+  renderActivity();
 });
 
 hub.on("close", function (msg) {
   var tab = msg.peer.getTab(msg.tab.id);
   tab.live = false;
+  renderActivity();
 });
 
 var ChatMessage = Class({
@@ -137,6 +154,14 @@ var ChatMessage = Class({
     this.peer = peer;
     this.text = text;
     this.time = Date.now();
+  },
+  activityComponent: function () {
+    return UI.Chat({
+      name: this.peer.name,
+      avatar: this.peer.avatar,
+      time: this.time,
+      text: this.text
+    });
   }
 });
 
@@ -144,12 +169,20 @@ addon.port.on("chat", function (msg) {
   var peer = getPeer(msg.clientId);
   var chatMessage = ChatMessage(peer, msg.text);
   activities.push(chatMessage);
+  renderActivity();
 });
 
 var JoinActivity = Class({
   constructor: function (peer) {
     this.peer = peer;
     this.time = Date.now();
+  },
+  activityComponent: function () {
+    return UI.Join({
+      name: this.peer.name,
+      avatar: this.peer.avatar,
+      time: this.time
+    });
   }
 });
 
@@ -160,6 +193,9 @@ var PushActivity = Class({
     this.localTabId = localTabId;
     this.reloaded = reloaded;
     this.time = Date.now();
+  },
+  activityComponent: function () {
+    throw new Error("Not implemented");
   }
 });
 
@@ -167,6 +203,7 @@ addon.port.on("push", function (msg, localTabId, reloaed) {
   var peer = getPeer(msg.clientId);
   var push = PushActivity(peer, msg.url, msg.title || msg.url, localTabId, reloaded);
   activities.push(push);
+  renderActivity();
 });
 
 var JoinedMirror = Class({
@@ -174,6 +211,9 @@ var JoinedMirror = Class({
     this.peer = peer;
     this.localTabId = localTabId;
     this.time = Date.now();
+  },
+  activityComponent: function () {
+    throw new Error("Not implemented");
   }
 });
 
@@ -181,7 +221,53 @@ addon.port.on("joinedMirror", function (msg, localTabId) {
   var peer = getPeer(msg.clientId);
   var joined = JoinedMirror(peer, localTabId);
   activities.push(joined);
+  renderActivity();
 });
+
+var userGrid;
+
+function renderUsers() {
+  if (! userGrid) {
+    userGrid = UI.UserGrid();
+    $("#user-container").empty();
+    React.renderComponent(userGrid, $("#user-container")[0]);
+  }
+  var users = [UI.SelfAvatar({avatar: selfIdentity.avatar})];
+  allPeers().forEach(function (p) {
+    users.push(UI.PeerAvatar({avatar: p.avatar, name: p.name}));
+  });
+  userGrid.setState({users: users});
+}
+
+var activityList;
+
+function renderActivity() {
+  if (! activityList) {
+    activityList = UI.ActivityList();
+    $("#activity-stream-container").empty();
+    React.renderComponent(activityList, $("#activity-stream-container")[0]);
+  }
+  var sorted = activities.slice();
+  allPeers().forEach(function (p) {
+    sorted = sorted.concat(p.allTabs());
+  });
+  sorted.sort(function (a, b) {return b - a;});
+  var children = sorted.map(function (i) {return i.activityComponent();});
+  activityList.setState({activities: children});
+}
+
+var chatField;
+
+function renderChatField() {
+  if (! chatField) {
+    chatField = UI.ChatField({
+      onChatSubmit: function (text) {
+      }
+    });
+    $("#chat-field-container").empty();
+    React.renderComponent(chatField, $("#chat-field-container")[0]);
+  }
+}
 
 function dumpState() {
   var lines = [];
@@ -229,28 +315,3 @@ function dumpState() {
   });
   return lines.join("\n");
 }
-
-var sidebarApp = angular.module("sidebarApp", []);
-
-sidebarApp.controller("ActivityCtrl", function ($scope) {
-  var a = $scope.activities = [];
-  allPeers().forEach(function (p) {
-    p.allTabs().forEach(function (t) {
-      a.push(t);
-    });
-  });
-  activities.forEach(function (activity) {
-    a.push(activity);
-  });
-  a.sort(function (a, b) {
-    return b.time - a.time;
-  });
-  setInterval(function () {
-    $scope.$digest();
-  }, 1000);
-  console.log("got scope");
-});
-
-sidebarApp.controller("UserListCtrl", function ($scope) {
-  $scope.peers = allPeers();
-});

@@ -96,7 +96,11 @@ function turnOnDebug() {
       }, true);
     });
 
-    $("#debug-panel-container").append($("#debug"));
+    $("#debug-panel-container").append($('<pre id="debug"></pre>'));
+
+    setInterval(function () {
+      $('#debug').html(dumpState());
+    }, 1000);
 
   });
 

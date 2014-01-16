@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="sidebarApp">
+<html>
   <head>
     <meta charset="UTF-8">
     <title>Hotdish</title>
@@ -10,23 +10,22 @@
     <script src="js/util.js"></script>
     <script src="js/sidebar-debug.js"></script>
     <script src="js/sidebar.js"></script>
-    <script src="http://code.angularjs.org/1.2.8/angular.js"></script>
+    <script src="js/react/react.js"></script>
+    <script src="js/components.js"></script>
     <script src="js/model.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/collapse.js"></script>
     <script src="js/transition.js"></script>
     <script src="js/tooltip.js"></script>
-    <!--<script src="js/angular.min.js"></script>-->
   </head>
 
   <body class="sidepanel">  <!-- START SIDEBAR -->
 
-    <pre id="debug"></pre>
-
     <div id="activity-view" class="main-content">
       <div id="content">
 
-        <div id="users" ng-controller="UserListCtrl">
+        <div id="user-container">
+        <div id="users">
           <div class="row">
             <div class="wrapper">
               <div class="main user-four">
@@ -128,6 +127,7 @@
             </div>
           </div>
         </div>
+        </div>
 
         <div class="middlebar">
           <div class="row">
@@ -147,16 +147,17 @@
           </div>
         </div>
 
+        <div id="activity-stream-container">
         <div class="activity-stream" ng-controller="ActivityCtrl" id="activity-list"> <!-- Activity List -->
           <div class="row">
             <div class="">
               <ul class="media-list">
 
                 <!-- Activity template: -->
-                <li ng-repeat="activity in activities">
+                <li>
                   <a class="pull-left" href="#">
                     <div class="sm-avatar">
-                      <img class="media-object user-avatar" ng-src="{{activity.peer.avatar}}" alt="">
+                      <img class="media-object user-avatar" src="{{activity.peer.avatar}}" alt="">
                     </div>
                   </a>
                   <div class="media-body">
@@ -281,6 +282,7 @@
             </div>
           </div>
         </div>
+        </div>
 
 
 
@@ -324,6 +326,7 @@
           </li>
         </div>
       </div>
+      <div id="chat-field-container">
       <div id="chat-field">
         <div class="input-group input-group">
           <input id="chat" type="text" class="form-control" placeholder="Type here to chat to group">
@@ -331,6 +334,7 @@
             <button class="btn btn-default" type="button">Send</button>
           </span>
         </div>
+      </div>
       </div>
     </div><!-- /#main-content -->
 
