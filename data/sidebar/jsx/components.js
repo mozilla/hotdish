@@ -17,14 +17,14 @@ var SelfAvatar = UI.SelfAvatar = React.createClass({
           <div className="overlay">
             <div className="row">
               <div className="container text-center">
-                <div class="col-xs-12">
-                  <a href="#" class="btn btn-default btn-sm" role="button">
+                <div className="col-xs-12">
+                  <a href="#" className="btn btn-default btn-sm" role="button">
                     Take photo
                   </a>
-                  <a href="#" class="btn btn-default btn-sm" role="button">
+                  <a href="#" className="btn btn-default btn-sm" role="button">
                     Settings
                   </a>
-                  <a href="#" class="btn btn-default btn-sm" role="button">
+                  <a href="#" className="btn btn-default btn-sm" role="button">
                     Profile
                   </a>
                 </div>
@@ -45,8 +45,8 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
         <div className="main">
           <div className="overlay">
             <div className="row">
-              <button type="button" class="btn btn-default btn-lg">
-                <span class="glyphicon glyphicon-plus-sign"></span> Invite
+              <button type="button" className="btn btn-default btn-lg">
+                <span className="glyphicon glyphicon-plus-sign"></span> Invite
               </button>
             </div>
           </div>
@@ -85,14 +85,14 @@ var PeerAvatar = UI.PeerAvatar = React.createClass({
           <div className="overlay">
             <div className="row">
               <div className="container text-center">
-                <div class="col-xs-12">
-                  <a href="" class="btn btn-default btn-sm" role="button">
+                <div className="col-xs-12">
+                  <a href="" className="btn btn-default btn-sm" role="button">
                     Talk
                   </a>
-                  <a href="" class="btn btn-default btn-sm" role="button">
+                  <a href="" className="btn btn-default btn-sm" role="button">
                     Profile
                   </a>
-                  <a href="" class="btn btn-default btn-sm" role="button">
+                  <a href="" className="btn btn-default btn-sm" role="button">
                     Invite
                   </a>
                 </div>
@@ -137,10 +137,10 @@ var UserGrid = UI.UserGrid = React.createClass({
 var Activity = UI.Activity = React.createClass({
   render: function () {
     return (
-      <li>
+      <li className="media">
         <a className="pull-left" href="#">
           <div className="sm-avatar">
-            <img className="media-object user-avatar" src={this.props.avatar} alt="" />
+            sadfsadfadf<img className="media-object user-avatar" src={this.props.avatar} alt="" />
           </div>
         </a>
         <div className="media-body">
