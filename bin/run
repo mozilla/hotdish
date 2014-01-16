@@ -2,6 +2,71 @@
 
 set -e
 
+bin="$(dirname $BASH_SOURCE)"
+bin="$(cd $bin ; pwd)"
+base="$(dirname $bin)"
+cd $base
+
+help=
+help_message=
+profile=first
+urls=
+
+while [[ -n "$1" ]] ; do
+    case "$1" in
+        -h | --help)
+            help=1
+            ;;
+        -s | --second)
+            profile=second
+            ;;
+        -u | --url)
+            if [[ -n "$urls" ]] ; then
+                urls="$urls,"
+            fi
+            urls="$urls\"$2\""
+            shift
+            ;;
+        *)
+            help=1
+            help_message="Unknown option: $1"
+            ;;
+    esac
+    shift
+done
+
+if [[ -n "$help" ]] ; then
+    if [[ -n "$help_message" ]] ; then
+        echo "$help_message"
+    fi
+    echo "Usage: $(basename $0) -s -u URL"
+    echo "Options:"
+    echo "  -s | --second"
+    echo "      Use a second test profile (for running two instances of the browser)"
+    echo "  -u URL | --url URL"
+    echo "      Open the given URL on startup"
+    if [[ -n "$help_message" ]] ; then
+        exit
+    else
+        exit 1
+    fi
+fi
+
+profiledir=
+extra_ops=
+case "$profile" in
+    first)
+        profiledir="--profiledir Profile"
+        ;;
+    second)
+        profiledir="--profiledir Profile2"
+        extra_ops="\"+username\": \"Second $USER\","
+        ;;
+    *)
+        fail "Unknown profile setup: $profile"
+        ;;
+esac
+
 fail () {
     echo "$@"
     exit 2
@@ -17,14 +82,34 @@ if ! which -s cfx ; then
     fail "You must install the Addon-SDK"
 fi
 
-bin="$(dirname $BASH_SOURCE)"
-bin="$(cd $bin ; pwd)"
-base="$(dirname $bin)"
-cd $base
+# If you have another local alias for a custom TogetherJS location, you can
+# add it here:
+tjs_urls="
+  http://localhost:8080/togetherjs-min.js
+  http://togetherjs.localhost/togetherjs-min.js
+"
 
-jsx < $base/data/sidebar/jsx/components.js > $base/data/sidebar/js/components.js \
-  || fail "Error in components.js"
+for tjs_url in $tjs_urls ; do
+    echo "test $tjs_url"
+    if curl $tjs_url > /dev/null 2>&1 ; then
+        echo "Using TogetherJS location $tjs_url"
+        extra_ops="\"+togetherJsLocation\": \"$tjs_url\","
+        break
+    fi
+done
 
-which cfx
-cfx run --profiledir $base/Profile --static-args '{"debug": true}'
+comp_src="$base/data/sidebar/jsx/components.js"
+comp_dest="$base/data/sidebar/js/components.js"
+if [[ $comp_src -nt $comp_dest ]] ; then
+    jsx < $comp_src > $comp_dest \
+        || fail "Error in components.js"
+fi
 
+cfx run $profiledir --static-args "{
+    \"debug\": true,
+    \"prefs\": {
+      $extra_ops
+      \"general.warnOnAboutConfig\": false
+    },
+    \"bgTabs\": [$urls]
+  }"
