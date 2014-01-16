@@ -157,10 +157,14 @@ ul#peers {
   opacity: 1;
 }
 
-.overlay .username {
+#users .username {
   position: absolute;
   bottom: 0px;
-  padding: 10px;
+  padding: 5px;
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  color: #fff;
+  opacity: 1;
 }
 
 .overlay .row {

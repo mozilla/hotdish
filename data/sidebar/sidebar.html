@@ -15,6 +15,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/collapse.js"></script>
     <script src="js/transition.js"></script>
+    <script src="js/tooltip.js"></script>
     <!--<script src="js/angular.min.js"></script>-->
   </head>
 
@@ -29,47 +30,45 @@
           <div class="row">
             <div class="wrapper">
               <div class="main user-four">
+                <div class="username">
+                  me
+                </div>
                 <div class="overlay">
-                  <div class="row">
+                  <div class="row-fluid">
                     <div class="container text-center">
                       <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-minus-sign"></span></br>Mute
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-camera"></span></br>Take photo
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-cog"></span></br>Settings
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Take photo
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Settings
+                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div class="username">
-                    me
                   </div>
                 </div>
               </div>
             </div>
             <div class="wrapper">
               <div class="main user-two">
+                <div class="username">
+                  ilana
+                </div>
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
                       <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-minus-sign" title="Mute"></span></br>Mute
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-comment"></span></br>Talk
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-user"></span></br>Profile
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-plus-sign"></span></br>Buddy Up
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Talk
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Profile
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Invite
+                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div class="username">
-                    ilana
                   </div>
                 </div>
               </div>
@@ -78,50 +77,48 @@
           <div class="row">
             <div class="wrapper">
               <div class="main user-three">
+                <div class="username">
+                  ianbicking
+                </div>
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
                       <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-minus-sign" title="Mute"></span></br>Mute
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-comment"></span></br>Talk
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-user"></span></br>Profile
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-plus-sign"></span></br>Buddy Up
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Talk
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Profile
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Invite
+                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div class="username">
-                    ianbicking
                   </div>
                 </div>
               </div>
             </div>
             <div class="wrapper">
               <div class="main user-one">
+                <div class="username">
+                  gregglind
+                </div>
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
                       <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-minus-sign" title="Mute"></span></br>Mute
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-comment"></span></br>Talk
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-user"></span></br>Profile
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-plus-sign"></span></br>Buddy Up
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Talk
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Profile
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Invite
+                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div class="username">
-                    gregglind
                   </div>
                 </div>
               </div>
@@ -157,9 +154,9 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
                     <h4 class="media-heading username">{{activity.peer.name}}</h4>
-                    is currently on <a class="current-location" href="#">The New York Times</a>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
                   </div>
                 </li> <!-- /activity template -->
 
@@ -170,9 +167,9 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
                     <h4 class="media-heading username">Gregg</h4>
-                    is currently on <a class="current-location" href="#">The New York Times</a>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
                   </div>
                 </li>
                 <li class="media">
@@ -194,9 +191,9 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-share-alt pull-right" href="#" title="Push this page"></a>
+                    <a class="glyphicon glyphicon-share-alt pull-right push-page" href="#" title="Push this page to everyone" data-toggle="tooltip" data-placement="left"></a>
                     <h4 class="media-heading username">aarondruck</h4>
-                    is currently on <a class="current-location" href="#">Github.com</a>
+                    is currently on <a class="current-location" href="#" title="View on same page">Github.com</a>
                   </div>
                 </li>
                 <li class="media">
@@ -206,9 +203,9 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
                     <h4 class="media-heading username">ilana</h4>
-                    is currently on <a class="current-location" href="#">espn.com</a>
+                    is currently on <a class="current-location" href="#" title="View on same page">espn.com</a>
                   </div>
                 </li>
               </ul>
@@ -292,4 +289,17 @@
     </div>
 
   </body> <!-- END SIDEBAR -->
+
+  <script type="text/javascript" charset="utf-8">
+    //tooltips
+    $('.spectate-page').tooltip('show');
+    $('.push-page').tooltip('show');
+
+    $('.user-one').hover(function(){
+      $('.user-one .username').fadeOut();
+    }, function(){
+      $('.user-one .username').fadeIn();
+    })
+  </script>
+
 </html>
