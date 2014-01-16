@@ -16,6 +16,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/collapse.js"></script>
     <script src="js/transition.js"></script>
+    <script src="js/tooltip.js"></script>
   </head>
 
   <body class="sidepanel">  <!-- START SIDEBAR -->
@@ -28,47 +29,48 @@
           <div class="row">
             <div class="wrapper">
               <div class="main user-four">
+                <div class="username">
+                  me
+                </div>
                 <div class="overlay">
-                  <div class="row">
+                  <div class="row-fluid">
                     <div class="container text-center">
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-minus-sign"></span></br>Mute
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-camera"></span></br>Take photo
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-cog"></span></br>Settings
+                      <div class="col-xs-12">
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Take photo
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Settings
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Profile
+                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div class="username">
-                    me
                   </div>
                 </div>
               </div>
             </div>
             <div class="wrapper">
               <div class="main user-two">
+                <div class="username">
+                  ilana
+                </div>
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-minus-sign" title="Mute"></span></br>Mute
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-comment"></span></br>Talk
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-user"></span></br>Profile
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-plus-sign"></span></br>Buddy Up
+                      <div class="col-xs-12">
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Talk
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Profile
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Invite
+                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div class="username">
-                    ilana
                   </div>
                 </div>
               </div>
@@ -77,50 +79,48 @@
           <div class="row">
             <div class="wrapper">
               <div class="main user-three">
+                <div class="username">
+                  ianbicking
+                </div>
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-minus-sign" title="Mute"></span></br>Mute
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-comment"></span></br>Talk
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-user"></span></br>Profile
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-plus-sign"></span></br>Buddy Up
+                      <div class="col-xs-12">
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Talk
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Profile
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Invite
+                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div class="username">
-                    ianbicking
                   </div>
                 </div>
               </div>
             </div>
             <div class="wrapper">
               <div class="main user-one">
+                <div class="username">
+                  gregglind
+                </div>
                 <div class="overlay">
                   <div class="row">
                     <div class="container text-center">
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-minus-sign" title="Mute"></span></br>Mute
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-comment"></span></br>Talk
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-user"></span></br>Profile
-                      </div>
-                      <div class="col-xs-4">
-                        <span class="glyphicon glyphicon-plus-sign"></span></br>Buddy Up
+                      <div class="col-xs-12">
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Talk
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Profile
+                        </a>
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Invite
+                        </a>
                       </div>
                     </div>
-                  </div>
-                  <div class="username">
-                    gregglind
                   </div>
                 </div>
               </div>
@@ -134,7 +134,10 @@
             <div class="col-xs-12">
               <ul class="list-inline">
                 <li class="active">
-                  <a class="glyphicon glyphicon-th-list" href="#" title="Activity Stream"></a>
+                  <a class="glyphicon glyphicon-th-list btn-activity-stream" href="#" title="Activity Stream"></a>
+                </li>
+                <li class="">
+                  <a class="glyphicon glyphicon-comment btn-private-messages" href="#" title="Private Messages"></a>
                 </li>
                 <li class="pull-right">
                   <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback" title="Send feedback"><span class="glyphicon glyphicon-send"></span></a>
@@ -145,7 +148,7 @@
         </div>
 
         <div id="activity-stream-container">
-        <div class="activity-stream">
+        <div class="activity-stream" ng-controller="ActivityCtrl" id="activity-list"> <!-- Activity List -->
           <div class="row">
             <div class="">
               <ul class="media-list">
@@ -158,9 +161,9 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
                     <h4 class="media-heading username">{{activity.peer.name}}</h4>
-                    is currently on <a class="current-location" href="#">The New York Times</a>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
                   </div>
                 </li> <!-- /activity template -->
 
@@ -171,9 +174,9 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
                     <h4 class="media-heading username">Gregg</h4>
-                    is currently on <a class="current-location" href="#">The New York Times</a>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
                   </div>
                 </li>
                 <li class="media">
@@ -195,9 +198,9 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-share-alt pull-right" href="#" title="Push this page"></a>
+                    <a class="glyphicon glyphicon-share-alt pull-right push-page" href="#" title="Push this page to everyone" data-toggle="tooltip" data-placement="left"></a>
                     <h4 class="media-heading username">aarondruck</h4>
-                    is currently on <a class="current-location" href="#">Github.com</a>
+                    is currently on <a class="current-location" href="#" title="View on same page">Github.com</a>
                   </div>
                 </li>
                 <li class="media">
@@ -207,16 +210,80 @@
                     </div>
                   </a>
                   <div class="media-body">
-                    <a class="glyphicon glyphicon-eye-open pull-right" href="#" title="Join this page"></a>
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
                     <h4 class="media-heading username">ilana</h4>
-                    is currently on <a class="current-location" href="#">espn.com</a>
+                    is currently on <a class="current-location" href="#" title="View on same page">espn.com</a>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
         </div>
+
+        <div class="activity-stream" id="private-messages-list"> <!-- Private Messages -->
+          <div class="row">
+            <div class="">
+              <ul class="media-list">
+
+                <!-- Activity template: -->
+                <li ng-repeat="activity in activities">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" ng-src="{{activity.peer.avatar}}" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">{{activity.peer.name}}</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
+                  </div>
+                </li> <!-- /activity template -->
+
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <span class="timestamp pull-right" href="#">13 mins ago</span>
+                    <h4 class="media-heading username">Gregg</h4>
+                    "Ok that sounds good!"
+                  </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <span class="timestamp pull-right" href="#">2 mins ago</span>
+                    <h4 class="media-heading username">Ian</h4>
+                    "What is this about?"
+                  </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <span class="timestamp pull-right" href="#">5 mins ago</span>
+                    <h4 class="media-heading username">Ilana</h4>
+                    "Yeah I think I saw that page already."
+                  </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+        </div>
+
 
 
         <!-- ><ul id="peers">
@@ -296,4 +363,52 @@
     </div>
 
   </body> <!-- END SIDEBAR -->
+
+  <script type="text/javascript" charset="utf-8">
+    //tooltips
+    $('.spectate-page').tooltip('show');
+    $('.push-page').tooltip('show');
+
+    // fade out username
+    $('.user-one').hover(function(){
+      $('.user-one .username').fadeOut();
+    }, function(){
+      $('.user-one .username').fadeIn();
+    })
+    $('.user-two').hover(function(){
+      $('.user-two .username').fadeOut();
+    }, function(){
+      $('.user-two .username').fadeIn();
+    })
+    $('.user-three').hover(function(){
+      $('.user-three .username').fadeOut();
+    }, function(){
+      $('.user-three .username').fadeIn();
+    })
+    $('.user-four').hover(function(){
+      $('.user-four .username').fadeOut();
+    }, function(){
+      $('.user-four .username').fadeIn();
+    })
+
+    //tabbable activity list area
+    $("#private-messages-list").hide();
+    $('.btn-activity-stream').click(function(){
+      $("#chat-field").show();
+      $("#activity-list").show();
+      $("#private-messages-list").hide();
+      $('.middlebar li:first-child').addClass('active');
+      $('.middlebar li:nth-child(2)').removeClass('active');
+    });
+
+    $('.btn-private-messages').click(function(){
+      $("#activity-list").hide();
+      $("#chat-field").hide();
+      $("#private-messages-list").show();
+      $('.middlebar li:nth-child(2)').addClass('active');
+      $('.middlebar li:first-child').removeClass('active');
+    });
+
+  </script>
+
 </html>
