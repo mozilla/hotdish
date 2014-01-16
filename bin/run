@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -e
+
+fail () {
+    echo "$@"
+    exit 2
+}
+
+if ! which -s jsx ; then
+    echo "You must install jsx, like:"
+    echo "  npm install -g react-tools"
+    exit 2
+fi
+
+if ! which -s cfx ; then
+    fail "You must install the Addon-SDK"
+fi
+
+bin="$(dirname $BASH_SOURCE)"
+bin="$(cd $bin ; pwd)"
+base="$(dirname $bin)"
+cd $base
+
+jsx < $base/data/sidebar/jsx/components.js > $base/data/sidebar/js/components.js \
+  || fail "Error in components.js"
+
+which cfx
+cfx run --profiledir $base/Profile --static-args '{"debug": true}'
+
