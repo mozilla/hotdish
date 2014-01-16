@@ -23,7 +23,7 @@
 
     <pre id="debug"></pre>
 
-    <div id="main-content">
+    <div id="activity-view" class="main-content">
       <div id="content">
 
         <div id="users" ng-controller="UserListCtrl">
@@ -326,7 +326,7 @@
       </div>
       <div id="chat-field">
         <div class="input-group input-group">
-          <input id="chat" type="text" class="form-control" placeholder="Type here to chat">
+          <input id="chat" type="text" class="form-control" placeholder="Type here to chat to group">
           <span class="input-group-btn">
             <button class="btn btn-default" type="button">Send</button>
           </span>
@@ -334,6 +334,248 @@
       </div>
     </div><!-- /#main-content -->
 
+    <div id="participant-view" class="main-content user-one-participant-view"> <!-- /#participant-view -->
+      <div id="content">
+
+        <div class="topbar">
+          <div class="row">
+            <div class="col-xs-2">
+              <button type="button" class="btn btn-default">Back</button>
+            </div>
+            <div class="col-xs-10">
+              <div class="username">
+                Gregg
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="users" ng-controller="UserListCtrl">
+          <div class="row">
+            <div class="wrapper">
+              <div class="main user-one">
+                <div class="username">
+                  Gregg
+                </div>
+                <div class="overlay">
+                  <div class="row-fluid">
+                    <div class="container text-center">
+                      <div class="col-xs-12">
+                        <a href="" class="btn btn-default btn-sm" role="button">
+                          Take me to their position on page
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="middlebar">
+          <div class="row">
+            <div class="col-xs-12">
+              <ul class="list-inline">
+                <li class="active">
+                  <a class="glyphicon glyphicon-th-list btn-activity-stream" href="#" title="Activity Stream"></a>
+                </li>
+                <li class="">
+                  <a class="glyphicon glyphicon-comment btn-private-messages" href="#" title="Private Messages"></a>
+                </li>
+                <li class="pull-right">
+                  <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback" title="Send feedback"><span class="glyphicon glyphicon-send"></span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-stream" ng-controller="ActivityCtrl" id="activity-list"> <!-- Activity List -->
+          <div class="row">
+            <div class="">
+              <ul class="media-list">
+
+                <!-- Activity template: -->
+                <li ng-repeat="activity in activities">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" ng-src="{{activity.peer.avatar}}" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">{{activity.peer.name}}</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
+                  </div>
+                </li> <!-- /activity template -->
+
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">Gregg</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <span class="timestamp pull-right" href="#">2 mins ago</span>
+                    <h4 class="media-heading username">Ian</h4>
+                    "What is this about?"
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-share-alt pull-right push-page" href="#" title="Push this page to everyone" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">aarondruck</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">Github.com</a>
+                  </div>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">ilana</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">espn.com</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-stream" id="private-messages-list"> <!-- Private Messages -->
+          <div class="row">
+            <div class="">
+              <ul class="media-list">
+
+                <!-- Activity template: -->
+                <li ng-repeat="activity in activities">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" ng-src="{{activity.peer.avatar}}" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <a class="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+                    <h4 class="media-heading username">{{activity.peer.name}}</h4>
+                    is currently on <a class="current-location" href="#" title="View on same page">The New York Times</a>
+                  </div>
+                </li> <!-- /activity template -->
+
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <span class="timestamp pull-right" href="#">13 mins ago</span>
+                    <h4 class="media-heading username">Gregg</h4>
+                    "Ok that sounds good!"
+                  </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <span class="timestamp pull-right" href="#">2 mins ago</span>
+                    <h4 class="media-heading username">Ian</h4>
+                    "What is this about?"
+                  </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+                </li>
+                <li class="media">
+                  <a class="pull-left" href="#">
+                    <div class="sm-avatar">
+                      <img class="media-object user-avatar" src="" alt="">
+                    </div>
+                  </a>
+                  <div class="media-body">
+                    <span class="timestamp pull-right" href="#">5 mins ago</span>
+                    <h4 class="media-heading username">Ilana</h4>
+                    "Yeah I think I saw that page already."
+                  </div>
+                  <span class="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- ><ul id="peers">
+
+        </ul> -->
+
+        <div id="messages-hidden">
+          <!-- <button id="show-messages">Show messages</button> -->
+        </div>
+
+        <!------------------------------
+          Templates
+          -->
+        <div style="display: none">
+          <li id="template-message">
+            <pre></pre>
+          </li>
+
+          <li id="template-peer" class="peer"> <!-- START Person box -->
+            <header class="bgcolor"> <!-- Start Panel header -->
+              <!-- <img class='pull-left avatar' src=""></img> -->
+              <h3 class="new-name"></h3>
+              <!-- <button type="button" class="btn btn-default btn-xs pull-right btn-minimize">
+                <span class="glyphicon glyphicon-minus"></span>
+              </button> -->
+            </header> <!-- End Panel header -->
+            <div class=""> <!-- START Activity List -->
+              <!-- <h6></small>Open tabs:</small></h6> -->
+              <!-- <ul class="url-list">
+                  <span class="no-page-list text-muted">No tabs open.</span>
+              </ul> -->
+            </div> <!-- End Activity List -->
+          </li> <!-- End Person box -->
+          <li id="template-tab" class="tab">
+            <a class="normal" href="#" target="_blank"><img class="favicon" src="" style="height: 16px; width: 16px;">
+              <span class="title"></span>
+              <a href="#" data-placement="top" class="mirror link btn btn-default btn-xs pull-right" data-original-title="Start a session looking at exactly what the other person sees"><span class="glyphicon glyphicon-log-in"></span></a>
+              <a href="#" data-placement="top" class="request-current push link btn btn-default btn-xs pull-right" data-original-title="Push this current tab you're on to the other participants."><span class="glyphicon glyphicon-share-alt"> <span class="push-btn-txt"></span></span></a>
+            </a>
+          </li>
+        </div>
+      </div>
+      <div id="chat-field">
+        <div class="input-group input-group">
+          <input id="chat" type="text" class="form-control" placeholder="Type here to chat to group">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Send</button>
+          </span>
+        </div>
+      </div>
+    </div><!-- /#participant view -->
 
     <!-- Debugging; only shown in content -->
     <div id="debug-panel-container">
@@ -362,8 +604,8 @@
 
   <script type="text/javascript" charset="utf-8">
     //tooltips
-    $('.spectate-page').tooltip('show');
-    $('.push-page').tooltip('show');
+    $('.spectate-page').tooltip();
+    $('.push-page').tooltip();
 
     // fade out username
     $('.user-one').hover(function(){
@@ -404,6 +646,9 @@
       $('.middlebar li:nth-child(2)').addClass('active');
       $('.middlebar li:first-child').removeClass('active');
     });
+
+    //toggle Activity View and Participant View
+    $("#participant-view .user-one-participant-view").hide();
 
   </script>
 

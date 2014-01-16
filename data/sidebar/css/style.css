@@ -157,6 +157,23 @@ ul#peers {
   opacity: 1;
 }
 
+#participant-view .wrapper {
+    width: 100%; /*whatever width you want*/
+    display: inline-block;
+    position: relative;
+    float: left;
+}
+#participant-view .wrapper:after {
+    padding-top: 75%; /*4:3 ratio*/
+    display: block;
+    content: '';
+}
+#participant-view .main {
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: 0; /*fill parent*/
+    background-color: rgb(0, 140, 200); /*let's see it!*/
+}
+
 #users .username {
   position: absolute;
   bottom: 0px;
@@ -319,7 +336,7 @@ li.media {
 
 /* Some debug overrides: */
 
-body.debug #main-content {
+body.debug .main-content {
   max-width: 300px;
   border-right: 1px solid #777;
   height: 100%;
