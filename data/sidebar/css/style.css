@@ -255,13 +255,12 @@ ul#peers {
 }
 
 .activity-stream {
-  //position: fixed;
-  //top: 340px;
-  //bottom: 40px;
   width: 100%;
   height:auto;
-  overflow:scroll;
-  max-height:300px;
+  overflow: auto;
+  //max-height:300px;
+  padding: 0;
+  margin: 0;
 }
 
 li.media {

@@ -654,6 +654,14 @@
     //toggle Activity View and Participant View
     $("#participant-view .user-one-participant-view").hide();
 
+    //Updating the Activity Window dynamically.
+    $(function(){
+      $('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
+      $(window).resize(function(){
+          $('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
+      });
+    });
+
   </script>
 
 </html>

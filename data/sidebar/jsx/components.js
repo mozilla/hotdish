@@ -43,9 +43,9 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
     return (
       <div className="wrapper">
         <div className="main">
-          <div className="overlay">
-            <div className="row">
-              <button type="button" className="btn btn-default btn-lg">
+          <div className="row">
+            <div className="col-xs-12">
+              <button type="button" className="btn btn-default btn-sm">
                 <span className="glyphicon glyphicon-plus-sign"></span> Invite
               </button>
             </div>
@@ -140,7 +140,7 @@ var Activity = UI.Activity = React.createClass({
       <li className="media">
         <a className="pull-left" href="#">
           <div className="sm-avatar">
-            sadfsadfadf<img className="media-object user-avatar" src={this.props.avatar} alt="" />
+            <img className="media-object user-avatar" src={this.props.avatar} alt="" />
           </div>
         </a>
         <div className="media-body">
@@ -171,7 +171,7 @@ var Join = UI.Join = React.createClass({
       <Activity name={this.props.name} avatar={this.props.avatar}>
         <span className="timestamp pull-right" href="#">{this.props.time}</span>
         <h4 className="media-heading username">{this.props.name}</h4>
-        joined
+        joined the session.
       </Activity>
     );
   }
@@ -233,6 +233,8 @@ var ChatField = UI.ChatField = React.createClass({
     );
   }
 });
+
+
 
 
 
