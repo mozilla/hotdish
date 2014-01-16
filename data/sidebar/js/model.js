@@ -5,6 +5,13 @@
 var peers = {};
 var activities = [];
 
+function makeId(name) {
+  name = name || "obj";
+  makeId.counter++;
+  return name + makeId.counter;
+}
+makeId.counter = 0;
+
 function getPeer(id) {
   assert(id, "Bad id for getPeer:", id);
   if (! peers[id]) {
@@ -107,7 +114,8 @@ var Tab = Class({
       name: this.peer.name,
       avatar: this.peer.avatar,
       url: this.currentUrl,
-      title: this.currentTitle
+      title: this.currentTitle,
+      key: this.id
     });
   }
 });
@@ -115,6 +123,7 @@ var Tab = Class({
 var Page = Class({
   constructor: function (url, title) {
     // FIXME: wish we had a stable ID here
+    this.id = makeId("page");
     this.url = url;
     this.title = title;
     this.tab = null;
@@ -151,6 +160,7 @@ hub.on("close", function (msg) {
 
 var ChatMessage = Class({
   constructor: function (peer, text) {
+    this.id = makeId("chat");
     this.peer = peer;
     this.text = text;
     this.time = Date.now();
@@ -160,7 +170,8 @@ var ChatMessage = Class({
       name: this.peer.name,
       avatar: this.peer.avatar,
       time: this.time,
-      text: this.text
+      text: this.text,
+      key: this.id
     });
   }
 });
@@ -174,6 +185,7 @@ addon.port.on("chat", function (msg) {
 
 var JoinActivity = Class({
   constructor: function (peer) {
+    this.id = makeId("join");
     this.peer = peer;
     this.time = Date.now();
   },
@@ -181,13 +193,15 @@ var JoinActivity = Class({
     return UI.Join({
       name: this.peer.name,
       avatar: this.peer.avatar,
-      time: this.time
+      time: this.time,
+      key: this.id
     });
   }
 });
 
 var PushActivity = Class({
   constructor: function (peer, url, title, localTabId, reloaded) {
+    this.id = makeId("push");
     this.peer = peer;
     this.url = url;
     this.localTabId = localTabId;
@@ -208,6 +222,7 @@ addon.port.on("push", function (msg, localTabId, reloaed) {
 
 var JoinedMirror = Class({
   constructor: function (peer, localTabId) {
+    this.id = makeId("joinedMirror");
     this.peer = peer;
     this.localTabId = localTabId;
     this.time = Date.now();

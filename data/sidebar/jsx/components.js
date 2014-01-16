@@ -137,7 +137,7 @@ var UserGrid = UI.UserGrid = React.createClass({
 var Activity = UI.Activity = React.createClass({
   render: function () {
     return (
-      <li className="media">
+      <li className="media" key={this.props.key}>
         <a className="pull-left" href="#">
           <div className="sm-avatar">
             <img className="media-object user-avatar" src={this.props.avatar} alt="" />
@@ -155,7 +155,7 @@ var Activity = UI.Activity = React.createClass({
 var PageVisit = UI.PageVisit = React.createClass({
   render: function () {
     return (
-      <Activity name={this.props.name} avatar={this.props.avatar}>
+      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
         <a className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
         <h4 className="media-heading username">{this.props.name}</h4>
         is currently on <a className="current-location" href={this.props.url}>{this.props.title}</a>
@@ -168,7 +168,7 @@ var PageVisit = UI.PageVisit = React.createClass({
 var Join = UI.Join = React.createClass({
   render: function () {
     return (
-      <Activity name={this.props.name} avatar={this.props.avatar}>
+      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
         <span className="timestamp pull-right" href="#">{this.props.time}</span>
         <h4 className="media-heading username">{this.props.name}</h4>
         joined the session.
@@ -181,7 +181,7 @@ var Join = UI.Join = React.createClass({
 var Chat = UI.Chat = React.createClass({
   render: function () {
     return (
-      <Activity name={this.props.name} avatar={this.props.avatar}>
+      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
         <span className="timestamp pull-right" href="#">{this.props.time}</span>
         <h4 className="media-heading username">{this.props.name}</h4>
         {this.props.text}
