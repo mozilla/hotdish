@@ -5,6 +5,8 @@
 
 var UI = window.UI = {};
 
+UI.events = mixinEvents({});
+
 var DynamicMixin = {
   /* This function will be called with a DOM node that has just been
      created, and you can enable any Bootstrap (or other) widgety things
@@ -163,12 +165,20 @@ var Activity = UI.Activity = React.createClass({
 
 /* This is a page visit activity */
 var PageVisit = UI.PageVisit = React.createClass({
+  clickSpectate: function () {
+    UI.events.emit("spectate", this.props.page);
+    return false;
+  },
   render: function () {
+    var joinLink = null;
+    if (! this.props.page.tab.peer.isSelf) {
+      joinLink = <a className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left" onClick={this.clickSpectate}></a>;
+    }
     return (
-      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
-        <a className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left"></a>
+      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
+        {joinLink}
         <h4 className="media-heading username">{this.props.name}</h4>
-        is currently on <a className="current-location" href={this.props.url}>{this.props.title}</a>
+        is currently on <a target="_blank" className="current-location" href={this.props.page.url}>{this.props.page.title}</a>
       </Activity>
     );
   }

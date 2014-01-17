@@ -98,6 +98,15 @@ var Tab = Class({
     this.currentUrl = null;
     this.time = Date.now();
   },
+  current: function () {
+    if (this.history.length) {
+      return this.history[this.history.length-1];
+    } else {
+      var blank = Page("about:blank", "");
+      blank.tab = this;
+      return blank;
+    }
+  },
   addPage: function (page) {
     if (this.history.length && page.url == this.history[this.history.length-1].url) {
       // A re-add of an existing page
@@ -113,9 +122,7 @@ var Tab = Class({
     return UI.PageVisit({
       name: this.peer.name,
       avatar: this.peer.avatar,
-      url: this.currentUrl,
-      title: this.currentTitle,
-      key: this.id
+      page: this.current()
     });
   }
 });
@@ -239,6 +246,20 @@ addon.port.on("joinedMirror", function (msg, localTabId) {
   renderActivity();
 });
 
+/************************************************************
+ * UI event handling
+ ************************************************************/
+
+UI.events.on("spectate", function (page) {
+  addon.port.emit("joinMirror", page.tab.id);
+});
+
+
+
+/************************************************************
+ * Rendering
+ ************************************************************/
+
 var userGrid;
 
 function renderUsers() {
@@ -269,7 +290,7 @@ function renderActivity() {
   allPeers().forEach(function (p) {
     sorted = sorted.concat(p.allTabs());
   });
-  sorted.sort(function (a, b) {return a > b;});
+  sorted.sort(function (a, b) {return a.time < b.time;});
   var children = sorted.map(function (i) {return i.activityComponent();});
   activityList.setState({activities: children});
 }
