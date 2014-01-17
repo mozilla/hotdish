@@ -123,10 +123,19 @@ run () {
     }"
 }
 
+break="$(python -c 'import os; print "*"*int(os.environ.get("COLUMNS", 80))')"
+
 if [[ -z "$forever" ]] ; then
     run
 else
     while true ; do
         run || exit
+        echo
+        echo
+        echo
+        echo -e "\033[46;34m${break}\033[0m"
+        echo
+        echo
+        echo
     done
 fi
