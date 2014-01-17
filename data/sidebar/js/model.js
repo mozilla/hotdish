@@ -249,6 +249,9 @@ function renderUsers() {
   }
   var users = [UI.SelfAvatar({avatar: selfIdentity.avatar})];
   allPeers().forEach(function (p) {
+    if (p.isSelf) {
+      return;
+    }
     users.push(UI.PeerAvatar({avatar: p.avatar, name: p.name}));
   });
   userGrid.setState({users: users});
@@ -266,7 +269,7 @@ function renderActivity() {
   allPeers().forEach(function (p) {
     sorted = sorted.concat(p.allTabs());
   });
-  sorted.sort(function (a, b) {return b - a;});
+  sorted.sort(function (a, b) {return a > b;});
   var children = sorted.map(function (i) {return i.activityComponent();});
   activityList.setState({activities: children});
 }
@@ -277,6 +280,9 @@ function renderChatField() {
   if (! chatField) {
     chatField = UI.ChatField({
       onChatSubmit: function (text) {
+        addon.port.emit("chat", text);
+        activities.push(ChatMessage(getPeer(clientId), text));
+        renderActivity();
       }
     });
     $("#chat-field-container").empty();

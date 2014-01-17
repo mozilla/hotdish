@@ -223,10 +223,10 @@ var ChatField = UI.ChatField = React.createClass({
   render: function () {
     return (
       <div id="chat-field">
-        <form className="input-group input-group">
+        <form className="input-group input-group" onSubmit={this.handleSubmit}>
           <input id="chat" type="text" className="form-control" ref="text" placeholder="Type here to chat to the group" />
           <span className="input-group-btn">
-            <button className="btn btn-default" type="button">Send</button>
+            <button className="btn btn-default" type="submit">Send</button>
           </span>
         </form>
       </div>
