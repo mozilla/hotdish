@@ -5,6 +5,15 @@
 
 var UI = window.UI = {};
 
+var DynamicMixin = {
+  /* This function will be called with a DOM node that has just been
+     created, and you can enable any Bootstrap (or other) widgety things
+     through this. */
+  componentDidMount: function (rootNode) {
+    $("*[data-toggle=tooltip]", rootNode).tooltip();
+  }
+};
+
 /* This is the avatar of yourself in the header */
 var SelfAvatar = UI.SelfAvatar = React.createClass({
   render: function () {
@@ -153,6 +162,7 @@ var Activity = UI.Activity = React.createClass({
 
 /* This is a page visit activity */
 var PageVisit = UI.PageVisit = React.createClass({
+  mixins: [DynamicMixin],
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
