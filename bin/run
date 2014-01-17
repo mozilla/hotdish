@@ -11,6 +11,7 @@ help=
 help_message=
 profile=first
 urls=
+forever=
 
 while [[ -n "$1" ]] ; do
     case "$1" in
@@ -26,6 +27,9 @@ while [[ -n "$1" ]] ; do
             fi
             urls="$urls\"$2\""
             shift
+            ;;
+        -f | --forever)
+            forever=1
             ;;
         *)
             help=1
@@ -45,6 +49,9 @@ if [[ -n "$help" ]] ; then
     echo "      Use a second test profile (for running two instances of the browser)"
     echo "  -u URL | --url URL"
     echo "      Open the given URL on startup"
+    echo "  -f | --forever"
+    echo "      Restart the browser when it is terminated (normally)"
+    echo "      ^C in the terminal to stop."
     if [[ -n "$help_message" ]] ; then
         exit
     else
@@ -105,11 +112,21 @@ if [[ $comp_src -nt $comp_dest ]] ; then
         || fail "Error in components.js"
 fi
 
-cfx run $profiledir --static-args "{
-    \"debug\": true,
-    \"prefs\": {
-      $extra_ops
-      \"general.warnOnAboutConfig\": false
-    },
-    \"bgTabs\": [$urls]
-  }"
+run () {
+    cfx run $profiledir --static-args "{
+      \"debug\": true,
+      \"prefs\": {
+        $extra_ops
+        \"general.warnOnAboutConfig\": false
+      },
+      \"bgTabs\": [$urls]
+    }"
+}
+
+if [[ -z "$forever" ]] ; then
+    run
+else
+    while true ; do
+        run || exit
+    done
+fi
