@@ -117,6 +117,7 @@ var PeerAvatar = UI.PeerAvatar = React.createClass({
 
 
 var UserGrid = UI.UserGrid = React.createClass({
+  mixins: [DynamicMixin],
   getInitialState: function () {
     return {};
   },
@@ -162,7 +163,6 @@ var Activity = UI.Activity = React.createClass({
 
 /* This is a page visit activity */
 var PageVisit = UI.PageVisit = React.createClass({
-  mixins: [DynamicMixin],
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
@@ -201,6 +201,7 @@ var Chat = UI.Chat = React.createClass({
 });
 
 var ActivityList = UI.ActivityList = React.createClass({
+  mixins: [DynamicMixin],
   getInitialState: function () {
     return {};
   },
