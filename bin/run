@@ -12,6 +12,7 @@ help_message=
 profile=first
 urls=
 forever=
+make_only=
 
 while [[ -n "$1" ]] ; do
     case "$1" in
@@ -30,6 +31,9 @@ while [[ -n "$1" ]] ; do
             ;;
         -f | --forever)
             forever=1
+            ;;
+        --make)
+            make_only=1
             ;;
         *)
             help=1
@@ -52,6 +56,8 @@ if [[ -n "$help" ]] ; then
     echo "  -f | --forever"
     echo "      Restart the browser when it is terminated (normally)"
     echo "      ^C in the terminal to stop."
+    echo "  --make"
+    echo "      Make components.js, don't run cfx run"
     if [[ -n "$help_message" ]] ; then
         exit
     else
@@ -61,13 +67,16 @@ fi
 
 profiledir=
 extra_ops=
+terminal_title=
 case "$profile" in
     first)
         profiledir="--profiledir Profile"
+        terminal_title="hotdish fx"
         ;;
     second)
         profiledir="--profiledir Profile2"
         extra_ops="\"+username\": \"Second $USER\","
+        terminal_title="hotdish fx2"
         ;;
     *)
         fail "Unknown profile setup: $profile"
@@ -76,6 +85,7 @@ esac
 
 fail () {
     echo "$@"
+    title
     exit 2
 }
 
@@ -97,22 +107,29 @@ tjs_urls="
 "
 
 for tjs_url in $tjs_urls ; do
-    echo "test $tjs_url"
     if curl $tjs_url > /dev/null 2>&1 ; then
         echo "Using TogetherJS location $tjs_url"
-        extra_ops="\"+togetherJsLocation\": \"$tjs_url\","
+        extra_ops="\"+togetherJsLocation\": \"$tjs_url\",$extra_ops"
         break
     fi
 done
 
-comp_src="$base/data/sidebar/jsx/components.js"
-comp_dest="$base/data/sidebar/js/components.js"
-if [[ $comp_src -nt $comp_dest ]] ; then
-    jsx < $comp_src > $comp_dest \
-        || fail "Error in components.js"
-fi
+title () {
+    echo -e "\033]0;$*\007"
+}
+
+make_jsx () {
+    comp_src="$base/data/sidebar/jsx/components.js"
+    comp_dest="$base/data/sidebar/js/components.js"
+    if [[ $comp_src -nt $comp_dest ]] ; then
+        jsx < $comp_src > $comp_dest \
+            || fail "Error in components.js"
+    fi
+}
 
 run () {
+    title $terminal_title
+    make_jsx
     cfx run $profiledir --static-args "{
       \"debug\": true,
       \"prefs\": {
@@ -120,16 +137,19 @@ run () {
         \"general.warnOnAboutConfig\": false
       },
       \"bgTabs\": [$urls]
-    }"
+    }" || fail
+    title
 }
 
 break="$(python -c 'import os; print "*"*int(os.environ.get("COLUMNS", 80))')"
 
-if [[ -z "$forever" ]] ; then
+if [[ -n "$make_only" ]] ; then
+    make_jsx
+elif [[ -z "$forever" ]] ; then
     run
 else
     while true ; do
-        run || exit
+        run || fail
         echo
         echo
         echo
