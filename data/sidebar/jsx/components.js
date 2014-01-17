@@ -44,7 +44,7 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
       <div className="wrapper">
         <div className="main">
           <div className="row">
-            <div className="col-xs-12">
+            <div className="col-xs-12 text-center inviteNewperson">
               <button type="button" className="btn btn-default btn-sm">
                 <span className="glyphicon glyphicon-plus-sign"></span> Invite
               </button>
