@@ -236,6 +236,66 @@ var ChatField = UI.ChatField = React.createClass({
 
 
 
+// Private Messages list
+var PrivateMsgsList = UI.PrivateMsgsList = React.createClass({
+  getInitialState: function () {
+    return {};
+  },
+  render: function () {
+    var privatemsgs = this.state.privatemsgs || [];
+    return (
+      <div className="activity-stream" id="private-messages-list">
+        <div className="row">
+          <div className="">
+            <ul className="media-list">
+              <li className="media">
+                <a className="pull-left" href="#">
+                  <div className="sm-avatar">
+                    <img className="media-object user-avatar" src="" alt="" />
+                  </div>
+                </a>
+                <div className="media-body">
+                  <span className="timestamp pull-right" href="#">13 mins ago</span>
+                  <h4 className="media-heading username">Gregg</h4>
+                  "Ok that sounds good!"
+                </div>
+                <span className="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+              </li>
+              <li className="media">
+                <a className="pull-left" href="#">
+                  <div className="sm-avatar">
+                    <img className="media-object user-avatar" src="" alt="" />
+                  </div>
+                </a>
+                <div className="media-body">
+                  <span className="timestamp pull-right" href="#">2 mins ago</span>
+                  <h4 className="media-heading username">Ian</h4>
+                  "What is this about?"
+                </div>
+                <span className="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+              </li>
+              <li className="media">
+                <a className="pull-left" href="#">
+                  <div className="sm-avatar">
+                    <img className="media-object user-avatar" src="" alt="" />
+                  </div>
+                </a>
+                <div className="media-body">
+                  <span className="timestamp pull-right" href="#">5 mins ago</span>
+                  <h4 className="media-heading username">Ilana</h4>
+                  "Yeah I think I saw that page already."
+                </div>
+                <span className="glyphicon glyphicon-chevron-right pull-right chevron-icon"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+
 
 
 })();
