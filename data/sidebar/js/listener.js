@@ -54,4 +54,7 @@ var logMessage;
 $(function () {
   logMessage = Logger("#messages");
   logMessage("Opened connection to " + hubUrl);
+  $("#clear").click(function () {
+    $("#messages").empty();
+  });
 });
