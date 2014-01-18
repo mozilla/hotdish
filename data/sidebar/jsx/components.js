@@ -197,6 +197,19 @@ var Join = UI.Join = React.createClass({
   }
 });
 
+/* When a person joins a page in presentation mode */
+var JoinedMirror = UI.JoinedMirror = React.createClass({
+  render: function () {
+    return (
+      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
+        <span className="timestamp pull-right" href="#">{this.props.time}</span>
+        <h4 className="media-heading username">{this.props.name}</h4>
+        joined you at <span>{this.props.tab.current().url}</span>
+      </Activity>
+    );
+  }
+});
+
 /* When there is a chat */
 var Chat = UI.Chat = React.createClass({
   render: function () {

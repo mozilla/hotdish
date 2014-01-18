@@ -235,7 +235,13 @@ var JoinedMirror = Class({
     this.time = Date.now();
   },
   activityComponent: function () {
-    throw new Error("Not implemented");
+    return UI.JoinedMirror({
+      name: this.peer.name,
+      avatar: this.peer.avatar,
+      time: this.time,
+      tab: this.peer.getTab(this.localTabId),
+      key: this.id
+    });
   }
 });
 
