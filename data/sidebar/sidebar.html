@@ -20,6 +20,11 @@
     <script src="js/vendor/moment-with-langs.min.js"></script>
     <script>
     moment.lang("en");  // configure moment
+    setInterval(function () { // age them, every 10 sec.
+      $(".time").each(function (el) {
+        el.textContent = moment(el.getAttribute("data-time")).fromNow().max();
+      });
+    }, 10000);
     </script>
   </head>
 
