@@ -13,14 +13,12 @@ if (match && location.href.search(/^resource:.*blank\.html/) != -1) {
 }
 
 self.port.on("init", function (data) {
-  //console.log("got init");
   clientId = data.clientId;
   selfIdentity = data.selfIdentity;
   groupId = data.groupId;
   tabId = data.tabId;
   viewerScript = data.viewerScript;
   togetherJsLocation = data.togetherJsLocation;
-  //console.log("init", data);
   try {
     var event = document.createEvent('CustomEvent');
   } catch (e) {
@@ -36,7 +34,6 @@ self.port.on("init", function (data) {
     selfIdentity: selfIdentity
   });
   document.documentElement.dispatchEvent(event);
-  //console.log("sent message", event.detail);
 });
 
 self.port.on("share", function (tabid) {
@@ -44,7 +41,6 @@ self.port.on("share", function (tabid) {
 });
 
 function activateTogetherJS(tabid, overrides) {
-  console.log("activating TJS", tabid, tabId, shareTabId, overrides);
   var doc = unsafeWindow.document;
   var options = {
     findRoom: "hotdishshare_" + groupId + "_" + tabid,
@@ -138,6 +134,8 @@ function TRY(f, context) {
   }
 }
 
+// Sometimes the errors are being swallowed, and this writes them to
+// the console even in those cases.
 function WRAP(f) {
   return function () {
     var self = this;
