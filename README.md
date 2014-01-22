@@ -1,11 +1,11 @@
 Hotdish
 =======
 
-An exploration social tab and general browser experience sharing.
+This is an exploration social tab and general browser experience sharing.
 
-We want to see how we can share our browser activity, and as we continue development we'll be using that shared space as a launching point for other collaborative interactions.
+The first exploration and prototype is being implemented as an add-on. This adds a sidebar to shared Firefox windows, which gives users a context to see each other's activity, and gives a launching point for more intimate sharing experiences.
 
-If you use Hotdish, please [tell us what you think](hotdish@mozilla.com).
+If you use Hotdish, or are just curious about what we're doing or thinking about, please [tell us what you think](hotdish@mozilla.com).
 
 This is developed as a Firefox addon.  We make no claims about future development, we're just trying things out.
 
@@ -36,7 +36,7 @@ You'll probably find lots of bugs, this is pretty alpha, but [feel free to open 
 Developing
 ----------
 
-This is developed as a Firefox addon, requiring Firefox 26 or later, and uses the [Addon-SDK](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/).  You should install the [SDK from Github master](https://github.com/mozilla/addon-sdk).
+This is developed as a Firefox addon, requiring Firefox 26 or later, and uses the [Addon-SDK](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/). You should install the [SDK from Github master](https://github.com/mozilla/addon-sdk).
 
 You probably should use `--profiledir Profile` to keep a fixed profile as you develop Hotdish, this allows you to maintain your user settings, and if you turn on the pref for restoring tabs then you can continue your session.  Hotdish is all about dogfooding, and we encourage anyone developing it to eat its dogfood from the very beginning.
 
@@ -51,4 +51,3 @@ When using `cfx` you can use the `--staticargs` command-line option, which takes
 `bgTabs: [urls]` gives URLs to open in the background (to book up with some context)
 
 `focusTab: index` focuses a particular tab (0-indexed) on startup
-
