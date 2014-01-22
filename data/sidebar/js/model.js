@@ -279,7 +279,7 @@ function renderUsers() {
     if (p.isSelf) {
       return;
     }
-    users.push(UI.PeerAvatar({avatar: p.avatar, name: p.name}));
+    users.push(UI.PeerAvatar({avatar: p.avatar, name: p.name, key: "peer"+p.id}));
   });
   userGrid.setState({users: users});
 }

@@ -14,7 +14,7 @@ var AvatarBlankWrapper = React.createClass({
       style.background = "url(" + this.props.backgroundImage + ")";
     }
     return (
-      <div className="wrapper">
+      <div className="wrapper" key={this.props.key}>
         <div className="main" style={ style }>
           {this.props.children}
         </div>
@@ -26,7 +26,7 @@ var AvatarBlankWrapper = React.createClass({
 var AvatarWrapper = React.createClass({
   render: function () {
     return (
-      <AvatarBlankWrapper backgroundImage={this.props.avatar}>
+      <AvatarBlankWrapper backgroundImage={this.props.avatar} key={this.props.key}>
         <div className="username">
           {this.props.username}
         </div>
@@ -65,7 +65,7 @@ var SelfAvatar = UI.SelfAvatar = React.createClass({
 var InviteAvatar = UI.InviteAvatar = React.createClass({
   render: function () {
     return (
-      <AvatarBlankWrapper>
+      <AvatarBlankWrapper key={this.props.key}>
         <div className="row">
           <div className="col-xs-12 text-center inviteNewperson">
             <button type="button" className="btn btn-default btn-sm">
@@ -82,7 +82,7 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
 var BlankAvatar = UI.BlankAvatar = React.createClass({
   render: function () {
     return (
-      <AvatarBlankWrapper>
+      <AvatarBlankWrapper key={this.props.key}>
         <div className="overlay">
           <div className="row">
           </div>
@@ -97,30 +97,20 @@ var BlankAvatar = UI.BlankAvatar = React.createClass({
 var PeerAvatar = UI.PeerAvatar = React.createClass({
   render: function () {
     return (
-      <div className="wrapper">
-        <div className="main" style={ {background: "url(" + this.props.avatar + "}"} }>
-          <div className="username">
-            {this.props.name}
-          </div>
-          <div className="overlay">
-            <div className="row">
-              <div className="container text-center">
-                <div className="col-xs-12">
-                  <a href="" className="btn btn-default btn-sm" role="button">
-                    Talk
-                  </a>
-                  <a href="" className="btn btn-default btn-sm" role="button">
-                    Profile
-                  </a>
-                  <a href="" className="btn btn-default btn-sm" role="button">
-                    Invite
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+      <AvatarWrapper avatar={this.props.avatar} key={this.props.key}
+                     username={this.props.name}>
+        <div className="col-xs-12">
+          <a href="" className="btn btn-default btn-sm" role="button">
+            Talk
+          </a>
+          <a href="" className="btn btn-default btn-sm" role="button">
+            Profile
+          </a>
+          <a href="" className="btn btn-default btn-sm" role="button">
+            Invite
+          </a>
         </div>
-      </div>
+      </AvatarWrapper>
     );
   }
 });
@@ -134,10 +124,12 @@ var UserGrid = UI.UserGrid = React.createClass({
   render: function () {
     var children = this.state.users || [];
     if (children.length < 4) {
-      children.push(<InviteAvatar />);
+      children.push(<InviteAvatar key="invite" />);
     }
+    var blankId = 0;
     while (children.length < 4) {
-      children.push(<BlankAvatar />);
+      blankId++;
+      children.push(<BlankAvatar key={ 'blank' + blankId }/>);
     }
     return (
       <div id="users">
