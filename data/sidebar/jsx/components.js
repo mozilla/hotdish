@@ -7,43 +7,56 @@ var UI = window.UI = {};
 
 UI.events = mixinEvents({});
 
-var DynamicMixin = {
-  /* This function will be called with a DOM node that has just been
-     created, and you can enable any Bootstrap (or other) widgety things
-     through this. */
-  componentDidMount: function (rootNode) {
-    $("*[data-toggle=tooltip]", rootNode).tooltip();
+var AvatarBlankWrapper = React.createClass({
+  render: function () {
+    var style = {};
+    if (this.props.backgroundImage) {
+      style.background = "url(" + this.props.backgroundImage + ")";
+    }
+    return (
+      <div className="wrapper">
+        <div className="main" style={ style }>
+          {this.props.children}
+        </div>
+      </div>
+    );
   }
-};
+});
+
+var AvatarWrapper = React.createClass({
+  render: function () {
+    return (
+      <AvatarBlankWrapper backgroundImage={this.props.avatar}>
+        <div className="username">
+          {this.props.username}
+        </div>
+        <div className="overlay">
+          <div className="row">
+            <div className="container text-center">
+              {this.props.children}
+            </div>
+          </div>
+        </div>
+      </AvatarBlankWrapper>
+    );
+  }
+});
 
 /* This is the avatar of yourself in the header */
 var SelfAvatar = UI.SelfAvatar = React.createClass({
   render: function () {
     return (
-      <div className="wrapper">
-        <div className="main" style={ {background: "url(" + this.props.avatar + ")"} }>
-          <div className="username">
-            me
-          </div>
-          <div className="overlay">
-            <div className="row">
-              <div className="container text-center">
-                <div className="col-xs-12">
-                  <a href="#" className="btn btn-default btn-sm" role="button">
-                    Take photo
-                  </a>
-                  <a href="#" className="btn btn-default btn-sm" role="button">
-                    Settings
-                  </a>
-                  <a href="#" className="btn btn-default btn-sm" role="button">
-                    Profile
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AvatarWrapper avatar={this.props.avatar} username="me">
+        <a href="#" className="btn btn-default btn-sm" role="button">
+          Take photo
+        </a>
+        <a href="#" className="btn btn-default btn-sm" role="button">
+          Settings
+        </a>
+        <a href="#" className="btn btn-default btn-sm" role="button">
+          Profile
+        </a>
+      </AvatarWrapper>
     );
   }
 });
@@ -52,17 +65,15 @@ var SelfAvatar = UI.SelfAvatar = React.createClass({
 var InviteAvatar = UI.InviteAvatar = React.createClass({
   render: function () {
     return (
-      <div className="wrapper">
-        <div className="main">
-          <div className="row">
-            <div className="col-xs-12 text-center inviteNewperson">
-              <button type="button" className="btn btn-default btn-sm">
-                <span className="glyphicon glyphicon-plus-sign"></span> Invite
-              </button>
-            </div>
+      <AvatarBlankWrapper>
+        <div className="row">
+          <div className="col-xs-12 text-center inviteNewperson">
+            <button type="button" className="btn btn-default btn-sm">
+              <span className="glyphicon glyphicon-plus-sign"></span> Invite
+            </button>
           </div>
         </div>
-      </div>
+      </AvatarBlankWrapper>
     );
   }
 });
@@ -71,14 +82,12 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
 var BlankAvatar = UI.BlankAvatar = React.createClass({
   render: function () {
     return (
-      <div className="wrapper">
-        <div className="main">
-          <div className="overlay">
-            <div className="row">
-            </div>
+      <AvatarBlankWrapper>
+        <div className="overlay">
+          <div className="row">
           </div>
         </div>
-      </div>
+      </AvatarBlankWrapper>
     );
   }
 });
@@ -119,7 +128,6 @@ var PeerAvatar = UI.PeerAvatar = React.createClass({
 
 
 var UserGrid = UI.UserGrid = React.createClass({
-  mixins: [DynamicMixin],
   getInitialState: function () {
     return {};
   },
@@ -146,7 +154,7 @@ var UserGrid = UI.UserGrid = React.createClass({
   }
 });
 
-var Activity = UI.Activity = React.createClass({
+var Activity = React.createClass({
   render: function () {
     return (
       <li className="media" key={this.props.key}>
@@ -163,6 +171,18 @@ var Activity = UI.Activity = React.createClass({
   }
 });
 
+var ID=0;
+
+var Tooltip = React.createClass({
+  componentDidMount: function() {
+    // When the component is added, turn it into a modal
+    $(this.getDOMNode()).tooltip();
+  },
+  render: function () {
+    return this.props.children;
+  }
+});
+
 /* This is a page visit activity */
 var PageVisit = UI.PageVisit = React.createClass({
   clickSpectate: function () {
@@ -172,7 +192,7 @@ var PageVisit = UI.PageVisit = React.createClass({
   render: function () {
     var joinLink = null;
     if (! this.props.page.tab.peer.isSelf) {
-      joinLink = <a className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left" onClick={this.clickSpectate}></a>;
+      joinLink = <Tooltip><a data-myid={this._myid} className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left" onClick={this.clickSpectate}></a></Tooltip>;
     }
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
@@ -224,7 +244,6 @@ var Chat = UI.Chat = React.createClass({
 });
 
 var ActivityList = UI.ActivityList = React.createClass({
-  mixins: [DynamicMixin],
   getInitialState: function () {
     return {};
   },
