@@ -369,7 +369,7 @@ Freeze.diffDocuments = function (orig, current, commands) {
     commands = [];
   }
   if (! current.jsmirrorId) {
-    console.warn("Got diffDocuments element without an id", current);
+    console.warn("Got diffDocuments element without an id", JSON.stringify(current).substr(0, 40));
     current.jsmirrorId = Freeze.makeId();
     Freeze.elementTracker.elements[current.jsmirrorId] = current;
   }
