@@ -22,6 +22,15 @@
 
   <body class="sidepanel">  <!-- START SIDEBAR panel -->
 
+
+    <div id="ftu-panel"> <!-- First Time User panel -->
+
+    </div>
+
+    <div id="invite-panel"> <!-- Invite panel -->
+
+    </div>
+
     <div id="activity-view" class="main-content"> <!-- Main Content panel -->
       <div id="content">
         <div id="user-container"></div> <!-- user grid -->
@@ -34,6 +43,9 @@
                 </li>
                 <li class="">
                   <a class="glyphicon glyphicon-comment btn-private-messages" href="#" title="Private Messages"></a>
+                </li>
+                <li class="">
+                  <a class="glyphicon glyphicon-plus btn-invite-ppl" href="#" title="Invite"></a>
                 </li>
                 <li class="pull-right">
                   <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback" title="Send feedback"><span class="glyphicon glyphicon-send"></span></a>
@@ -50,6 +62,7 @@
   </body> <!-- END SIDEBAR -->
 
   <script type="text/javascript" charset="utf-8">
+
     //tooltips
     $('.spectate-page').tooltip();
     $('.push-page').tooltip();
@@ -88,11 +101,11 @@
 
     $('.btn-private-messages').click(function(){
       //alert("test");
-      $("#activity-stream-container").hide();
-      $("#chat-field").hide();
-      $("#private-messages-list").show();
-      $('.middlebar li:nth-child(2)').addClass('active');
-      $('.middlebar li:first-child').removeClass('active');
+      //$("#activity-stream-container").hide();
+      //$("#chat-field").hide();
+      //$("#private-messages-list").show();
+      //$('.middlebar li:nth-child(2)').addClass('active');
+      //$('.middlebar li:first-child').removeClass('active');
     });
 
     //toggle Activity View and Participant View
@@ -117,6 +130,13 @@
         }, 500);
         //$(".all-users-here-notification").fadeIn(100).fadeOut(2000);
         addon.port.emit("notifyEveryoneHere");
+      });
+    });
+
+    // show hide invitation panel
+    $(function(){
+      $(".btn-invite-ppl").click(function(){
+        //alert();
       });
     });
 

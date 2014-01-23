@@ -87,13 +87,23 @@ var SelfAvatar = UI.SelfAvatar = React.createClass({
 });
 
 /* This is the big invite button */
+UI.events.on("invite", function () {
+  $("#activity-view").hide();
+  /* And then a blank space */
+
+});
+
 var InviteAvatar = UI.InviteAvatar = React.createClass({
+  clickInvite: function () {
+    UI.events.emit("invite");
+    return false;
+  },
   render: function () {
     return (
       <AvatarBlankWrapper key={this.props.key}>
         <div className="row">
           <div className="col-xs-12 text-center inviteNewperson">
-            <button type="button" className="btn btn-default btn-sm">
+            <button type="button" className="btn btn-default btn-sm btn-invite-sm" onClick={this.clickInvite}>
               <span className="glyphicon glyphicon-plus-sign"></span> Invite
             </button>
           </div>
@@ -301,8 +311,6 @@ var ChatField = UI.ChatField = React.createClass({
     );
   }
 });
-
-
 
 // Private Messages list
 var PrivateMsgsList = UI.PrivateMsgsList = React.createClass({
