@@ -1,0 +1,1 @@
+../../lib/foreground-window.js

@@ -7,6 +7,18 @@ var UI = window.UI = {};
 
 UI.events = mixinEvents({});
 
+var Timestamp = React.createClass({
+  render: function () {
+    <span className="time" data-time={this.props.date}>{this.props.time}</span>
+  },
+  componentWillMount: function (rootNode) {
+    this.renderTime();
+  },
+  renderTime: function () {
+    this.getDOMNode().textContent = moment(this.props.time).fromNow().max();
+  }
+});
+
 var AvatarBlankWrapper = React.createClass({
   render: function () {
     var style = {};
@@ -198,7 +210,7 @@ var Join = UI.Join = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
-        <span className="timestamp pull-right" href="#">{this.props.time}</span>
+        <span className="timestamp pull-right" href="#"><Timestamp time={this.props.time}></span>
         <h4 className="media-heading username">{this.props.name}</h4>
         joined the session.
       </Activity>
@@ -211,7 +223,7 @@ var JoinedMirror = UI.JoinedMirror = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
-        <span className="timestamp pull-right" href="#">{this.props.time}</span>
+        <span className="timestamp pull-right" href="#"><Timestamp time={this.props.time}></span>
         <h4 className="media-heading username">{this.props.name}</h4>
         joined you at <span>{this.props.tab.current().url}</span>
       </Activity>
@@ -224,7 +236,7 @@ var Chat = UI.Chat = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
-        <span className="timestamp pull-right" href="#">{this.props.time}</span>
+        <span className="timestamp pull-right" href="#"><Timestamp time={this.props.time}></span>
         <h4 className="media-heading username">{this.props.name}</h4>
         {this.props.text}
       </Activity>
