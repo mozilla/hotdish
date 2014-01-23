@@ -4,13 +4,17 @@ var groupId;
 var togetherJsLocation;
 var tabId;
 var viewerScript;
-//console.log("Started worker", location.href);
+var togetherJsCss;
+var state = "normal";
 
 var shareTabId;
 var match = /tabId=([^&]*)/.exec(location.search);
 if (match && location.href.search(/^resource:.*blank\.html/) != -1) {
   shareTabId = match[1];
 }
+
+// We don't want to inherit anything from the TogetherJS session
+unsafeWindow.sessionStorage.removeItem("togetherjs-session.status");
 
 self.port.on("init", function (data) {
   clientId = data.clientId;
@@ -19,6 +23,7 @@ self.port.on("init", function (data) {
   tabId = data.tabId;
   viewerScript = data.viewerScript;
   togetherJsLocation = data.togetherJsLocation;
+  togetherJsCss = data.togetherJsCss;
   try {
     var event = document.createEvent('CustomEvent');
   } catch (e) {
@@ -34,16 +39,53 @@ self.port.on("init", function (data) {
     selfIdentity: selfIdentity
   });
   document.documentElement.dispatchEvent(event);
+  setState(data.state);
 });
 
-self.port.on("share", function (tabid) {
-  activateTogetherJS(tabid, {});
-});
+function setState(newState) {
+  if (newState == "viewing") {
+    if (state != "normal") {
+      console.warn("Should only ever go from 'normal' to 'viewing'");
+    }
+    // Nothing to do, just wait for the mirror-doc messages
+  } else if (newState == "normal") {
+    // Turn off TogetherJS if necessary
+    if (state == "viewing") {
+      throw new Error("Can't go from 'viewing' to 'normal'");
+    } else if (state == "presenting") {
+      disablePresenting();
+    } else if (state == "live") {
+      disableLive();
+    }
+  } else if (newState == "live") {
+    // Turn on TogetherJS for Live
+    if (state == "viewing") {
+      throw new Error("Can't go from 'viewing' to 'live'");
+    } else if (state == "presenting") {
+      disablePresenting();
+      activateLive();
+    } else if (state == "normal") {
+      activateLive();
+    }
+  } else if (newState == "presenting") {
+    if (state == "viewing") {
+      throw new Error("Can't go from 'viewing' to 'presenting'");
+    } else if (state == "live") {
+      disableLive();
+    }
+    activatePresenting();
+  } else {
+    throw new Error("Unknown state: " + newState);
+  }
+  state = newState;
+}
 
-function activateTogetherJS(tabid, overrides) {
+self.port.on("setState", setState);
+
+function activateTogetherJS(roomName, overrides) {
   var doc = unsafeWindow.document;
   var options = {
-    findRoom: "hotdishshare_" + groupId + "_" + tabid,
+    findRoom: "hotdishshare_" + roomName,
     autoStart: true,
     getUserName: function () {
       return selfIdentity.name;
@@ -83,40 +125,37 @@ function activateTogetherJS(tabid, overrides) {
   console.log("loading tjs from", togetherJsLocation);
   doc.head.appendChild(script);
   var style = doc.createElement("style");
-  style.textContent = [
-    "#togetherjs-menu-update-name {display: none;}",
-    "#togetherjs-menu-update-avatar {display: none;}",
-    "#togetherjs-menu-update-color {display: none;}"
-  ].join("\n");
+  style.textContent = togetherJsCss;
   doc.head.appendChild(style);
 }
 
+/* Presenter mode */
+
 var emitterTimeout = null;
 
-self.port.on("mirror", function () {
-  console.log("Got mirror");
-  cancelMirror();
-  activateTogetherJS(tabId, {
+function activatePresenting() {
+  disablePresenting();
+  activateTogetherJS(clientId + tabId, {
     isSamePage: function () {return true;}
   });
   emitMirror();
   emitterTimeout = setInterval(emitMirror, 1000);
-});
+}
 
-self.port.on("mirror-fault", function () {
-  last = {};
-  emitMirror();
-});
-
-self.port.emit("mirrorOff", function () {
-  cancelMirror();
-});
-
-function cancelMirror() {
+function disablePresenting() {
   clearTimeout(emitterTimeout);
   emitterTimeout = null;
   last = {};
+  if (window.TogetherJS && TogetherJS.running) {
+    TogetherJS();
+  }
 }
+
+self.port.on("mirror-fault", function () {
+  assert(state == "presenting");
+  last = {};
+  emitMirror();
+});
 
 var last = {
   body: null,
@@ -208,10 +247,15 @@ var lastIncoming = {
   url: null
 };
 
+/* Viewer mode */
+
 var mirrorTogetherJS = false;
 var mirrorScript = false;
 
 self.port.on("mirror-doc", function (msg) {
+  if (state != "viewing") {
+    console.warn("Got mirror-doc without being in 'viewing' mode");
+  }
   if (location.href.search(/^resource:.*blank\.html([?#].*)?$/) == -1) {
     console.warn("Got mirror-doc for a non-blank URL:", location.href);
     return;
@@ -276,6 +320,23 @@ self.port.on("mirror-doc", function (msg) {
   }
 });
 
+/* Live mode */
+
+function activateLive() {
+  var url = location.href.replace(/#.*/, "");
+  var urlHash = url.replace(/[^a-zA-Z0-9_]/, "");
+  activateTogetherJS(urlHash);
+}
+
+function disbaleLive() {
+  if (window.TogetherJS && TogetherJS.running) {
+    TogetherJS();
+  }
+}
+
+
+/* Misc stuff */
+
 if (location.hash) {
   self.port.emit("hash", location.hash);
 }
@@ -287,5 +348,12 @@ document.defaultView.addEventListener("hashchange", function () {
 //document.documentElement.addEventListener("hotdish-send", function (event) {
 //  console.log("Got message", event.detail);
 //}, false);
+
+window.addEventListener("pagehide", function () {
+  // Send a bye whenever the page unloads...
+  if (window.TogetherJS && window.TogetherJS.running) {
+    TogetherJS();
+  }
+}, false);
 
 self.port.emit("ready");

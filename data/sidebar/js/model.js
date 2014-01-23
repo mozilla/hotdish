@@ -257,7 +257,7 @@ addon.port.on("joinedMirror", function (msg, localTabId) {
  ************************************************************/
 
 UI.events.on("spectate", function (page) {
-  addon.port.emit("joinMirror", page.tab.id);
+  addon.port.emit("spectate", page.tab.id);
 });
 
 

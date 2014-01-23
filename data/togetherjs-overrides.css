@@ -1,0 +1,12 @@
+/* These are additional styles added whenever TogetherJS is activated via Hotdish */
+#togetherjs-menu-update-name {
+    display: none;
+}
+
+#togetherjs-menu-update-avatar {
+    display: none;
+}
+
+#togetherjs-menu-update-color {
+    display: none;
+}
