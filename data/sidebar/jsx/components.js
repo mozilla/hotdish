@@ -158,7 +158,7 @@ var UserGrid = UI.UserGrid = React.createClass({
     }
     return (
       <div id="users">
-        <div className="all-users-here-notification">Everyone is here!</div>
+        <div className="all-users-here-notification">Yay, everyone is here!</div>
         <div className="row">
           {children[0]}
           {children[1]}
