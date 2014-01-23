@@ -60,7 +60,13 @@ function activateTogetherJS(tabid, overrides) {
     suppressWalkthrough: true,
     disableWebRTC: true,
     disableInvite: true,
-    on: {}
+    forceIdentityId: clientId,
+    forceSessionId: tabId,
+    on: {
+      ready: function () {
+        console.log("Got TJS clientId,", TogetherJS.require("session").clientId);
+      }
+    }
   };
   for (var attr in (overrides || {})) {
     if (attr == "on") {
@@ -73,7 +79,8 @@ function activateTogetherJS(tabid, overrides) {
   }
   unsafeWindow.TogetherJSConfig = options;
   var script = doc.createElement("script");
-  script.src = togetherJsLocation;
+  script.src = togetherJsLocation + "?bust=" + Date.now();
+  console.log("loading tjs from", togetherJsLocation);
   doc.head.appendChild(script);
   var style = doc.createElement("style");
   style.textContent = [
@@ -155,7 +162,7 @@ var emitMirror = WRAP(function emitMirror() {
     last.headHtml = headHtml;
     if (last.head) {
       TRY(function () {
-      last.headDiff = Freeze.diffDocuments(last.head, msg.head);
+      msg.headDiff = Freeze.diffDocuments(last.head, msg.head);
       });
     }
     last.head = msg.head;
@@ -166,7 +173,7 @@ var emitMirror = WRAP(function emitMirror() {
     last.bodyHtml = bodyHtml;
     if (last.body) {
       TRY(function () {
-      last.bodyDiff = Freeze.diffDocuments(last.body, msg.body);
+      msg.bodyDiff = Freeze.diffDocuments(last.body, msg.body);
       });
     }
     last.body = msg.body;
