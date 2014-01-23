@@ -101,11 +101,10 @@ ul#peers {
   color: #fff;
   padding: 6px;
   text-align: center;
-  background: rgba(1, 177, 105, 0.8);
+  background: rgba(1, 177, 105, 0.9);
   position: absolute;
-  top: 0;
+  top: -33px;
   z-index: 9999;
-  display: none;
 }
 
 
