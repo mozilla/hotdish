@@ -191,6 +191,10 @@ ul#peers {
     background-color: rgb(0, 140, 200); /*let's see it!*/
 }
 
+h4.media-heading.username {
+  font-size: 14px;
+}
+
 #users .username {
   position: absolute;
   bottom: 0px;
