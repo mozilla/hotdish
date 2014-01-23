@@ -93,6 +93,21 @@ ul#peers {
 
 /*hide other Push btns for other participants*/
 
+/*Sidebar*/
+
+/* notification that all users are in the session */
+.all-users-here-notification {
+  width: 100%;
+  color: #fff;
+  padding: 6px;
+  text-align: center;
+  background: rgba(1, 177, 105, 0.8);
+  position: absolute;
+  top: 0;
+  z-index: 9999;
+  display: none;
+}
+
 
 /*Participant component */
 
@@ -227,6 +242,8 @@ ul#peers {
   background: rgba(0,0,0,0.1);
   cursor: pointer;
 }
+
+/*Middlebar*/
 
 .middlebar {
   background: #f4f4f4;
