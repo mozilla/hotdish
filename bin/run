@@ -104,6 +104,7 @@ fi
 tjs_urls="
   http://localhost:8080/togetherjs-min.js
   http://togetherjs.localhost/togetherjs-min.js
+  http://togetherjs.com/versions/0.1HOTDISH/togetherjs-min.js
 "
 
 for tjs_url in $tjs_urls ; do

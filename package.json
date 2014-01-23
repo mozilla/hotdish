@@ -36,7 +36,7 @@
     "title": "TogetherJS Location",
     "description": "The location of togetherjs-min.js",
     "type": "string",
-    "value": "https://togetherjs.com/togetherjs-min.js"
+    "value": "https://togetherjs.com/versions/0.1HOTDISH/togetherjs-min.js"
   }
   ]
 }
