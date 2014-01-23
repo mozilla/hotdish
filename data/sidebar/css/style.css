@@ -266,6 +266,10 @@ ul#peers {
   margin: 0;
 }
 
+.activity-stream a:visited {
+  color: #8e44ad;
+}
+
 li.media {
   border-bottom: 1px solid rgba(0,0,0,0.2);
   padding: 15px;
