@@ -163,11 +163,8 @@ var Activity = React.createClass({
   }
 });
 
-var ID=0;
-
 var Tooltip = React.createClass({
   componentDidMount: function() {
-    // When the component is added, turn it into a modal
     $(this.getDOMNode()).tooltip();
   },
   render: function () {
