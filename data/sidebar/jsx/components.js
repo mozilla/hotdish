@@ -251,7 +251,7 @@ var Chat = UI.Chat = React.createClass({
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
         <Timestamp time={this.props.time} pullRight={true} />
         <h4 className="media-heading username">{this.props.name}</h4>
-        {this.props.text}
+        <i>&quot;{this.props.text}&quot;</i>
       </Activity>
     );
   }
