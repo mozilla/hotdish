@@ -186,7 +186,7 @@ Freeze.serializeAttributes = function (el) {
         // Dereference these fancy-like, which should make them absolute
         attrs[attrName] = el[attrName];
       } else {
-        attrs[attrName] = el.attributes[i].nodeValue;
+        attrs[attrName] = el.attributes[i].value;
       }
     }
   }
