@@ -9,15 +9,28 @@ UI.events = mixinEvents({});
 
 var Timestamp = React.createClass({
   render: function () {
-    <span className="time" data-time={this.props.date}>{this.props.time}</span>
+    var className = "time";
+    if (this.props.pullRight) {
+      className += " pull-right";
+    }
+    return (
+      <span className={className} data-time={this.props.time}>{this.props.time}</span>
+    );
   },
-  componentWillMount: function (rootNode) {
+  componentDidMount: function (rootNode) {
     this.renderTime();
   },
   renderTime: function () {
-    this.getDOMNode().textContent = moment(this.props.time).fromNow().max();
+    this.getDOMNode().textContent = moment(this.props.time).fromNow();
   }
 });
+
+moment.lang("en");  // configure moment
+setInterval(function () { // age them, every 10 sec.
+  $(".time").each(function () {
+    this.textContent = moment(parseInt(this.getAttribute("data-time"), 10)).fromNow();
+  });
+}, 10000);
 
 var AvatarBlankWrapper = React.createClass({
   render: function () {
@@ -210,7 +223,7 @@ var Join = UI.Join = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
-        <span className="timestamp pull-right" href="#"><Timestamp time={this.props.time}></span>
+        <Timestamp time={this.props.time} pullRight={true} />
         <h4 className="media-heading username">{this.props.name}</h4>
         joined the session.
       </Activity>
@@ -223,7 +236,7 @@ var JoinedMirror = UI.JoinedMirror = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
-        <span className="timestamp pull-right" href="#"><Timestamp time={this.props.time}></span>
+        <Timestamp time={this.props.time} pullRight={true} />
         <h4 className="media-heading username">{this.props.name}</h4>
         joined you at <span>{this.props.tab.current().url}</span>
       </Activity>
@@ -236,7 +249,7 @@ var Chat = UI.Chat = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
-        <span className="timestamp pull-right" href="#"><Timestamp time={this.props.time}></span>
+        <Timestamp time={this.props.time} pullRight={true} />
         <h4 className="media-heading username">{this.props.name}</h4>
         {this.props.text}
       </Activity>
