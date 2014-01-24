@@ -36,8 +36,7 @@ while [[ -n "$1" ]] ; do
             make_only=1
             ;;
         *)
-            help=1
-            help_message="Unknown option: $1"
+            break
             ;;
     esac
     shift
@@ -138,7 +137,7 @@ run () {
         \"general.warnOnAboutConfig\": false
       },
       \"bgTabs\": [$urls]
-    }" || fail
+    }" "$@" || fail
     title
 }
 
@@ -147,10 +146,10 @@ break="$(python -c 'import os; print "*"*int(os.environ.get("COLUMNS", 80))')"
 if [[ -n "$make_only" ]] ; then
     make_jsx
 elif [[ -z "$forever" ]] ; then
-    run
+    run "$@"
 else
     while true ; do
-        run || fail
+        run "$@" || fail
         echo
         echo
         echo
