@@ -10,3 +10,7 @@
 #togetherjs-menu-update-color {
     display: none;
 }
+
+#togetherjs-dock-anchor-horizontal {
+  display: none;
+}
