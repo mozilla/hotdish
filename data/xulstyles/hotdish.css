@@ -5,6 +5,8 @@
 */
 
 .hotdish #tabbrowser-tabs {
-	background: rgba(82,190,127, 0.2) url('images/eye-icon.png');
-	background-repeat: repeat-x;
+  background-image: url("../sidebar/assets/hotdish-logo.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-color: #F66000;
 }
