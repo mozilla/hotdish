@@ -59,6 +59,29 @@
       <div id="chat-field-container"></div> <!-- end Chat field container -->
     </div> <!-- end Main Content Panel -->
 
+    <!-- Debugging; only shown in content -->
+    <div id="debug-panel-container">
+      <div id="debug-panel">
+        <fieldset>
+          <legend>
+            Add a tab
+          </legend>
+          <input type="text" id="add-tab-url" value="http://google.com" style="width: 20em">
+          <input type="text" id="add-tab-tabid" value="1234" style="width: 4em">
+          <label for="add-tab-local">Local? <input type="checkbox" id="add-tab-local"></label>
+          <button id="add-tab">Add</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+          Add a person
+          </legend>
+          <input type="text" id="add-person-name" value="Gregg Lind" style="width: 20em">
+          <button id="add-person">Add</button>
+        </fieldset>
+      </div>
+    </div>
+
   </body> <!-- END SIDEBAR -->
 
   <script type="text/javascript" charset="utf-8">
