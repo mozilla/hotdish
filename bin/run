@@ -57,6 +57,7 @@ if [[ -n "$help" ]] ; then
     echo "      ^C in the terminal to stop."
     echo "  --make"
     echo "      Make components.js, don't run cfx run"
+    echo "All other options are passed to cfx run"
     if [[ -n "$help_message" ]] ; then
         exit
     else
