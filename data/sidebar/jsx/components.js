@@ -37,6 +37,8 @@ var AvatarBlankWrapper = React.createClass({
     var style = {};
     if (this.props.backgroundImage) {
       style.background = "url(" + this.props.backgroundImage + ")";
+      style.backgroundRepeat = "no-repeat";
+      style.backgroundSize = "100% auto";
     }
     return (
       <div className="wrapper" key={this.props.key}>
