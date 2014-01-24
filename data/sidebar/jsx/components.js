@@ -88,9 +88,20 @@ var SelfAvatar = UI.SelfAvatar = React.createClass({
 
 /* This is the big invite button */
 UI.events.on("invite", function () {
-  $("#activity-view").hide();
-  /* And then a blank space */
 
+  //$("#activity-view").hide();
+  /* And then a blank space */
+  $("#invite-panel").show();
+
+  $("#invite-panel").animate({
+    "left": "0px"
+  }, 500);
+
+  $(".btn-send-invites").click(function(){
+    $("#invite-panel").animate({
+      "left": "-400px"
+    }, 500);
+  })
 });
 
 var InviteAvatar = UI.InviteAvatar = React.createClass({

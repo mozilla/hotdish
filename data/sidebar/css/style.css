@@ -361,6 +361,21 @@ li.media {
   margin: 0px 10px 10px 10px;
 }
 
+#ftu-panel {
+  display: none;
+}
+
+#invite-panel {
+  position: absolute;
+  left: -400px;
+  width: 100%;
+  top: 0px;
+  display: none;
+  background: #ebebeb;
+  height: 100%;
+  z-index: 9999;
+  box-shadow: 1px 1px rgba(0,0,0,0.2);
+}
 
 /* Some debug overrides: */
 
