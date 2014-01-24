@@ -294,8 +294,13 @@ function renderActivity() {
   }
   var sorted = activities.slice();
   allPeers().forEach(function (p) {
-    sorted = sorted.concat(p.allTabs());
-  });
+    var tabs = [];
+    p.allTabs().forEach(function (t) {
+      if (t.current().url.indexOf("about:") !== 0) {
+        sorted.push(t);
+      }
+    }, this);
+  }, this);
   sorted.sort(function (a, b) {return a.time < b.time;});
   var children = sorted.map(function (i) {return i.activityComponent();});
   activityList.setState({activities: children});
