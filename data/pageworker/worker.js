@@ -106,7 +106,7 @@ function activateTogetherJS(roomName, overrides) {
     forceSessionId: tabId,
     on: {
       ready: function () {
-        console.log("Got TJS clientId,", TogetherJS.require("session").clientId);
+        console.log("Got TJS clientId,", unsafeWindow.TogetherJS.require("session").clientId);
       }
     }
   };
@@ -146,8 +146,8 @@ function disablePresenting() {
   clearTimeout(emitterTimeout);
   emitterTimeout = null;
   last = {};
-  if (window.TogetherJS && TogetherJS.running) {
-    TogetherJS();
+  if (window.TogetherJS && window.TogetherJS.running) {
+    window.TogetherJS();
   }
 }
 
@@ -329,8 +329,8 @@ function activateLive() {
 }
 
 function disbaleLive() {
-  if (window.TogetherJS && TogetherJS.running) {
-    TogetherJS();
+  if (window.TogetherJS && window.TogetherJS.running) {
+    window.TogetherJS();
   }
 }
 
@@ -352,7 +352,7 @@ document.defaultView.addEventListener("hashchange", function () {
 window.addEventListener("pagehide", function () {
   // Send a bye whenever the page unloads...
   if (window.TogetherJS && window.TogetherJS.running) {
-    TogetherJS();
+    window.TogetherJS();
   }
 }, false);
 
