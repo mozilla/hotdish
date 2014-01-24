@@ -5,7 +5,11 @@ document.addEventListener("click", function (event) {
     event.preventDefault();
     return false;
   }
-}, false);
+}, true);
+
+document.addEventListener("focus", function (event) {
+  event.preventDefault();
+}, true);
 
 var viewer = document.getElementById("viewer");
 viewer.parentNode.removeChild(viewer);
