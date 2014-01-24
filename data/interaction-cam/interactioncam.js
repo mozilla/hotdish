@@ -12,8 +12,8 @@
      streaming    = false,
      width  = 200,
      height = 200;
- var iconHeight = 48;
- var iconWidth = 48;
+ var iconHeight = 128;
+ var iconWidth = 128;
 
  var audio = document.querySelectorAll('audio'),
      sounds = {
