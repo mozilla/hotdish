@@ -208,7 +208,7 @@ ul#peers {
 
 h4.media-heading.username {
   font-size: 14px;
-  display: none;
+  //display: none;
 }
 
 #users .username {

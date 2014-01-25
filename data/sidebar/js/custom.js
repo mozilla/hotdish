@@ -84,6 +84,11 @@
     function inviteSent() {
       notificationDropDownInvites();
       addon.port.emit("notifyInvitesSent");
+
+      if( $('#users .username').length) {
+        $('#users .firstUserRow .main').append("<span style='position:absolute;top:10px;padding:6px;'>Waiting for user to join...</span");
+        $('#users .secondUserRow .main').append("<span style='position:absolute;top:10px;padding:6px;'>Waiting for user to join...</span>");
+      }
     }
 
     // show hide invitation panel

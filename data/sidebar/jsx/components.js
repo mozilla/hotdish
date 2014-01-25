@@ -104,7 +104,14 @@ UI.events.on("invite", function () {
       "left": "-400px"
     }, 500);
     inviteSent();
-  })
+  });
+
+  $(".btn-cancel-invites").click(function(){
+    $("#invite-panel").animate({
+      "left": "-400px"
+    }, 500);
+  });
+
 });
 
 var InviteAvatar = UI.InviteAvatar = React.createClass({
@@ -184,11 +191,11 @@ var UserGrid = UI.UserGrid = React.createClass({
       <div id="users">
         <div className="all-users-here-notification">Yay, everyone is here!</div>
         <div className="invites-sent-notification">Invites sent!</div>
-        <div className="row">
+        <div className="row firstUserRow">
           {children[0]}
           {children[1]}
         </div>
-        <div className="row">
+        <div className="row secondUserRow">
           {children[2]}
           {children[3]}
         </div>
@@ -251,7 +258,7 @@ var Join = UI.Join = React.createClass({
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
         <Timestamp time={this.props.time} pullRight={true} />
         <h4 className="media-heading username">{this.props.name}</h4>
-        joined the session.
+        Joined the session.
       </Activity>
     );
   }
@@ -264,7 +271,7 @@ var JoinedMirror = UI.JoinedMirror = React.createClass({
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
         <Timestamp time={this.props.time} pullRight={true} />
         <h4 className="media-heading username">{this.props.name}</h4>
-        joined you at <span>{this.props.tab.current().url}</span>
+        Joined you at <span>{this.props.tab.current().url}</span>
       </Activity>
     );
   }
