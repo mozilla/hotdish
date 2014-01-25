@@ -35,9 +35,9 @@
         <div class="col-xs-12">
           <strong>Let's first set up your name and photo.</strong>
           <ul class="list-group">
-            <li class="list-group-item"><input type="checkbox"> Ilana</li>
-            <li class="list-group-item"><input type="checkbox"> Gregg</li>
-            <li class="list-group-item"><input type="checkbox"> Ian</li>
+            <li class="list-group-item"><input type="checkbox" checked> Ilana</li>
+            <li class="list-group-item"><input type="checkbox" checked> Gregg</li>
+            <li class="list-group-item"><input type="checkbox" checked> Ian</li>
           </ul>
           <p class="text-right">
             <button type="submit" class="btn btn-default btn-send-invites">Cancel</button>
@@ -57,9 +57,9 @@
         <div class="col-xs-12">
           <strong>Your contacts</strong>
           <ul class="list-group">
-            <li class="list-group-item"><input type="checkbox"> Ilana</li>
-            <li class="list-group-item"><input type="checkbox"> Gregg</li>
-            <li class="list-group-item"><input type="checkbox"> Ian</li>
+            <li class="list-group-item"><input type="checkbox" checked="yes" name="sports" value="basketball" class="create-switch" /> Ilana</li>
+            <li class="list-group-item"><input type="checkbox" checked="yes" name="sports" value="basketball" class="create-switch" /> Gregg</li>
+            <li class="list-group-item"><input type="checkbox" checked="yes" name="sports" value="basketball" class="create-switch" /> Ian</li>
           </ul>
           <p class="text-right">
             <button type="submit" class="btn btn-default btn-send-invites">Cancel</button>
@@ -123,90 +123,6 @@
 
   </body> <!-- END SIDEBAR -->
 
-  <script type="text/javascript" charset="utf-8">
-
-    //tooltips
-    $('.spectate-page').tooltip();
-    $('.push-page').tooltip();
-
-    // fade out username
-    $('.user-one').hover(function(){
-      $('.user-one .username').fadeOut();
-    }, function(){
-      $('.user-one .username').fadeIn();
-    })
-    $('.user-two').hover(function(){
-      $('.user-two .username').fadeOut();
-    }, function(){
-      $('.user-two .username').fadeIn();
-    })
-    $('.user-three').hover(function(){
-      $('.user-three .username').fadeOut();
-    }, function(){
-      $('.user-three .username').fadeIn();
-    })
-    $('.user-four').hover(function(){
-      $('.user-four .username').fadeOut();
-    }, function(){
-      $('.user-four .username').fadeIn();
-    })
-
-    //tabbable activity list area
-    $("#private-messages-list").hide();
-    $('.btn-activity-stream').click(function(){
-      $("#chat-field").show();
-      $("#activity-list").show();
-      $("#private-messages-list").hide();
-      $('.middlebar li:first-child').addClass('active');
-      $('.middlebar li:nth-child(2)').removeClass('active');
-    });
-
-    //$('.btn-private-messages').click(function(){
-      //alert("test");
-      //$("#activity-stream-container").hide();
-      //$("#chat-field").hide();
-      //$("#private-messages-list").show();
-      //$('.middlebar li:nth-child(2)').addClass('active');
-      //$('.middlebar li:first-child').removeClass('active');
-    //});
-
-    //toggle Activity View and Participant View
-    $("#participant-view .user-one-participant-view").hide();
-
-    //Updating the Activity Window dynamically.
-    $(function(){
-      $('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
-      $(window).resize(function(){
-          $('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
-      });
-    });
-
-    //adding style for when all users have joined a HotDish session
-    $(function(){
-      $(".btn-activity-stream").click(function(){
-        $(".all-users-here-notification").animate({
-          "top": "+=33px"
-        }, 500).delay(4000);
-        $(".all-users-here-notification").animate({
-          "top": "-=33px"
-        }, 500);
-        //$(".all-users-here-notification").fadeIn(100).fadeOut(2000);
-        addon.port.emit("notifyEveryoneHere");
-      });
-    });
-
-    // show hide invitation panel
-    $(function(){
-      $(".btn-invite-ppl").click(function(){
-        //alert();
-      });
-    });
-
-    $(function() {
-      // initialize all the inputs
-      $('input[type="checkbox"],[type="radio"]').not('#create-switch').bootstrapSwitch();
-    });
-
-  </script>
+  <script src="js/custom.js"></script>
 
 </html>

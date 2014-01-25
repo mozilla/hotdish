@@ -103,6 +103,7 @@ UI.events.on("invite", function () {
     $("#invite-panel").animate({
       "left": "-400px"
     }, 500);
+    inviteSent();
   })
 });
 
@@ -182,6 +183,7 @@ var UserGrid = UI.UserGrid = React.createClass({
     return (
       <div id="users">
         <div className="all-users-here-notification">Yay, everyone is here!</div>
+        <div className="invites-sent-notification">Invites sent!</div>
         <div className="row">
           {children[0]}
           {children[1]}

@@ -107,6 +107,17 @@ ul#peers {
   z-index: 9999;
 }
 
+.invites-sent-notification {
+  width: 100%;
+  color: #fff;
+  padding: 6px;
+  text-align: center;
+  background: rgba(1, 177, 105, 0.9);
+  position: absolute;
+  top: -33px;
+  z-index: 9999;
+}
+
 
 /*Participant component */
 
