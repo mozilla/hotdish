@@ -267,7 +267,6 @@ var PageVisit = UI.PageVisit = React.createClass({
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
         {joinLink}
-        <h4 className="media-heading username">{this.props.name}</h4>
         <a target="_blank" className="current-location" href={this.props.page.url}>{this.props.page.title}</a>
       </Activity>
     );
