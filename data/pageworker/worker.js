@@ -14,7 +14,7 @@ if (match && location.href.search(/^resource:.*blank\.html/) != -1) {
 }
 
 // We don't want to inherit anything from the TogetherJS session
-unsafeWindow.sessionStorage.removeItem("togetherjs-session.status");
+unsafeWindow.TogetherJSConfig_disableSessionLoad = true;
 
 self.port.on("init", function (data) {
   clientId = data.clientId;
@@ -25,7 +25,7 @@ self.port.on("init", function (data) {
   togetherJsLocation = data.togetherJsLocation;
   togetherJsCss = data.togetherJsCss;
   try {
-    var event = document.createEvent('CustomEvent');
+    var event = unsafeWindow.document.createEvent('CustomEvent');
   } catch (e) {
     if ((""+e).indexOf("Permission denied") != -1) {
       return;
@@ -38,7 +38,7 @@ self.port.on("init", function (data) {
     clientId: clientId,
     selfIdentity: selfIdentity
   });
-  document.documentElement.dispatchEvent(event);
+  unsafeWindow.document.documentElement.dispatchEvent(event);
   setState(data.state);
 });
 
@@ -106,7 +106,7 @@ function activateTogetherJS(roomName, overrides) {
     forceSessionId: tabId,
     on: {
       ready: function () {
-        console.log("Got TJS clientId,", unsafeWindow.TogetherJS.require("session").clientId);
+        //console.log("Got TJS clientId,", unsafeWindow.TogetherJS.require("session").clientId);
       }
     }
   };
@@ -201,18 +201,18 @@ var emitMirror = WRAP(function emitMirror() {
     last.headHtml = headHtml;
     if (last.head) {
       TRY(function () {
-      msg.headDiff = Freeze.diffDocuments(last.head, msg.head);
+      msg.headDiff = Freeze.diffDocuments(last.head, doc.head);
       });
     }
     last.head = msg.head;
   }
-  var bodyHtml = document.body.innerHTML;
+  var bodyHtml = unsafeWindow.document.body.innerHTML;
   if (last.bodyHtml != bodyHtml) {
     msg.body = Freeze.serializeElement(doc.body);
     last.bodyHtml = bodyHtml;
     if (last.body) {
       TRY(function () {
-      msg.bodyDiff = Freeze.diffDocuments(last.body, msg.body);
+      msg.bodyDiff = Freeze.diffDocuments(last.body, doc.body);
       });
     }
     last.body = msg.body;
@@ -316,6 +316,7 @@ self.port.on("mirror-doc", function (msg) {
     Freeze.applyDiff(msg.bodyDiff, onFault);
   }
   if (faulted) {
+    console.log("Faulted");
     self.port.emit("mirrorFault");
   }
 });
@@ -328,7 +329,7 @@ function activateLive() {
   activateTogetherJS(urlHash);
 }
 
-function disbaleLive() {
+function disableLive() {
   if (window.TogetherJS && window.TogetherJS.running) {
     window.TogetherJS();
   }
@@ -341,11 +342,11 @@ if (location.hash) {
   self.port.emit("hash", location.hash);
 }
 
-document.defaultView.addEventListener("hashchange", function () {
+unsafeWindow.document.defaultView.addEventListener("hashchange", function () {
   self.port.emit("hash", location.hash);
 }, false);
 
-//document.documentElement.addEventListener("hotdish-send", function (event) {
+//unsafeWindow.document.documentElement.addEventListener("hotdish-send", function (event) {
 //  console.log("Got message", event.detail);
 //}, false);
 
