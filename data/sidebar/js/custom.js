@@ -83,12 +83,11 @@
 
     function inviteSent() {
       notificationDropDownInvites();
-      addon.port.emit("notifyInvitesSent");
-
-      if( $('#users .username').length) {
-        $('#users .firstUserRow .main').append("<span style='position:absolute;top:10px;padding:6px;'>Waiting for user to join...</span");
-        $('#users .secondUserRow .main').append("<span style='position:absolute;top:10px;padding:6px;'>Waiting for user to join...</span>");
-      }
+      var names = [];
+      $("input[name='invitee']:checked").each(function () {
+        names.push(this.value);
+      });
+      addon.port.emit("sendInvitations", names);
     }
 
     // show hide invitation panel

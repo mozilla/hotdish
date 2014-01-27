@@ -120,11 +120,13 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
     return false;
   },
   render: function () {
+    var waiting = this.props.waiting ? <WaitingForUser /> : null;
     return (
       <AvatarBlankWrapper key={this.props.key}>
         <div className="row">
           <div className="col-xs-12 text-center inviteNewperson">
             <button type="button" className="btn btn-default btn-sm btn-invite-sm" onClick={this.clickInvite}>
+              {waiting}
               <span className="glyphicon glyphicon-plus-sign"></span> Invite
             </button>
           </div>
@@ -137,13 +139,25 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
 /* And then a blank space */
 var BlankAvatar = UI.BlankAvatar = React.createClass({
   render: function () {
+    var waiting = this.props.waiting ? <WaitingForUser /> : null;
     return (
       <AvatarBlankWrapper key={this.props.key}>
         <div className="overlay">
           <div className="row">
+            {waiting}
           </div>
         </div>
       </AvatarBlankWrapper>
+    );
+  }
+});
+
+var WaitingForUser = React.createClass({
+  render: function () {
+    return (
+      <span style={ {position: "absolute", top: "10px", padding: "6px"} }>
+        Waiting for user to join...
+      </span>
     );
   }
 });
@@ -179,13 +193,22 @@ var UserGrid = UI.UserGrid = React.createClass({
   },
   render: function () {
     var children = this.state.users || [];
+    var numberToWaitFor = this.state.waiting;
     if (children.length < 4) {
-      children.push(<InviteAvatar key="invite" />);
+      children.push(<InviteAvatar key="invite" waiting={!! numberToWaitFor} />);
+      if (numberToWaitFor > 0) {
+        numberToWaitFor--;
+      }
     }
     var blankId = 0;
     while (children.length < 4) {
       blankId++;
-      children.push(<BlankAvatar key={ 'blank' + blankId }/>);
+      var waiting = false;
+      if (this.numberToWaitFor > 0) {
+        waiting = true;
+        numberToWaitFor--;
+      }
+      children.push(<BlankAvatar key={ 'blank' + blankId } waiting={waiting} />);
     }
     return (
       <div id="users">
@@ -259,6 +282,28 @@ var Join = UI.Join = React.createClass({
         <Timestamp time={this.props.time} pullRight={true} />
         <h4 className="media-heading username">{this.props.name}</h4>
         Joined the session.
+      </Activity>
+    );
+  }
+});
+
+var Invited = UI.Invited = React.createClass({
+  render: function () {
+    var invitees = "";
+    for (var i=0; i<this.props.invitees.length; i++) {
+      if (invitees) {
+        invitees += ", ";
+      }
+      invitees += this.props.invitees[i];
+    }
+    if (this.props.invitees.length > 1) {
+      invitees += " and " + this.props.invitees[this.props.invitees.length-1];
+    }
+    return (
+      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
+        <Timestamp time={this.props.time} pullRight={true} />
+        <h4 className="media-heading username">{this.props.name}</h4>
+        invited {invitees} to the session.
       </Activity>
     );
   }

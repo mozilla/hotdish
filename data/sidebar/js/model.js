@@ -12,6 +12,23 @@ function makeId(name) {
 }
 makeId.counter = 0;
 
+var pendingInvites = 0;
+var INVITE_EXPIRE_TIME = 5*60*1000;
+function addPendingInvites(n) {
+  pendingInvites += n;
+  if (pendingInvites < 0) {
+    pendingInvites = 0;
+  }
+  if (n > 0) {
+    clearTimeout(addPendingInvites.timeoutId);
+    addPendingInvites.timeoutId = setTimeout(function () {
+      pendingInvites = 0;
+      renderUsers();
+    }, INVITE_EXPIRE_TIME);
+  }
+  renderUsers();
+}
+
 function getPeer(id) {
   assert(id, "Bad id for getPeer:", id);
   if (! peers[id]) {
@@ -81,6 +98,7 @@ addon.port.on("peer", function (msg, joined) {
   peer.update(msg);
   if (joined) {
     activities.push(JoinActivity(peer));
+    addPendingInvites(-1);
   }
   renderActivity();
 });
@@ -206,6 +224,31 @@ var JoinActivity = Class({
   }
 });
 
+var InvitedActivity = Class({
+  constructor: function (peer, invitees) {
+    this.id = makeId("invited");
+    this.peer = peer;
+    this.invitees = invitees;
+    this.time = Date.now();
+  },
+  activityComponent: function () {
+    return UI.Invited({
+      name: this.peer.name,
+      avatar: this.peer.avatar,
+      time: this.time,
+      invitees: this.invitees,
+      key: this.id
+    });
+  }
+});
+
+hub.on("invited", function (msg) {
+  var invited = InvitedActivity(msg.peer, msg.invitees);
+  addPendingInvites(msg.invitees.length);
+  activities.push(invited);
+  renderActivity();
+});
+
 var PushActivity = Class({
   constructor: function (peer, url, title, localTabId, reloaded) {
     this.id = makeId("push");
@@ -281,7 +324,7 @@ function renderUsers() {
     }
     users.push(UI.PeerAvatar({avatar: p.avatar, name: p.name, key: "peer"+p.id}));
   });
-  userGrid.setState({users: users});
+  userGrid.setState({users: users, waiting: pendingInvites});
 }
 
 var activityList;
