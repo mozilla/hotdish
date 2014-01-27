@@ -65,6 +65,9 @@ Freeze.skipElement = function (el) {
   if (Freeze.skipElementsBadTags[tag] || el.jsmirrorHide) {
     return true;
   }
+  if (el.className && el.className.indexOf("togetherjs") != -1) {
+    return true;
+  }
   // Skip elements that can't be seen, and have no children, and are potentially
   // "visible" elements (e.g., not STYLE)
   // Note elements with children might have children with, e.g., absolute
