@@ -326,9 +326,10 @@ li.media {
 /*Private Messages*/
 .time {
   font-size: 10px;
-  padding-top: 5px;
+  padding-top: 2px;
   opacity: 0.5;
   text-transform: uppercase;
+  margin-left: 10px;
 }
 
 #private-messages-list li:hover {
