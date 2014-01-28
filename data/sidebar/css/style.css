@@ -403,7 +403,7 @@ body.debug .main-content {
   max-width: 300px;
   border-right: 1px solid #777;
   height: 100%;
-  overflow-y: scroll;
+  //overflow-y: scroll;
 }
 
 html.debug-html, body.debug {
