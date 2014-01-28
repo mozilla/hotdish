@@ -457,6 +457,23 @@ body.debug #debug-listener {
 }
 
 @media (max-width: 250px) {
+
+  .current-location {
+    float: left !important;
+  }
+
+  .middlebar li {
+    padding: 0px 6px 7px !important;
+  }
+
+  #users .username {
+    font-size: 10px;
+  }
+
+  .btn-activity-stream , .btn-push-tab {
+    font-size: 10px;
+  }
+
   .btn-sm.btn-invite-sm {
     margin-top: -50px !important;
     font-size: 8px;
