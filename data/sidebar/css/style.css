@@ -340,6 +340,7 @@ li.media {
   opacity: 0.5;
   text-transform: uppercase;
   margin-left: 10px;
+  float: right;
 }
 
 #private-messages-list li:hover {
@@ -464,7 +465,10 @@ body.debug #debug-listener {
 
 @media (max-width: 250px) {
 
-  .spectate-page {
+  .time {
+    margin-left: 0px !important;
+    float: none;
+    margin-bottom: 4px;
   }
 
   .current-location {

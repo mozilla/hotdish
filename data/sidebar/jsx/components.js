@@ -278,7 +278,7 @@ var Join = UI.Join = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
-        <Timestamp time={this.props.time} pullRight={true} />
+        <Timestamp time={this.props.time} pullRight={false} />
         <h4 className="media-heading username">{this.props.name}</h4>
         Joined the session.
       </Activity>
