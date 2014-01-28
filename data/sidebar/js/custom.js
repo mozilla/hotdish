@@ -48,9 +48,13 @@
 
     //Updating the Activity Window dynamically.
     $(function(){
-      //$('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
+      //$('.switch').css({'height': (($(window).height())-300)+'px'});
+
+      //$(".switch").width(width);
+
       $(window).resize(function(){
-          //$('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
+          //$('.switch').css({'height': (($(window).height())-300)+'px'});
+          //var width = $(window).width() - 25;
       });
     });
 
