@@ -48,9 +48,9 @@
 
     //Updating the Activity Window dynamically.
     $(function(){
-      $('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
+      //$('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
       $(window).resize(function(){
-          $('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
+          //$('.activity-stream').css({'max-height': (($(window).height())-300)+'px'});
       });
     });
 
