@@ -456,3 +456,10 @@ body.debug #debug-listener {
   border-bottom-right-radius: 0px;
 }
 
+@media (max-width: 250px) {
+  .btn-sm.btn-invite-sm {
+    margin-top: -50px !important;
+    font-size: 8px;
+  }
+}
+
