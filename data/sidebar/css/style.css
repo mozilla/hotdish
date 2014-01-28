@@ -211,6 +211,10 @@ h4.media-heading.username {
   //display: none;
 }
 
+#user-container {
+
+}
+
 #users .username {
   position: absolute;
   bottom: 0px;
@@ -308,6 +312,7 @@ h4.media-heading.username {
 
 .spectate-page {
   margin-left: 10px;
+  margin-top: 2px;
 }
 
 li.media {
@@ -324,6 +329,7 @@ li.media {
 
 .middlebar li.btn-toggle {
   padding: 0px 0px 7px !important;
+  margin-top: -2px;
 }
 
 
@@ -458,8 +464,11 @@ body.debug #debug-listener {
 
 @media (max-width: 250px) {
 
+  .spectate-page {
+  }
+
   .current-location {
-    float: left !important;
+    font-size: 12px !important;
   }
 
   .middlebar li {
