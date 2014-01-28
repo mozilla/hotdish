@@ -102,6 +102,9 @@ function activateTogetherJS(roomName, overrides) {
     suppressWalkthrough: true,
     disableWebRTC: true,
     disableInvite: true,
+    disableChat: true,
+    disableSelf: true,
+    disablePeerDetail: true,
     forceIdentityId: clientId,
     forceSessionId: tabId,
     on: {
