@@ -144,6 +144,7 @@ var BlankAvatar = UI.BlankAvatar = React.createClass({
       <AvatarBlankWrapper key={this.props.key}>
         <div className="overlay">
           <div className="row">
+            No one is here yet.
             {waiting}
           </div>
         </div>
