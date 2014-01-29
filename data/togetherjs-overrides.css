@@ -1,16 +1,43 @@
 /* These are additional styles added whenever TogetherJS is activated via Hotdish */
 #togetherjs-menu-update-name {
-    display: none;
+  display: none;
 }
 
 #togetherjs-menu-update-avatar {
-    display: none;
+  display: none;
 }
 
 #togetherjs-menu-update-color {
-    display: none;
+  display: none;
 }
 
 #togetherjs-dock-anchor-horizontal {
-  display: none;
+  display: none !important;
+}
+
+.togetherjs-button .togetherjs-person {
+ border-radius: 20px !important;
+ box-shadow: 0px 0px 2px rgba(0,0,0.5);
+}
+
+.togetherjs-person-avatar-swatch {
+  display: none !important;
+}
+
+#togetherjs-dock {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.togetherjs #togetherjs-dock-anchor {
+  display: none !important;
+}
+
+#togetherjs-dock.togetherjs-dock-right {
+  background-color: none !important;
+}
+
+.togetherjs #togetherjs-buttons .togetherjs-button {
+  border-style: none !important;
+  border-radius: 40px !important;
 }
