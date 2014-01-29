@@ -54,7 +54,10 @@ var Peer = Class(mixinEvents({
     this.isSelf = this.id == clientId;
     this.tabs = {};
     this.lastMessage = Date.now();
-    renderUsers();
+    setTimeout(function () {
+      renderUsers();
+      renderBar();
+    });
   },
 
   update: function (msg) {
@@ -62,6 +65,7 @@ var Peer = Class(mixinEvents({
     this.name = msg.name || this.name;
     this.color = msg.color || this.color;
     renderUsers();
+    renderBar();
     renderActivity();
   },
 
@@ -295,15 +299,16 @@ addon.port.on("joinedMirror", function (msg, localTabId) {
   renderActivity();
 });
 
+
+
 /************************************************************
  * UI event handling
  ************************************************************/
 
+// FIXME: this is lame, should just put in an explicit handler
 UI.events.on("spectate", function (page) {
   addon.port.emit("spectate", page.tab.id);
 });
-
-
 
 /************************************************************
  * Rendering
@@ -364,6 +369,52 @@ function renderChatField() {
     React.renderComponent(chatField, $("#chat-field-container")[0]);
   }
 }
+
+var bar;
+var currentTabState = null;
+
+function renderBar() {
+  if (! bar) {
+    bar = UI.Bar({
+      onPresentClick: function (presenting) {
+        addon.port.emit("setPresenting", true);
+        addon.port.emit("pushPresenting", null);
+      },
+      onPresentSelect: function (peerId) {
+        addon.port.emit("setPresenting", true);
+        addon.port.emit("pushPresenting", peerId);
+      },
+      onActivityClick: function () {
+        // FIXME: don't know what this should do
+      },
+      onPushClick: function () {
+        addon.port.emit("push", null);
+      },
+      onPushSelect: function (peerId) {
+        addon.port.emit("push", peerId);
+      }
+    });
+    $("#bar-container").empty();
+    React.renderComponent(bar, $("#bar-container")[0]);
+  }
+  var peers = [];
+  allPeers().forEach(function (p) {
+    if (! p.isSelf) {
+      peers.push(p);
+    }
+  });
+  bar.setState({
+    presenting: currentTabState == "presenting",
+    peers: peers
+  });
+}
+
+addon.port.on("setCurrentTabState", function (state) {
+  currentTabState = state;
+  renderBar();
+});
+
+$(renderBar);
 
 function dumpState() {
   var lines = [];

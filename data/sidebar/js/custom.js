@@ -1,4 +1,5 @@
     //tooltips
+    // FIXME: move to components.js
     $('.spectate-page').tooltip();
     $('.push-page').tooltip();
 
@@ -104,5 +105,5 @@
     // Bootstrap custom toggle
     $(function() {
       // initialize all the inputs
-      $('input[type="checkbox"],[type="radio"]').not('.create-switch').bootstrapSwitch();
+      //$('input[type="checkbox"],[type="radio"]').not('.create-switch').bootstrapSwitch();
     });

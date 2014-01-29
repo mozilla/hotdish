@@ -88,6 +88,7 @@ function activateTogetherJS(roomName, overrides) {
       unsafeWindow.localStorage.getItem("test");
     } catch (e) {
       // Sometimes we are too early to access localStorage
+      // FIXME: actually, maybe this never happens
       console.log("Too early in", location.href);
       setTimeout(function () {
         activateTogetherJS(roomName, overrides);
@@ -138,9 +139,9 @@ function activateTogetherJS(roomName, overrides) {
   if (! unsafeWindow.TogetherJS) {
     var script = doc.createElement("script");
     script.src = togetherJsLocation + "?bust=" + Date.now();
-    console.log("loading tjs from", togetherJsLocation);
     doc.head.appendChild(script);
     var style = doc.createElement("style");
+    style.jsmirrorHide = true;
     style.textContent = togetherJsCss;
     doc.head.appendChild(style);
   } else {
@@ -189,6 +190,7 @@ self.port.on("mirror-fault", function () {
 });
 
 var last = {
+  url: null,
   body: null,
   head: null,
   headHtml: null,
@@ -225,6 +227,15 @@ function WRAP(f) {
 
 var emitMirror = WRAP(function emitMirror() {
   var doc = unsafeWindow.document;
+  var thisUrl = location.href.replace(/#.*/, "");
+  // I don't think this can ever happen
+  // But it appears to happen because of the bfcache
+  if (! last.url) {
+    last.url = thisUrl;
+  } else if (last.url != thisUrl) {
+    console.log("Changing from past", last.url, "to", thisUrl);
+    last = {url: thisUrl};
+  }
   var msg = {};
   var headHtml = doc.head.innerHTML;
   if (last.headHtml != headHtml) {
@@ -270,7 +281,10 @@ var emitMirror = WRAP(function emitMirror() {
     last.hash = hash;
   }
   if (Object.keys(msg).length) {
+    //console.log("emitting mirror; diffed:", !! (msg.bodyDiff || msg.headDiff));
     self.port.emit("emitMirror", msg);
+  } else {
+    //console.log("No updates to report");
   }
 });
 
@@ -282,6 +296,7 @@ var lastIncoming = {
 
 var mirrorTogetherJS = false;
 var mirrorScript = false;
+var numberOfMirrors = 0;
 
 self.port.on("mirror-doc", function (msg) {
   if (state != "viewing") {
@@ -292,6 +307,8 @@ self.port.on("mirror-doc", function (msg) {
     return;
   }
   var doc = unsafeWindow.document;
+  numberOfMirrors++;
+  //console.log("Mirror number", numberOfMirrors, "diff:", !! msg.bodyDiff);
   if (! mirrorTogetherJS) {
     mirrorTogetherJS = true;
     activateTogetherJS(shareTabId, {
@@ -313,7 +330,9 @@ self.port.on("mirror-doc", function (msg) {
   }
   if (lastIncoming.url && msg.url != lastIncoming.url) {
     // URL change
+    //console.log("switching URL; diff:", !! (msg.bodyDiff || msg.headDiff), Object.keys(msg).length);
     self.port.emit("mirrorReload", msg);
+    return;
   }
   if (! lastIncoming.url) {
     lastIncoming.url = msg.url;

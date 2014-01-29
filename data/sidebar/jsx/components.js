@@ -256,14 +256,14 @@ var Tooltip = React.createClass({
 
 /* This is a page visit activity */
 var PageVisit = UI.PageVisit = React.createClass({
-  clickSpectate: function () {
+  onSpectateClick: function () {
     UI.events.emit("spectate", this.props.page);
     return false;
   },
   render: function () {
     var joinLink = null;
     if (! this.props.page.tab.peer.isSelf) {
-      joinLink = <Tooltip><a data-myid={this._myid} className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left" onClick={this.clickSpectate}></a></Tooltip>;
+      joinLink = <Tooltip><a data-myid={this._myid} className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left" onClick={this.onSpectateClick}></a></Tooltip>;
     }
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
@@ -375,6 +375,95 @@ var ChatField = UI.ChatField = React.createClass({
           </span>
         </form>
       </div>
+    );
+  }
+});
+
+var Bar = UI.Bar = React.createClass({
+  getInitialState: function () {
+    return {presenting: false, peers: []};
+  },
+  onPresentClick: function () {
+    var presenting = ! this.state.presenting;
+    this.setState({presenting: presenting});
+    this.props.onPresentClick(presenting);
+    return false;
+  },
+  onPresentSelect: function (id) {
+    if (! this.state.presenting) {
+      this.setState({presenting: true});
+    }
+    this.props.onPresentSelect(id);
+    return false;
+  },
+  onActivityClick: function () {
+    this.props.onActivityClick();
+    return false;
+  },
+  onPushClick: function () {
+    this.props.onPushClick();
+    return false;
+  },
+  onPushSelect: function (id) {
+    this.props.onPushSelect(id);
+    return false;
+  },
+  render: function () {
+    return (
+      <div className="middlebar">
+        <div className="row">
+          <div className="col-xs-12">
+            <ul className="list-inline">
+              <li className="active">
+                <a className="glyphicon glyphicon-th-list btn-activity-stream" href="#" title="Activity Stream" onClick={this.onActivityClick}></a>
+              </li>
+              <li className="">
+                <a className="glyphicon glyphicon-new-window btn-push-tab" href="#" title="Push your current page to everyone else" onClick={this.onPushClick}></a>
+                <UserSelect peers={this.state.peers} onSelect={this.onPushSelect}>
+                  Share with someone...
+                </UserSelect>
+              </li>
+              <li className="pull-right btn-toggle">
+                <label htmlFor="presenting">
+                  <input type="checkbox" ref="presenting" id="presenting" checked={this.state.presenting} onChange={this.onPresentClick} />
+                  Presenting?
+                </label>
+                <UserSelect peers={this.state.peers} onSelect={this.onPresentSelect}>
+                  Present to a user...
+                </UserSelect>
+              </li>
+              <li className="pull-right btn-feedback">
+                <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback" title="Send feedback"><span className="glyphicon glyphicon-send"></span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var UserSelect = React.createClass({
+  onChange: function () {
+    var value = this.getDOMNode().value;
+    this.getDOMNode().selectedIndex = 0;
+    this.props.onSelect(value);
+  },
+  render: function () {
+    var options = [];
+    this.props.peers.forEach(function (p) {
+      options.push(
+        <option value={p.id} key={p.id}>
+          <img src={p.avatar} style={ {height: "1em", width: "1em"} } />
+          {p.name}
+        </option>
+      );
+    });
+    return (
+      <select onChange={this.onChange}>
+        <option key="blank">{this.props.children}</option>
+        {options}
+      </select>
     );
   }
 });

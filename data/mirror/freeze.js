@@ -65,7 +65,7 @@ Freeze.skipElement = function (el) {
   if (Freeze.skipElementsBadTags[tag] || el.jsmirrorHide) {
     return true;
   }
-  if (el.className && el.className.indexOf("togetherjs") != -1) {
+  if (el.className && el.className.indexOf("togetherjs") != -1 || el.id == "togetherjs-stylesheet") {
     return true;
   }
   // Skip elements that can't be seen, and have no children, and are potentially
@@ -98,10 +98,18 @@ Freeze.elementTracker = {
   elements: {}
 };
 
-Freeze.trackElement = function (el) {
-  var id = el.jsmirrorId;
-  if (! id) {
-    id = this.makeId();
+Freeze.trackElement = function (el, newId) {
+  var id;
+  if (newId !== undefined) {
+    if (typeof newId != "string") {
+      console.warn("Got trackElement with bad id:", newId);
+    }
+    id = el.jsmirrorId = newId;
+  } else {
+    id = el.jsmirrorId;
+    if (! id) {
+      id = this.makeId();
+    }
     el.jsmirrorId = id;
   }
   Freeze.elementTracker.elements[id] = el;
@@ -126,9 +134,10 @@ Freeze.serializeElement = function (el) {
     try {
       html = Freeze.staticHTML(el.contentWindow.document.documentElement);
     } catch (e) {
-      console.warn('Had to skip iframe for permission reasons:', e+'', 'src:', el.src);
+      // FIXME: boring right now, because we skip all of them
+      //console.warn('Had to skip iframe for permission reasons:', e+'', 'src:', el.src);
       // A placeholder for the iframe:
-      return ['SPAN', el.jsmirrorId, {}, []];
+      return ['SPAN', el.jsmirrorId, {"data-fills-iframe": "1"}, []];
     }
     attrs.src = Freeze.encodeData('text/html', html);
   } else {
@@ -221,7 +230,6 @@ Freeze.compareAttributes = function (attrs, el) {
       value = el.getAttribute(i);
     }
     if (value != attrs[i]) {
-      console.log('got diff in attributes', i);
       return false;
     }
   }
@@ -374,13 +382,17 @@ Freeze.diffDocuments = function (orig, current, commands) {
   if (! current.jsmirrorId) {
     console.warn("Got diffDocuments element without an id", JSON.stringify(current).substr(0, 40));
     current.jsmirrorId = Freeze.makeId();
-    Freeze.elementTracker.elements[current.jsmirrorId] = current;
+    Freeze.trackElement(current);
   }
   var origTagName = orig[0];
   var origId = orig[1];
   var origAttrs = orig[2];
   var origChildren = orig[3];
   var origInnerHTML = orig[4];
+  if (origAttrs["data-fills-iframe"]) {
+    // This is a filler element, ignore it
+    return commands;
+  }
   if (origTagName != current.tagName) {
     // We can't diff a tag that doesn't match
     console.warn('got tag name change', origTagName, current.tagName);
@@ -466,7 +478,7 @@ Freeze.diffDocuments = function (orig, current, commands) {
         }
       }
       if (curChildren[curNext]) {
-        commands.push(["insert_before", curChildren[curNext], pushes]);
+        commands.push(["insert_before", curChildren[curNext].jsmirrorId, pushes]);
       } else {
         commands.push(["append_to", current.jsmirrorId, pushes]);
       }
@@ -532,7 +544,7 @@ Freeze.applyDiff = function (commands, onFault) {
     var name = command[0];
     var el = Freeze.getElement(command[1]);
     if (! el) {
-      console.warn('Got diff command for element that does not exist', command);
+      console.warn('Got diff command for element that does not exist', command, Object.keys(Freeze.elementTracker.elements));
       if (onFault) {
         onFault(command);
       }
@@ -623,7 +635,7 @@ Freeze.unfreeze = function (el, serialized) {
     return;
   }
   Freeze.setAttributes(el, attrs);
-  el.jsmirrorId = jsmirrorId;
+  Freeze.trackElement(el, jsmirrorId);
   var offset = 0;
   for (var i=0; i<children.length; i++) {
     var childIndex = i + offset;
@@ -673,7 +685,7 @@ Freeze.deserializeElement = function (data) {
       text = "";
     }
     el = document.createComment(text);
-    el.jsmirrorId = jsmirrorId;
+    Freeze.trackElement(el, jsmirrorId);
     return el;
   }
   el = document.createElement(tagName);
@@ -698,7 +710,7 @@ Freeze.deserializeElement = function (data) {
       el.appendChild(Freeze.deserializeElement(o));
     }
   }
-  el.jsmirrorId = jsmirrorId;
+  Freeze.trackElement(el, jsmirrorId);
   return el;
 };
 
