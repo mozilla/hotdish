@@ -27,6 +27,7 @@
 #togetherjs-dock {
   background: none !important;
   box-shadow: none !important;
+  left: 0px !important;
 }
 
 .togetherjs #togetherjs-dock-anchor {
@@ -40,4 +41,13 @@
 .togetherjs #togetherjs-buttons .togetherjs-button {
   border-style: none !important;
   border-radius: 40px !important;
+}
+
+.togetherjs-dock-person-tooltip {
+  left: 68px !important;
+  right: auto !important;
+}
+
+.togetherjs-person-tooltip-arrow-r {
+  display: none !important;
 }
