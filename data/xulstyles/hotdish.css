@@ -10,3 +10,29 @@
   background-position: right top;
   background-color: #F66000;
 }
+
+
+/* to explore these:  chrome://browser/content/browser.xul,
+   menu > view > sidebar > bookmarks
+
+   NOTE: these will affect ANY SIDEBAR in a hotdish window.
+   Getting this 'righter' means knowing the 'value' is ~='Hotdish', like
+
+   (css4)           this part works.
+   sidebarheader! > #sidebar-title[value^="Hotdish"] {
+    display:none
+   }
+*/
+
+/* the whole sidebar */
+.hotdish #sidebar-box {
+    border-right: double 5px #F66000;
+}
+
+/* the header */
+.hotdish sidebarheader {
+  display: none;
+}
+
+/* the close button */
+.hotdish sidebarheader .tabs-closebutton {}
