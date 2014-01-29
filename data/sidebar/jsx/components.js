@@ -155,8 +155,8 @@ var BlankAvatar = UI.BlankAvatar = React.createClass({
 var WaitingForUser = React.createClass({
   render: function () {
     return (
-      <span style={ {position: "absolute", top: "10px", padding: "6px"} }>
-        Waiting for user to join...
+      <span style={ {position: "absolute", top: "4px", left: "0px", padding: "6px"} }>
+        Waiting for person...
       </span>
     );
   }
