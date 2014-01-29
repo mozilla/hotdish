@@ -83,6 +83,18 @@ function setState(newState) {
 self.port.on("setState", setState);
 
 function activateTogetherJS(roomName, overrides) {
+  if (document.readyState == "loading") {
+    try {
+      unsafeWindow.localStorage.getItem("test");
+    } catch (e) {
+      // Sometimes we are too early to access localStorage
+      console.log("Too early in", location.href);
+      setTimeout(function () {
+        activateTogetherJS(roomName, overrides);
+      }, 100);
+      return;
+    }
+  }
   var doc = unsafeWindow.document;
   var options = {
     findRoom: "hotdishshare_" + roomName,
@@ -123,13 +135,29 @@ function activateTogetherJS(roomName, overrides) {
     options[attr] = overrides[attr];
   }
   unsafeWindow.TogetherJSConfig = options;
-  var script = doc.createElement("script");
-  script.src = togetherJsLocation + "?bust=" + Date.now();
-  console.log("loading tjs from", togetherJsLocation);
-  doc.head.appendChild(script);
-  var style = doc.createElement("style");
-  style.textContent = togetherJsCss;
-  doc.head.appendChild(style);
+  if (! unsafeWindow.TogetherJS) {
+    var script = doc.createElement("script");
+    script.src = togetherJsLocation + "?bust=" + Date.now();
+    console.log("loading tjs from", togetherJsLocation);
+    doc.head.appendChild(script);
+    var style = doc.createElement("style");
+    style.textContent = togetherJsCss;
+    doc.head.appendChild(style);
+  } else {
+    if (unsafeWindow.TogetherJS.running) {
+      // Restart:
+      unsafeWindow.TogetherJS();
+      var interval = setInterval(function () {
+        if (! unsafeWindow.TogetherJS.running) {
+          unsafeWindow.TogetherJS();
+          clearTimeout(interval);
+        }
+      }, 100);
+    } else {
+      // Just start
+      unsafeWindow.TogetherJS();
+    }
+  }
 }
 
 /* Presenter mode */
