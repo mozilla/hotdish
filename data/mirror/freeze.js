@@ -62,10 +62,7 @@ Freeze.skipElementsBadTags = {
 Freeze.skipElement = function (el) {
   /* true if this element should be skipped when sending to the mirror */
   var tag = el.tagName;
-  if (Freeze.skipElementsBadTags[tag] || el.jsmirrorHide) {
-    return true;
-  }
-  if (el.className && el.className.indexOf("togetherjs") != -1 || el.id == "togetherjs-stylesheet") {
+  if (Freeze.skipElementsBadTags[tag] || Freeze.ignoreElement(el)) {
     return true;
   }
   // Skip elements that can't be seen, and have no children, and are potentially
@@ -80,6 +77,13 @@ Freeze.skipElement = function (el) {
     return true;
   }
   return false;
+};
+
+Freeze.ignoreElement = function (el) {
+  return el.jsmirrorHide ||
+      (el.className && el.className.indexOf("togetherjs") != -1) ||
+      el.id == "togetherjs-stylesheet" ||
+      el.id == "togetherjs-extra-style";
 };
 
 Freeze.serializeDocument = function () {
@@ -642,7 +646,7 @@ Freeze.unfreeze = function (el, serialized) {
     var existing = el.childNodes[childIndex];
     if (! existing) {
       el.appendChild(Freeze.deserializeElement(children[i]));
-    } else if (existing.jsmirrorHide || existing.id == 'webSocketContainer') {
+    } else if (Freeze.ignoreElement(existing)) {
       offset++;
       i--;
       continue;
@@ -658,7 +662,7 @@ Freeze.unfreeze = function (el, serialized) {
   }
   while (el.childNodes.length - offset > children.length) {
     var node = el.childNodes[children.length + offset];
-    if (node.jsmirrorHide) {
+    if (Freeze.ignoreElement(node)) {
       offset++;
       continue;
     }

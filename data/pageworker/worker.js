@@ -43,6 +43,7 @@ self.port.on("init", function (data) {
 });
 
 function setState(newState) {
+  console.log("changing state", state, newState, location.href);
   if (newState == "viewing") {
     if (state != "normal") {
       console.warn("Should only ever go from 'normal' to 'viewing'");
@@ -123,6 +124,15 @@ function activateTogetherJS(roomName, overrides) {
     on: {
       ready: function () {
         //console.log("Got TJS clientId,", unsafeWindow.TogetherJS.require("session").clientId);
+        if (shareTabId) {
+          // FIXME: hacky way to extra clientId
+          var clientId = shareTabId.replace(/_.*/, "");
+          unsafeWindow.TogetherJS.require("peers").on("new-peer", function (peer) {
+            if (peer.id.indexOf(clientId) === 0) {
+              peer.follow();
+            }
+          });
+        }
       }
     }
   };
@@ -141,6 +151,7 @@ function activateTogetherJS(roomName, overrides) {
     script.src = togetherJsLocation + "?bust=" + Date.now();
     doc.head.appendChild(script);
     var style = doc.createElement("style");
+    style.id = "togetherjs-extra-style";
     style.jsmirrorHide = true;
     style.textContent = togetherJsCss;
     doc.head.appendChild(style);
@@ -161,13 +172,43 @@ function activateTogetherJS(roomName, overrides) {
   }
 }
 
+function removeTogetherJsNodes() {
+  return function () {};
+  var doc = unsafeWindow.document;
+  //var main = doc.getElementById("togetherjs-dock");
+  var main = null;
+  if (main) {
+    main.parentNode.removeChild(main);
+  }
+  var mainStyle = doc.getElementById("togetherjs-stylesheet");
+  if (mainStyle) {
+    mainStyle.parentNode.removeChild(mainStyle);
+  }
+  var extraStyle = doc.getElementById("togetherjs-extra-style");
+  if (extraStyle) {
+    extraStyle.parentNode.removeChild(extraStyle);
+  }
+  return function restorer() {
+    if (mainStyle) {
+      doc.head.appendChild(mainStyle);
+    }
+    if (extraStyle) {
+      doc.head.appendChild(extraStyle);
+    }
+    if (main) {
+      doc.body.appendChild(main);
+    }
+  };
+}
+
 /* Presenter mode */
 
 var emitterTimeout = null;
 
 function activatePresenting() {
   disablePresenting();
-  activateTogetherJS(clientId + tabId, {
+  console.log("activating with tabId", tabId);
+  activateTogetherJS(tabId, {
     isSamePage: function () {return true;}
   });
   emitMirror();
@@ -237,27 +278,32 @@ var emitMirror = WRAP(function emitMirror() {
     last = {url: thisUrl};
   }
   var msg = {};
-  var headHtml = doc.head.innerHTML;
-  if (last.headHtml != headHtml) {
-    msg.head = Freeze.serializeElement(doc.head);
-    last.headHtml = headHtml;
-    if (last.head) {
-      TRY(function () {
-      msg.headDiff = Freeze.diffDocuments(last.head, doc.head);
-      });
+  var restorer = removeTogetherJsNodes();
+  try {
+    var headHtml = doc.head.innerHTML;
+    if (last.headHtml != headHtml) {
+      msg.head = Freeze.serializeElement(doc.head);
+      last.headHtml = headHtml;
+      if (last.head) {
+        TRY(function () {
+        msg.headDiff = Freeze.diffDocuments(last.head, doc.head);
+        });
+      }
+      last.head = msg.head;
     }
-    last.head = msg.head;
-  }
-  var bodyHtml = unsafeWindow.document.body.innerHTML;
-  if (last.bodyHtml != bodyHtml) {
-    msg.body = Freeze.serializeElement(doc.body);
-    last.bodyHtml = bodyHtml;
-    if (last.body) {
-      TRY(function () {
-      msg.bodyDiff = Freeze.diffDocuments(last.body, doc.body);
-      });
+    var bodyHtml = unsafeWindow.document.body.innerHTML;
+    if (last.bodyHtml != bodyHtml) {
+      msg.body = Freeze.serializeElement(doc.body);
+      last.bodyHtml = bodyHtml;
+      if (last.body) {
+        TRY(function () {
+        msg.bodyDiff = Freeze.diffDocuments(last.body, doc.body);
+        });
+      }
+      last.body = msg.body;
     }
-    last.body = msg.body;
+  } finally {
+    restorer();
   }
   if (last.htmlAttrs) {
     if (! Freeze.compareAttributes(last.htmlAttrs, doc.documentElement)) {
@@ -299,6 +345,15 @@ var mirrorScript = false;
 var numberOfMirrors = 0;
 
 self.port.on("mirror-doc", function (msg) {
+  var restorer = removeTogetherJsNodes();
+  try {
+    processMirror(msg);
+  } finally {
+    restorer();
+  }
+});
+
+function processMirror(msg) {
   if (state != "viewing") {
     console.warn("Got mirror-doc without being in 'viewing' mode");
   }
@@ -369,7 +424,7 @@ self.port.on("mirror-doc", function (msg) {
     console.log("Faulted");
     self.port.emit("mirrorFault");
   }
-});
+}
 
 /* Live mode */
 
