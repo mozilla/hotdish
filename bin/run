@@ -122,7 +122,7 @@ title () {
 make_jsx () {
     comp_src="$base/data/sidebar/jsx/components.js"
     comp_dest="$base/data/sidebar/js/components.js"
-    if [[ $comp_src -nt $comp_dest ]] ; then
+    if [[ ! -s $comp_dest || $comp_src -nt $comp_dest ]] ; then
         jsx < $comp_src > $comp_dest \
             || fail "Error in components.js"
     fi
