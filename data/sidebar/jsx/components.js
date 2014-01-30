@@ -381,6 +381,16 @@ var ChatField = UI.ChatField = React.createClass({
   }
 });
 
+var ShareDropDown = React.createClass({
+  componentDidMount: function() {
+    $(this.getDOMNode()).dropdown();
+  },
+  render: function () {
+    return this.props.children;
+  }
+});
+
+
 var Bar = UI.Bar = React.createClass({
   getInitialState: function () {
     return {presenting: false, peers: []};
@@ -415,9 +425,18 @@ var Bar = UI.Bar = React.createClass({
       <div className="middlebar">
         <div className="row">
            <div className="col-xs-8">
-             <UserSelect peers={this.state.peers} onSelect={this.onPushSelect}>
-               Share current page with:
-             </UserSelect>
+            <ShareDropDown>
+              <div className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown">Share current page with <b className="caret"></b></a>
+                <ul className="dropdown-menu">
+                  <li><a href="#"><input type="checkbox" /> User one</a></li>
+                  <li><a href="#"><input type="checkbox" /> User two</a></li>
+                  <li><a href="#"><input type="checkbox" /> User three</a></li>
+                  <li className="divider"></li>
+                  <li><a href="#">All</a></li>
+                </ul>
+              </div>
+             </ShareDropDown>
            </div>
            <div className="col-xs-4">
              <button className="btn btn-default btn-primary btn-xs" id="btn-presenting" type="button">Present page</button>
@@ -427,6 +446,7 @@ var Bar = UI.Bar = React.createClass({
     );
   }
 });
+
 
 var UserSelect = React.createClass({
   onChange: function () {
