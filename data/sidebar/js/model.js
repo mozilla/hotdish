@@ -280,7 +280,7 @@ var PushActivity = Class({
   }
 });
 
-addon.port.on("push", function (msg, localTabId, reloaed) {
+addon.port.on("push", function (msg, localTabId, reloaded) {
   var peer = getPeer(msg.clientId);
   var push = PushActivity(peer, msg.url, msg.title || msg.url, localTabId, reloaded);
   activities.push(push);
