@@ -414,24 +414,20 @@ var Bar = UI.Bar = React.createClass({
     return (
       <div className="middlebar">
         <div className="row">
+           <div className="col-xs-8">
+             <UserSelect peers={this.state.peers} onSelect={this.onPushSelect}>
+               Share current page with:
+             </UserSelect>
+           </div>
+           <div className="col-xs-4">
+             <button className="btn btn-default btn-primary btn-xs" id="btn-presenting" type="button">Present page</button>
+           </div>
+        </div>
+        <div className="row">
           <div className="col-xs-12">
             <ul className="list-inline">
               <li className="active">
                 <a className="glyphicon glyphicon-th-list btn-activity-stream" href="#" title="Activity Stream" onClick={this.onActivityClick}></a>
-              </li>
-              <li className="">
-                <UserSelect peers={this.state.peers} onSelect={this.onPushSelect}>
-                  Share current page with:
-                </UserSelect>
-              </li>
-              <li className="pull-right btn-toggle">
-                <label htmlFor="presenting">
-                  <input type="checkbox" ref="presenting" id="presenting" checked={this.state.presenting} onChange={this.onPresentClick} />
-                  Present this page
-                </label>
-                // <UserSelect peers={this.state.peers} onSelect={this.onPresentSelect}>
-                //   Present to a user...
-                // </UserSelect>
               </li>
               <li className="pull-right btn-feedback">
                 <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback" title="Send feedback"><span className="glyphicon glyphicon-send"></span></a>
@@ -455,9 +451,14 @@ var UserSelect = React.createClass({
     this.props.peers.forEach(function (p) {
       options.push(
         <option value={p.id} key={p.id}>
+          <input type="checkbox" />
           <img src={p.avatar} style={ {height: "1em", width: "1em"} } />
           {p.name}
         </option>
+        // <option>
+        //   <input type="checkbox" />
+        //   All
+        // </option>
       );
     });
     return (

@@ -270,7 +270,7 @@ h4.media-heading.username {
 
 .middlebar {
   background: #f4f4f4;
-  height: 40px;
+  //height: 40px;
   padding: 10px 0px;
   margin-bottom: 0px;
   border-bottom: 1px solid rgba(0,0,0,0.2);
