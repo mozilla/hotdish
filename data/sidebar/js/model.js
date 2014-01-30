@@ -1,6 +1,7 @@
 /* These are models for all the stuff we're keeping track of
    Ideally no UI will be in here */
 
+var CHAT_COMBINE_CUTOFF = 60*1000; // 1 minute
 
 var peers = {};
 var activities = [];
@@ -208,6 +209,18 @@ var ChatMessage = Class({
 addon.port.on("chat", function (msg) {
   var peer = getPeer(msg.clientId);
   var chatMessage = ChatMessage(peer, msg.text);
+  if (activities.length) {
+    var last = activities[activities.length-1];
+    console.log("last and", last instanceof ChatMessage, last.peer == peer,
+                last.time + CHAT_COMBINE_CUTOFF > Date.now());
+    if (last instanceof ChatMessage && last.peer == peer &&
+        last.time + CHAT_COMBINE_CUTOFF > Date.now()) {
+      last.text += "\n" + msg.text;
+      last.time = Date.now();
+      renderActivity();
+      return;
+    }
+  }
   activities.push(chatMessage);
   renderActivity();
 });
