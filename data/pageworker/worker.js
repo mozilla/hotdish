@@ -38,7 +38,10 @@ self.port.on("init", function (data) {
     clientId: clientId,
     selfIdentity: selfIdentity
   });
-  unsafeWindow.document.documentElement.dispatchEvent(event);
+  var tryDispatch = setInterval(function () {
+    unsafeWindow.document.documentElement.dispatchEvent(event);
+    clearTimeout(tryDispatch);
+  }, 300);
   setState(data.state);
 });
 
