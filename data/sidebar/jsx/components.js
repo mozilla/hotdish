@@ -421,6 +421,12 @@ var Bar = UI.Bar = React.createClass({
     return false;
   },
   render: function () {
+    var buttonText = "Present on page";
+    var buttonClass = "btn btn-default btn-primary btn-xs";
+    if (this.state.presenting) {
+      buttonText = "Presenting...";
+      buttonClass += " active";
+    }
     return (
       <div className="middlebar">
         <div className="row">
@@ -439,7 +445,7 @@ var Bar = UI.Bar = React.createClass({
              </ShareDropDown>
            </div>
            <div className="col-xs-4">
-             <button className="btn btn-default btn-primary btn-xs" id="btn-presenting" type="button">Present on page</button>
+             <button className={buttonClass} id="btn-presenting" type="button" onClick={this.onPushClick}>{buttonText}</button>
            </div>
         </div>
       </div>

@@ -101,20 +101,3 @@
         //alert();
       });
     });
-
-    // toggle presenting
-    $(function() {
-      $('#btn-presenting').click(function () {
-          var btn = $(this);
-          if ( btn.html() == "Presenting...") {
-            btn.html("Present on page");
-            btn.removeClass("active");
-          }
-          else if ( btn.html() == "Present on page") {
-            btn.html("Presenting...");
-            btn.addClass("active");
-          }
-      });
-      // initialize all the inputs
-      //$('input[type="checkbox"],[type="radio"]').not('.create-switch').bootstrapSwitch();
-    });
