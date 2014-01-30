@@ -413,6 +413,7 @@ var Bar = UI.Bar = React.createClass({
   render: function () {
     return (
       <div className="middlebar">
+        <div
         <div className="row">
           <div className="col-xs-12">
             <ul className="list-inline">
@@ -420,15 +421,14 @@ var Bar = UI.Bar = React.createClass({
                 <a className="glyphicon glyphicon-th-list btn-activity-stream" href="#" title="Activity Stream" onClick={this.onActivityClick}></a>
               </li>
               <li className="">
-                // <a className="glyphicon glyphicon-new-window btn-push-tab" href="#" title="Push your current page to everyone else" onClick={this.onPushClick}></a>
                 <UserSelect peers={this.state.peers} onSelect={this.onPushSelect}>
-                  Share with someone...
+                  Share current page with:
                 </UserSelect>
               </li>
               <li className="pull-right btn-toggle">
                 <label htmlFor="presenting">
                   <input type="checkbox" ref="presenting" id="presenting" checked={this.state.presenting} onChange={this.onPresentClick} />
-                  Presenting?
+                  Present this page
                 </label>
                 // <UserSelect peers={this.state.peers} onSelect={this.onPresentSelect}>
                 //   Present to a user...
