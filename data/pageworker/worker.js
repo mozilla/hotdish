@@ -126,7 +126,14 @@ function activateTogetherJS(roomName, overrides) {
         if (shareTabId) {
           // FIXME: hacky way to extra clientId
           var clientId = shareTabId.replace(/_.*/, "");
-          unsafeWindow.TogetherJS.require("peers").on("new-peer", function (peer) {
+          var peers = unsafeWindow.TogetherJS.require("peers");
+          peers.on("new-peer", function (peer) {
+            if (peer.id.indexOf(clientId) === 0) {
+              peer.follow();
+            }
+          });
+          // Also in case we already have the peer...
+          peers.getAllPeers().forEach(function (peer) {
             if (peer.id.indexOf(clientId) === 0) {
               peer.follow();
             }
