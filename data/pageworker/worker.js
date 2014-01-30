@@ -43,7 +43,6 @@ self.port.on("init", function (data) {
 });
 
 function setState(newState) {
-  console.log("changing state", state, newState, location.href);
   if (newState == "viewing") {
     if (state != "normal") {
       console.warn("Should only ever go from 'normal' to 'viewing'");
