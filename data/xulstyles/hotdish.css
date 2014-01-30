@@ -36,3 +36,13 @@
 
 /* the close button */
 .hotdish sidebarheader .tabs-closebutton {}
+
+
+/* this isn't working old firefoxes!  */
+.hotdish #hotdish-widget,
+.hotdish #hotdish-button,
+.hotdish #home-button,
+.hotdish #australis-hotdish-button {
+	background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);
+}
+
