@@ -413,7 +413,6 @@ var Bar = UI.Bar = React.createClass({
   render: function () {
     return (
       <div className="middlebar">
-        <div
         <div className="row">
           <div className="col-xs-12">
             <ul className="list-inline">
