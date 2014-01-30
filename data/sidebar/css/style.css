@@ -463,6 +463,16 @@ body.debug #debug-listener {
   border-bottom-right-radius: 0px;
 }
 
+@media (max-width: 390px) {
+  .drowdownrow {
+    width: 100% !important;
+  }
+
+  .presentrow {
+    width: 100% !important;
+  }
+}
+
 @media (max-width: 250px) {
 
   .time {

@@ -429,8 +429,8 @@ var Bar = UI.Bar = React.createClass({
     }
     return (
       <div className="middlebar">
-        <div className="row">
-           <div className="col-xs-8">
+        <div className="row text-center">
+           <div className="col-xs-8 drowdownrow">
             <ShareDropDown>
               <div className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Share current page with <b className="caret"></b></a>
@@ -444,7 +444,7 @@ var Bar = UI.Bar = React.createClass({
               </div>
              </ShareDropDown>
            </div>
-           <div className="col-xs-4">
+           <div className="col-xs-4 presentrow">
              <button className={buttonClass} id="btn-presenting" type="button" onClick={this.onPushClick}>{buttonText}</button>
            </div>
         </div>
