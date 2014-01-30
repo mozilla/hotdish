@@ -425,7 +425,7 @@ var Bar = UI.Bar = React.createClass({
     var buttonClass = "btn btn-default btn-primary btn-xs";
     if (this.state.presenting) {
       buttonText = "Presenting...";
-      buttonClass += " active";
+      buttonClass += " active btn-success";
     }
     return (
       <div className="middlebar">
