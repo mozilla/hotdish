@@ -107,10 +107,10 @@
       $('#btn-presenting').click(function () {
           var btn = $(this);
           if ( btn.html() == "Presenting...") {
-            btn.html("Present page");
+            btn.html("Present on page");
             btn.removeClass("active");
           }
-          else if ( btn.html() == "Present page") {
+          else if ( btn.html() == "Present on page") {
             btn.html("Presenting...");
             btn.addClass("active");
           }

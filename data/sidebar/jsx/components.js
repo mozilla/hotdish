@@ -439,7 +439,7 @@ var Bar = UI.Bar = React.createClass({
              </ShareDropDown>
            </div>
            <div className="col-xs-4">
-             <button className="btn btn-default btn-primary btn-xs" id="btn-presenting" type="button">Present page</button>
+             <button className="btn btn-default btn-primary btn-xs" id="btn-presenting" type="button">Present on page</button>
            </div>
         </div>
       </div>
