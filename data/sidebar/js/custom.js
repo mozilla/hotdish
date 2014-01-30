@@ -101,7 +101,6 @@
         //alert();
       });
     });
-<<<<<<< HEAD
 
     // toggle presenting
     $(function() {
@@ -119,5 +118,3 @@
       // initialize all the inputs
       //$('input[type="checkbox"],[type="radio"]').not('.create-switch').bootstrapSwitch();
     });
-=======
->>>>>>> e1591acbca6e56bc7457283b78cba6f3e5cca505
