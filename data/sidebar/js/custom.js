@@ -108,11 +108,11 @@
           var btn = $(this);
           if ( btn.html() == "Presenting...") {
             btn.html("Present on page");
-            btn.removeClass("active");
+            btn.removeClass("active btn-success");
           }
           else if ( btn.html() == "Present on page") {
             btn.html("Presenting...");
-            btn.addClass("active");
+            btn.addClass("active btn-success");
           }
       });
       // initialize all the inputs
