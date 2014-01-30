@@ -8,7 +8,7 @@
   background-image: url("../sidebar/assets/hotdish-logo.png");
   background-repeat: no-repeat;
   background-position: right top;
-  background-color: #e95524;
+  background-color: #f28c20;
 }
 
 
@@ -26,7 +26,7 @@
 
 /* the whole sidebar */
 .hotdish #sidebar-box {
-    border-right: double 5px #F66000;
+    border-right: double 5px #f28c20;
 }
 
 /* the header */
