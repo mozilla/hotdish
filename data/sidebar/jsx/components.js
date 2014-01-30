@@ -423,18 +423,6 @@ var Bar = UI.Bar = React.createClass({
              <button className="btn btn-default btn-primary btn-xs" id="btn-presenting" type="button">Present page</button>
            </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <ul className="list-inline">
-              <li className="active">
-                <a className="glyphicon glyphicon-th-list btn-activity-stream" href="#" title="Activity Stream" onClick={this.onActivityClick}></a>
-              </li>
-              <li className="pull-right btn-feedback">
-                <a href="mailto:hotdish@mozilla.com?Subject=Hotdish feedback" title="Send feedback"><span className="glyphicon glyphicon-send"></span></a>
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
     );
   }
