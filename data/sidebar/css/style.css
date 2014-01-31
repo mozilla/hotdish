@@ -484,6 +484,14 @@ body.debug #debug-listener {
   border-bottom-right-radius: 0px;
 }
 
+.waitingforuser {
+  height: 300px;
+}
+
+.invitePlusbtn {
+  padding-top: 0px;
+}
+
 
 @media (max-width: 390px) {
   .drowdownrow {
@@ -523,5 +531,10 @@ body.debug #debug-listener {
     margin-top: -50px !important;
     font-size: 8px;
   }
+
+  .waitingforuser {
+    font-size: 8px;
+  }
+
 }
 

@@ -38,7 +38,7 @@ var AvatarBlankWrapper = React.createClass({
     if (this.props.backgroundImage) {
       style.background = "url(" + this.props.backgroundImage + ")";
       style.backgroundRepeat = "no-repeat";
-      style.backgroundSize = "100% auto";
+      style.backgroundSize = "100% 100%";
     }
     return (
       <div className="wrapper" key={this.props.key}>
@@ -157,7 +157,7 @@ var InviteUser = React.createClass({
   },
   render: function () {
     return (
-      <div style={{fontSize: "50"}} onClick={this.clickInvite}>+</div>
+      <div className="invitePlusbtn" style={{fontSize: "50", cursor: "pointer"}} onClick={this.clickInvite}>+</div>
     )
   }
 });
@@ -166,7 +166,7 @@ var InviteUser = React.createClass({
 var WaitingForUser = React.createClass({
   render: function () {
     return (
-      <span style={ {position: "absolute", top: "4px", left: "0px", padding: "6px"} }>
+      <span className="waitingforuser" style={ {background: "url(assets/avatar.png) no-repeat center center", backgroundSize: "64px 64px", position: "absolute", top: "4px", left: "0px", padding: "6px", width: "100%", height: "100%"} }>
         Waiting for person...
       </span>
     );
