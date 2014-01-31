@@ -13,6 +13,7 @@ profile=first
 urls=
 forever=
 make_only=
+no_autostart=
 
 while [[ -n "$1" ]] ; do
     case "$1" in
@@ -34,6 +35,9 @@ while [[ -n "$1" ]] ; do
             ;;
         --make)
             make_only=1
+            ;;
+        --no-autostart)
+            no_autostart=1
             ;;
         *)
             break
@@ -57,6 +61,8 @@ if [[ -n "$help" ]] ; then
     echo "      ^C in the terminal to stop."
     echo "  --make"
     echo "      Make components.js, don't run cfx run"
+    echo "  --no-autostart"
+    echo "      Don't autostart Hotdish on startup"
     echo "All other options are passed to cfx run"
     if [[ -n "$help_message" ]] ; then
         exit
@@ -131,8 +137,13 @@ make_jsx () {
 run () {
     title $terminal_title
     make_jsx
+    if [[ -z $no_autostart ]] ; then
+        debug_json="\"debug\": true,"
+    else
+        debug_json=""
+    fi
     cfx run $profiledir --static-args "{
-      \"debug\": true,
+      $debug_json
       \"prefs\": {
         $extra_ops
         \"general.warnOnAboutConfig\": false
