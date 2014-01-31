@@ -66,7 +66,7 @@ var Peer = Class(mixinEvents({
     this.name = msg.name || this.name;
     this.color = msg.color || this.color;
     renderUsers();
-    //renderBar();
+    renderBar();
     renderActivity();
   },
 
@@ -211,8 +211,6 @@ addon.port.on("chat", function (msg) {
   var chatMessage = ChatMessage(peer, msg.text);
   if (activities.length) {
     var last = activities[activities.length-1];
-    console.log("last and", last instanceof ChatMessage, last.peer == peer,
-                last.time + CHAT_COMBINE_CUTOFF > Date.now());
     if (last instanceof ChatMessage && last.peer == peer &&
         last.time + CHAT_COMBINE_CUTOFF > Date.now()) {
       last.text += "\n" + msg.text;
@@ -409,9 +407,7 @@ function renderBar() {
       }
     });
     $("#bar-container").empty();
-    console.log("rendering bar");
     React.renderComponent(bar, $("#bar-container")[0]);
-    console.log("bar rendered");
   }
   var peers = [];
   allPeers().forEach(function (p) {

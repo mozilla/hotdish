@@ -402,7 +402,6 @@ var ChatField = UI.ChatField = React.createClass({
 
 var ShareDropDown = React.createClass({
   componentDidMount: function() {
-    console.log("calling dropdown on", this.refs.button);
     $(this.refs.button.getDOMNode()).dropdown();
   },
   render: function () {
@@ -434,7 +433,6 @@ var ShareDropDown = React.createClass({
     );
   }
 });
-
 
 var Bar = UI.Bar = React.createClass({
   getInitialState: function () {
