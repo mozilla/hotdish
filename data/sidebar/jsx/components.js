@@ -166,7 +166,7 @@ var InviteUser = React.createClass({
 var WaitingForUser = React.createClass({
   render: function () {
     return (
-      <span className="waitingforuser" style={ {background: "url(assets/avatar.png) no-repeat center center", backgroundSize: "64px 64px", position: "absolute", top: "4px", left: "0px", padding: "6px", width: "100%", height: "100%"} }>
+      <span className="waitingforuser" style={ {background: "url(assets/avatar.png) no-repeat center center", backgroundSize: "50px 50px", position: "absolute", top: "4px", left: "0px", padding: "6px", width: "100%", height: "100%"} }>
         Waiting for person...
       </span>
     );
