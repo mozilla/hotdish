@@ -115,20 +115,17 @@ UI.events.on("invite", function () {
 });
 
 var InviteAvatar = UI.InviteAvatar = React.createClass({
-  clickInvite: function () {
-    UI.events.emit("invite");
-    return false;
-  },
   render: function () {
+    var colorList = "#AF81C9, #F89A7E, #F2CA85, #54D1F1, #7C71AD, #445569".split(", ");
+    var bgcolor = colorList[this.props.n];
+    var inviteOrWait = null;
+    var inviteOrWait = this.props.waiting ? <WaitingForUser /> : <InviteUser /> ;
     var waiting = this.props.waiting ? <WaitingForUser /> : null;
     return (
       <AvatarBlankWrapper key={this.props.key}>
         <div className="row">
-          <div className="col-xs-12 text-center inviteNewperson">
-            <button type="button" className="btn btn-default btn-sm btn-invite-sm" onClick={this.clickInvite}>
-              {waiting}
-              <span className="glyphicon glyphicon-plus-sign"></span> Invite
-            </button>
+          <div className="col-xs-12 text-center inviteNewperson"  style={{backgroundColor:bgcolor}}>
+            {inviteOrWait}
           </div>
         </div>
       </AvatarBlankWrapper>
@@ -152,6 +149,19 @@ var BlankAvatar = UI.BlankAvatar = React.createClass({
     );
   }
 });
+
+var InviteUser = React.createClass({
+  clickInvite: function () {
+    UI.events.emit("invite");
+    return false;
+  },
+  render: function () {
+    return (
+      <div style={{fontSize: "50"}} onClick={this.clickInvite}>+</div>
+    )
+  }
+});
+
 
 var WaitingForUser = React.createClass({
   render: function () {
@@ -195,21 +205,23 @@ var UserGrid = UI.UserGrid = React.createClass({
   render: function () {
     var children = this.state.users || [];
     var numberToWaitFor = this.state.waiting;
-    if (children.length < 4) {
+
+    /* if (children.length < 4) {
       children.push(<InviteAvatar key="invite" waiting={!! numberToWaitFor} />);
       if (numberToWaitFor > 0) {
         numberToWaitFor--;
       }
-    }
+    }*/
     var blankId = 0;
     while (children.length < 4) {
       blankId++;
       var waiting = false;
-      if (this.numberToWaitFor > 0) {
+      if (numberToWaitFor > 0) {
         waiting = true;
         numberToWaitFor--;
       }
-      children.push(<BlankAvatar key={ 'blank' + blankId } waiting={waiting} />);
+      console.log("waiting:",waiting);
+      children.push(<InviteAvatar key={ 'blank' + blankId } n={blankId} waiting={waiting} />);
     }
     return (
       <div id="users">
