@@ -423,7 +423,7 @@ var ShareDropDown = React.createClass({
     }
     return (
       <div>
-        <button ref="button" type="button" className="btn btn-default dropdown-toggle">
+        <button ref="button" type="button" data-toggle="dropdown" className="btn btn-default dropdown-toggle">
           Share <span className="caret"></span>
         </button>
         <ul className="dropdown-menu" role="menu">
