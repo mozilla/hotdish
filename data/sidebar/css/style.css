@@ -2,6 +2,18 @@ html, body {
     margin: 0;
 }
 
+a {
+  color: #0095DD;
+}
+
+a:hover {
+  color: #00539F;
+}
+
+a:visited {
+  color: #8e44ad;
+}
+
 #content {
     //padding: 10px;
 }
@@ -207,7 +219,7 @@ ul#peers {
 }
 
 h4.media-heading.username {
-  font-size: 14px;
+  font-size: 12px;
   //display: none;
 }
 
@@ -299,11 +311,20 @@ h4.media-heading.username {
 
 .activity-stream {
   width: 100%;
+  font-size: 13px;
   //height:auto;
   overflow: auto;
   //max-height:300px;
   padding: 0;
   margin: 0 0 20px;
+}
+
+.activity-stream a {
+  color: #0095DD;
+}
+
+.activity-stream a:hover {
+  color: #00539F;
 }
 
 .activity-stream a:visited {
@@ -462,6 +483,7 @@ body.debug #debug-listener {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
 }
+
 
 @media (max-width: 390px) {
   .drowdownrow {
