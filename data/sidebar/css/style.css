@@ -1,5 +1,6 @@
 html, body {
     margin: 0;
+    height: 100%;
 }
 
 a {
@@ -161,7 +162,7 @@ ul#peers {
 }
 
 .inviteNewperson {
-  padding-top: 50px;
+  //padding-top: 50px;
 }
 
 .wrapper {

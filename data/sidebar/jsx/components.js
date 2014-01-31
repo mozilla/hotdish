@@ -123,8 +123,8 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
     var waiting = this.props.waiting ? <WaitingForUser /> : null;
     return (
       <AvatarBlankWrapper key={this.props.key}>
-        <div className="row">
-          <div className="col-xs-12 text-center inviteNewperson"  style={{backgroundColor:bgcolor}}>
+        <div className="row" style={{height:"100%"}}>
+          <div className="col-xs-12 text-center inviteNewperson"  style={{backgroundColor:bgcolor, height:"100%", position: "relative"}}>
             {inviteOrWait}
           </div>
         </div>
@@ -157,7 +157,7 @@ var InviteUser = React.createClass({
   },
   render: function () {
     return (
-      <div className="invitePlusbtn" style={{fontSize: "50", cursor: "pointer"}} onClick={this.clickInvite}>+</div>
+      <div className="col-xs-12 invitePlusbtn" style={{position: "absolute", left:"0", top:"20%", fontSize: "40px", cursor: "pointer"}} onClick={this.clickInvite}>+</div>
     )
   }
 });
