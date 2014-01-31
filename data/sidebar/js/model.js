@@ -276,6 +276,7 @@ var PushActivity = Class({
     this.time = Date.now();
   },
   activityComponent: function () {
+    return null;
     throw new Error("Not implemented");
   }
 });
