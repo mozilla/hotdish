@@ -99,14 +99,14 @@ UI.events.on("invite", function () {
     "left": "0px"
   }, 500);
 
-  $(".btn-send-invites").click(function(){
+  $(".btn-send-invites").click(function () {
     $("#invite-panel").animate({
       "left": "-400px"
     }, 500);
     inviteSent();
   });
 
-  $(".btn-cancel-invites").click(function(){
+  $(".btn-cancel-invites").click(function () {
     $("#invite-panel").animate({
       "left": "-400px"
     }, 500);
@@ -198,7 +198,7 @@ var PeerAvatar = UI.PeerAvatar = React.createClass({
 
 
 
-var UserGrid = UI.UserGrid = React.createClass({
+var UserGrid = React.createClass({
   getInitialState: function () {
     return {};
   },
@@ -239,6 +239,7 @@ var UserGrid = UI.UserGrid = React.createClass({
     );
   }
 });
+UI.UserGrid = UserGrid;
 
 var Activity = React.createClass({
   render: function () {
@@ -267,7 +268,7 @@ var Tooltip = React.createClass({
 });
 
 /* This is a page visit activity */
-var PageVisit = UI.PageVisit = React.createClass({
+var PageVisit = React.createClass({
   onSpectateClick: function () {
     UI.events.emit("spectate", this.props.page);
     return false;
@@ -285,9 +286,10 @@ var PageVisit = UI.PageVisit = React.createClass({
     );
   }
 });
+UI.PageVisit = PageVisit;
 
 /* When a person joins */
-var Join = UI.Join = React.createClass({
+var Join = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
@@ -298,8 +300,9 @@ var Join = UI.Join = React.createClass({
     );
   }
 });
+UI.Join = Join;
 
-var Invited = UI.Invited = React.createClass({
+var Invited = React.createClass({
   render: function () {
     var invitees = "";
     for (var i=0; i<this.props.invitees.length; i++) {
@@ -320,9 +323,10 @@ var Invited = UI.Invited = React.createClass({
     );
   }
 });
+UI.Invited = Invited;
 
 /* When a person joins a page in presentation mode */
-var JoinedMirror = UI.JoinedMirror = React.createClass({
+var JoinedMirror = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
@@ -333,9 +337,10 @@ var JoinedMirror = UI.JoinedMirror = React.createClass({
     );
   }
 });
+UI.JoinedMirror = JoinedMirror;
 
 /* When there is a chat */
-var Chat = UI.Chat = React.createClass({
+var Chat = React.createClass({
   render: function () {
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
@@ -348,8 +353,9 @@ var Chat = UI.Chat = React.createClass({
     );
   }
 });
+UI.Chat = Chat;
 
-var ActivityList = UI.ActivityList = React.createClass({
+var ActivityList = React.createClass({
   getInitialState: function () {
     return {};
   },
@@ -368,6 +374,7 @@ var ActivityList = UI.ActivityList = React.createClass({
     );
   }
 });
+UI.ActivityList = ActivityList;
 
 var ChatField = UI.ChatField = React.createClass({
   handleSubmit: function (event) {
@@ -395,10 +402,36 @@ var ChatField = UI.ChatField = React.createClass({
 
 var ShareDropDown = React.createClass({
   componentDidMount: function() {
-    $(this.getDOMNode()).dropdown();
+    console.log("calling dropdown on", this.refs.button);
+    $(this.refs.button.getDOMNode()).dropdown();
   },
   render: function () {
-    return this.props.children;
+    var users = [];
+    this.props.peers.forEach(function (peerInfo) {
+      users.push(
+        <li key={peerInfo.peer.id}>
+          <a href="#">
+            <span className="glyphicon glyphicon-ok" style={ {opacity: peerInfo.sharing ? "1" : "0"} }></span>
+            {peerInfo.peer.name}
+          </a>
+        </li>
+      );
+    });
+    if (this.props.all) {
+      users.push(
+        <li key="all"><a href="#">All</a></li>
+      );
+    }
+    return (
+      <div>
+        <button ref="button" type="button" className="btn btn-default dropdown-toggle">
+          Share <span className="caret"></span>
+        </button>
+        <ul className="dropdown-menu" role="menu">
+          {users}
+        </ul>
+      </div>
+    );
   }
 });
 
@@ -443,18 +476,7 @@ var Bar = UI.Bar = React.createClass({
       <div className="middlebar">
         <div className="row text-center">
            <div className="col-xs-8 drowdownrow">
-            <ShareDropDown>
-              <div className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown">Share current page with <b className="caret"></b></a>
-                <ul className="dropdown-menu">
-                  <li><a href="#"><input type="checkbox" /> User one</a></li>
-                  <li><a href="#"><input type="checkbox" /> User two</a></li>
-                  <li><a href="#"><input type="checkbox" /> User three</a></li>
-                  <li className="divider"></li>
-                  <li><a href="#">All</a></li>
-                </ul>
-              </div>
-             </ShareDropDown>
+              <ShareDropDown peers={this.state.peers} all="1" onSelect={this.props.onPushSelect} />
            </div>
            <div className="col-xs-4 presentrow">
              <button className={buttonClass} id="btn-presenting" type="button" onClick={this.onPushClick}>{buttonText}</button>
@@ -464,7 +486,6 @@ var Bar = UI.Bar = React.createClass({
     );
   }
 });
-
 
 var UserSelect = React.createClass({
   onChange: function () {

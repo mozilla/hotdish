@@ -66,7 +66,7 @@ var Peer = Class(mixinEvents({
     this.name = msg.name || this.name;
     this.color = msg.color || this.color;
     renderUsers();
-    renderBar();
+    //renderBar();
     renderActivity();
   },
 
@@ -409,12 +409,14 @@ function renderBar() {
       }
     });
     $("#bar-container").empty();
+    console.log("rendering bar");
     React.renderComponent(bar, $("#bar-container")[0]);
+    console.log("bar rendered");
   }
   var peers = [];
   allPeers().forEach(function (p) {
     if (! p.isSelf) {
-      peers.push(p);
+      peers.push({peer: p, sharing: false});
     }
   });
   bar.setState({
