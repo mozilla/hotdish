@@ -408,20 +408,22 @@ var Bar = UI.Bar = React.createClass({
       presentingClass += " active btn-success";
     }
     return (
-      <div className="middlebar">
+      /* justified is really hard to get working here! */
+      <div className="middlebar" className="handstyled" style={{margin:"0px", border:"0px", "backgroundColor":"#EEE"}}>
         <div className="btn-group">
-          <button type="button" className={buttonClass}>
+          <button type="button" className={"handstyled " + buttonClass}
+            style={{borderRadius:"0px"}}>
             <span className="glyphicon glyphicon-export"></span>
           </button>
            <button type="button" className={buttonClass}>
             <span className="glyphicon glyphicon-cloud-upload"></span>
           </button>
-          <button id="btn-presenting" type="button" className={presentingClass}
+          <button id="btn-presenting" type="button" className={"handstyled " + presentingClass}
+            style={{paddingRight: "4px", paddingLeft: "4px", borderRadius:"0px"}}
             onClick={this.onPresentClick}>
-            <img src="assets/presenter.png" width="27" height="27" style={{padding:"0 6px 0 0"}} />
+            <img src="assets/presenter.png" width="44" height="27" style={{padding:"0 6px 0 0"}} />
             {presentingText}
           </button>
-          this tab
         </div>
         /*
         <div className="row text-center">
