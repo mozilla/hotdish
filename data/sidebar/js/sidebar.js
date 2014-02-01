@@ -38,9 +38,9 @@ function init() {
     message(msg);
   });
 
-  $(document).bind("click", ".request-current", function () {
+  /*$(document).bind("click", ".request-current", function () {
     addon.port.emit("shareTab");
-  });
+  });*/
 
   function send(msg) {
     addon.port.emit("send", msg);

@@ -336,12 +336,12 @@ function renderUsers() {
     $("#user-container").empty();
     React.renderComponent(userGrid, $("#user-container")[0]);
   }
-  var users = [UI.SelfAvatar({avatar: selfIdentity.avatar})];
+  var users = [UI.SelfAvatar({name:selfIdentity.name, avatar:selfIdentity.avatar})];
   allPeers().forEach(function (p) {
     if (p.isSelf) {
       return;
     }
-    users.push(UI.PeerAvatar({avatar: p.avatar, name: p.name, key: "peer"+p.id}));
+    users.push(UI.PeerAvatar({me: false, avatar: p.avatar, name: p.name, key: "peer"+p.id}));
   });
   userGrid.setState({users: users, waiting: pendingInvites});
 }

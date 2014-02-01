@@ -30,6 +30,10 @@ h3.name {
   color: #fff;
 }
 
+.nopad {
+  padding: 0;
+}
+
 button {
     border: 1px solid #999;
     border-radius: 1px;
@@ -158,10 +162,6 @@ ul#peers {
 
 .push-btn-txt {
   font-family: Helvetica, sans-serif;
-}
-
-.inviteNewperson {
-  padding-top: 50px;
 }
 
 .wrapper {
@@ -525,3 +525,15 @@ body.debug #debug-listener {
   }
 }
 
+
+.murderers-row {
+  height:100px;
+}
+
+.fullheight {
+  height:100%;
+}
+
+.fullwidth {
+  width:100%;
+}
