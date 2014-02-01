@@ -38,9 +38,18 @@ function init() {
     message(msg);
   });
 
+  $(document).bind("click", ".request-current", function () {
+    addon.port.emit("shareTab");
+  });
+
   function send(msg) {
     addon.port.emit("send", msg);
   }
+
+  $(document).on("click", ".push", function (ev) {
+    addon.port.emit("push");
+    return false;
+  });
 
   function updateSelf() {
     message({
