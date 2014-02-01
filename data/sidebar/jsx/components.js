@@ -398,24 +398,41 @@ var Bar = UI.Bar = React.createClass({
     return false;
   },
   render: function () {
-    var buttonText = "Present on page";
-    var buttonClass = "btn btn-default btn-primary btn-xs";
+    var presentingText = "";
+    var buttonClass = "btn btn-default btn-lg";
+    var presentingClass = buttonClass;
     if (this.state.presenting) {
-      buttonText = "Presenting...";
-      buttonClass += " active btn-success";
+      presentingText = " Presenting";
+      presentingClass += " active btn-success";
     }
     return (
       <div className="middlebar">
+        <div className="btn-group">
+          <button type="button" className={buttonClass}>
+            <span className="glyphicon glyphicon-export"></span>
+          </button>
+           <button type="button" className={buttonClass}>
+            <span className="glyphicon glyphicon-cloud-upload"></span>
+          </button>
+          <button id="btn-presenting" type="button" className={presentingClass}
+            onClick={this.onPresentClick}>
+            <img src="assets/presenter.png" width="27" height="27" style={{padding:"0 6px 0 0"}} />
+            {presentingText}
+          </button>
+          this tab
+        </div>
+        /*
         <div className="row text-center">
            <div className="col-xs-8 drowdownrow">
               <ShareDropDown peers={this.state.peers} all="1" onShare={this.props.onShare} />
            </div>
            <div className="col-xs-4 presentrow">
-             <button className={buttonClass} id="btn-presenting" type="button" onClick={this.onPresentClick}>{buttonText}</button>
+             <button className={presentingClass} id="btn-presenting" type="button" onClick={this.onPresentClick}>{presentingText}</button>
            </div>
         </div>
+        */
       </div>
-    );
+    )
   }
 });
 
