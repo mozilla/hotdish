@@ -380,12 +380,14 @@ var ShareDropDown = React.createClass({
 // We can't do the handler directly because Bootstrap seems to be
 // moving elements around for its dropdown.  So instead we just bind
 // them globally thusly:
+
+/* as implemented, this breaks links in the activity stream #216
 $(document).bind("click", ".share-peer", function (event) {
   var el = $(event.target).closest(".share-peer");
   event.preventDefault();
   UI.events.emit("shareToPeer", el.attr("data-peer-id"));
 });
-
+*/
 
 var Bar = UI.Bar = React.createClass({
   getInitialState: function () {
