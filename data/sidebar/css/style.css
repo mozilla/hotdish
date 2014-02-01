@@ -338,9 +338,14 @@ h4.media-heading.username {
 }
 
 li.media {
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-  padding: 15px;
+  border-bottom: 1px solid rgba(0,0,0,0.0);
+  padding: 6px 15px;
   margin: 0px;
+  margin-left: -24px;
+}
+
+li.media:hover {
+    background-color: #EEE;
 }
 
 .row {
@@ -379,7 +384,7 @@ li.media {
   width: 32px;
   height: 32px;
   border: 1px solid rgba(255,255,255,1);
-  border-radius: 120px;
+  border-radius: 12px;
   background: #ccc;
 }
 
