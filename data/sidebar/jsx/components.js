@@ -38,7 +38,9 @@ var AvatarBlankWrapper = React.createClass({
     if (this.props.backgroundImage) {
       style.background = "url(" + this.props.backgroundImage + ")";
       style.backgroundRepeat = "no-repeat";
-      style.backgroundSize = "100% 100%";
+      // "cover" truncates the image, "contain" would scale up the image but
+      // keep aspect ration, "100% 100%" would stretch the image
+      style.backgroundSize = "cover";
     }
     return (
       <div className="wrapper" key={this.props.key}>
@@ -220,7 +222,6 @@ var UserGrid = React.createClass({
         waiting = true;
         numberToWaitFor--;
       }
-      console.log("waiting:",waiting);
       children.push(<InviteAvatar key={ 'blank' + blankId } n={blankId} waiting={waiting} />);
     }
     return (
@@ -409,7 +410,7 @@ var ShareDropDown = React.createClass({
     this.props.peers.forEach(function (peerInfo) {
       users.push(
         <li key={peerInfo.peer.id}>
-          <a href="#">
+          <a href="#" className="share-peer" data-peer-id={peerInfo.peer.id}>
             <span className="glyphicon glyphicon-ok" style={ {opacity: peerInfo.sharing ? "1" : "0"} }></span>
             {peerInfo.peer.name}
           </a>
@@ -418,7 +419,7 @@ var ShareDropDown = React.createClass({
     });
     if (this.props.all) {
       users.push(
-        <li key="all"><a href="#">All</a></li>
+        <li key="all"><a href="#" className="share-peer">All</a></li>
       );
     }
     return (
@@ -434,6 +435,16 @@ var ShareDropDown = React.createClass({
   }
 });
 
+// We can't do the handler directly because Bootstrap seems to be
+// moving elements around for its dropdown.  So instead we just bind
+// them globally thusly:
+$(document).bind("click", ".share-peer", function (event) {
+  var el = $(event.target).closest(".share-peer");
+  event.preventDefault();
+  UI.events.emit("shareToPeer", el.attr("data-peer-id"));
+});
+
+
 var Bar = UI.Bar = React.createClass({
   getInitialState: function () {
     return {presenting: false, peers: []};
@@ -442,25 +453,6 @@ var Bar = UI.Bar = React.createClass({
     var presenting = ! this.state.presenting;
     this.setState({presenting: presenting});
     this.props.onPresentClick(presenting);
-    return false;
-  },
-  onPresentSelect: function (id) {
-    if (! this.state.presenting) {
-      this.setState({presenting: true});
-    }
-    this.props.onPresentSelect(id);
-    return false;
-  },
-  onActivityClick: function () {
-    this.props.onActivityClick();
-    return false;
-  },
-  onPushClick: function () {
-    this.props.onPushClick();
-    return false;
-  },
-  onPushSelect: function (id) {
-    this.props.onPushSelect(id);
     return false;
   },
   render: function () {
@@ -474,10 +466,10 @@ var Bar = UI.Bar = React.createClass({
       <div className="middlebar">
         <div className="row text-center">
            <div className="col-xs-8 drowdownrow">
-              <ShareDropDown peers={this.state.peers} all="1" onSelect={this.props.onPushSelect} />
+              <ShareDropDown peers={this.state.peers} all="1" onShare={this.props.onShare} />
            </div>
            <div className="col-xs-4 presentrow">
-             <button className={buttonClass} id="btn-presenting" type="button" onClick={this.onPushClick}>{buttonText}</button>
+             <button className={buttonClass} id="btn-presenting" type="button" onClick={this.onPresentClick}>{buttonText}</button>
            </div>
         </div>
       </div>

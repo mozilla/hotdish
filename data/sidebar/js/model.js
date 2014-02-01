@@ -389,21 +389,14 @@ function renderBar() {
   if (! bar) {
     bar = UI.Bar({
       onPresentClick: function (presenting) {
-        addon.port.emit("setPresenting", true);
-        addon.port.emit("pushPresenting", null);
-      },
-      onPresentSelect: function (peerId) {
-        addon.port.emit("setPresenting", true);
-        addon.port.emit("pushPresenting", peerId);
-      },
-      onActivityClick: function () {
-        // FIXME: don't know what this should do
-      },
-      onPushClick: function () {
-        addon.port.emit("push", null);
-      },
-      onPushSelect: function (peerId) {
-        addon.port.emit("push", peerId);
+        if (currentTabState == "presenting") {
+          addon.port.emit("setPresenting", false);
+        } else if (currentTabState == "viewing") {
+          // Do nothing
+        } else {
+          addon.port.emit("setPresenting", true);
+        }
+        //addon.port.emit("pushPresenting", null);
       }
     });
     $("#bar-container").empty();
@@ -420,6 +413,15 @@ function renderBar() {
     peers: peers
   });
 }
+
+// Due to Bootstrap we can't use a React handler for this:
+UI.events.on("shareToPeer", function (peerId) {
+  if (currentTabState == "presenting") {
+    addon.port.emit("pushPresenting", peerId);
+  } else {
+    addon.port.emit("push", peerId);
+  }
+});
 
 addon.port.on("setCurrentTabState", function (state) {
   currentTabState = state;
