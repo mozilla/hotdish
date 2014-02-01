@@ -32,51 +32,19 @@ setInterval(function () { // age them, every 10 sec.
   });
 }, 10000);
 
-var AvatarBlankWrapper = React.createClass({
-  render: function () {
-    var style = {};
-    if (this.props.backgroundImage) {
-      style.background = "url(" + this.props.backgroundImage + ")";
-      style.backgroundRepeat = "no-repeat";
-      // "cover" truncates the image, "contain" would scale up the image but
-      // keep aspect ration, "100% 100%" would stretch the image
-      style.backgroundSize = "cover";
-    }
-    return (
-      <div className="wrapper" key={this.props.key}>
-        <div className="main" style={ style }>
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-});
-
-var AvatarWrapper = React.createClass({
-  render: function () {
-    return (
-      <AvatarBlankWrapper backgroundImage={this.props.avatar} key={this.props.key}>
-        <div className="username">
-          {this.props.username}
-        </div>
-        <div className="overlay">
-          <div className="row">
-            <div className="container text-center">
-              {this.props.children}
-            </div>
-          </div>
-        </div>
-      </AvatarBlankWrapper>
-    );
-  }
-});
 
 /* This is the avatar of yourself in the header */
-var SelfAvatar = UI.SelfAvatar = React.createClass({
+var SelfAvatar = UI.SelfAvatar = PeerAvatar = UI.PeerAvatar = React.createClass({
+  showCamera: function () {
+    console.log('show the camera!');
+    window.open("../interaction-cam/index.html","_blank");
+  },
+  goToMe: function() {
+    console.log('go to me');
+  },
   render: function () {
-    return (
-      <AvatarWrapper avatar={this.props.avatar} username="me">
-        <a href="#" className="btn btn-default btn-sm" role="button">
+    /*
+            <a href="#" className="btn btn-default btn-sm" role="button">
           Take photo
         </a>
         <a href="#" className="btn btn-default btn-sm" role="button">
@@ -85,7 +53,23 @@ var SelfAvatar = UI.SelfAvatar = React.createClass({
         <a href="#" className="btn btn-default btn-sm" role="button">
           Profile
         </a>
-      </AvatarWrapper>
+    */
+    var me = this.props.me;
+    selfname = this.props.name;
+    var style = {};
+    if (this.props.avatar) {
+      console.log("@@have props!")
+      style.background = "url(" + this.props.avatar + ")";
+      style.backgroundRepeat = "no-repeat";
+      style.backgroundSize = "100%";
+      style.backgroundSize = "cover";
+      style.backgroundPosition = "center";
+    }
+    return (
+      // should be show camera, if self, or go to person if not.  might have to split this!
+      <div onClick={this.showCamera} className="text-center fullheight selfAvatar" style={ style }>
+      <p className='uname'>{selfname}</p>
+      </div>
     );
   }
 });
@@ -122,32 +106,15 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
     var bgcolor = colorList[this.props.n];
     var inviteOrWait = null;
     var inviteOrWait = this.props.waiting ? <WaitingForUser /> : <InviteUser /> ;
-    var waiting = this.props.waiting ? <WaitingForUser /> : null;
-    return (
-      <AvatarBlankWrapper key={this.props.key}>
-        <div className="row" style={{height:"100%"}}>
-          <div className="col-xs-12 text-center inviteNewperson"  style={{backgroundColor:bgcolor, height:"100%", position: "relative"}}>
-            {inviteOrWait}
-          </div>
-        </div>
-      </AvatarBlankWrapper>
-    );
-  }
-});
+    // <AvatarBlankWrapper key={this.props.key}>
 
-/* And then a blank space */
-var BlankAvatar = UI.BlankAvatar = React.createClass({
-  render: function () {
-    var waiting = this.props.waiting ? <WaitingForUser /> : null;
+    var style = {
+      backgroundColor: bgcolor
+    };
     return (
-      <AvatarBlankWrapper key={this.props.key}>
-        <div className="overlay">
-          <div className="row">
-            No one is here yet.
-            {waiting}
-          </div>
-        </div>
-      </AvatarBlankWrapper>
+      <div className="text-center inviteNewperson fullheight"  style={style}>
+        {inviteOrWait}
+      </div>
     );
   }
 });
@@ -158,8 +125,10 @@ var InviteUser = React.createClass({
     return false;
   },
   render: function () {
+    // lineHeight is the height of the div, thus centering vertically
     return (
-      <div className="col-xs-12 invitePlusbtn" style={{position: "absolute", left:"0", top:"20%", fontSize: "40px", cursor: "pointer"}} onClick={this.clickInvite}>+</div>
+      <div style={{fontSize: "50", lineHeight:"100px"}} onClick={this.clickInvite}>+
+      </div>
     )
   }
 });
@@ -176,28 +145,6 @@ var WaitingForUser = React.createClass({
 });
 
 
-/* This is the avatar of anyone else */
-var PeerAvatar = UI.PeerAvatar = React.createClass({
-  render: function () {
-    return (
-      <AvatarWrapper avatar={this.props.avatar} key={this.props.key}
-                     username={this.props.name}>
-        <div className="col-xs-12">
-          <a href="" className="btn btn-default btn-sm" role="button">
-            Talk
-          </a>
-          <a href="" className="btn btn-default btn-sm" role="button">
-            Profile
-          </a>
-          <a href="" className="btn btn-default btn-sm" role="button">
-            Invite
-          </a>
-        </div>
-      </AvatarWrapper>
-    );
-  }
-});
-
 
 
 var UserGrid = React.createClass({
@@ -208,14 +155,8 @@ var UserGrid = React.createClass({
     var children = this.state.users || [];
     var numberToWaitFor = this.state.waiting;
 
-    /* if (children.length < 4) {
-      children.push(<InviteAvatar key="invite" waiting={!! numberToWaitFor} />);
-      if (numberToWaitFor > 0) {
-        numberToWaitFor--;
-      }
-    }*/
     var blankId = 0;
-    while (children.length < 4) {
+    while (children.length < 6) {
       blankId++;
       var waiting = false;
       if (numberToWaitFor > 0) {
@@ -225,16 +166,17 @@ var UserGrid = React.createClass({
       children.push(<InviteAvatar key={ 'blank' + blankId } n={blankId} waiting={waiting} />);
     }
     return (
-      <div id="users">
+      <div id="users" class="container-fluid">
         <div className="all-users-here-notification">Yay, everyone is here!</div>
         <div className="invites-sent-notification">Invites sent!</div>
-        <div className="row firstUserRow">
-          {children[0]}
-          {children[1]}
-        </div>
-        <div className="row secondUserRow">
-          {children[2]}
-          {children[3]}
+
+        <div className="row">
+          <div className="col-xs-4 nopad murderers-row">{children[0]}</div>
+          <div className="col-xs-4 nopad murderers-row">{children[1]}</div>
+          <div className="col-xs-4 nopad murderers-row">{children[2]}</div>
+          <div className="col-xs-4 nopad murderers-row">{children[3]}</div>
+          <div className="col-xs-4 nopad murderers-row">{children[4]}</div>
+          <div className="col-xs-4 nopad murderers-row">{children[5]}</div>
         </div>
       </div>
     );
