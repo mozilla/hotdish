@@ -399,6 +399,11 @@ var Bar = UI.Bar = React.createClass({
     this.props.onPresentClick(presenting);
     return false;
   },
+
+  onActivityLog: function () {
+    window.open("../activitylog/index.html","_blank")
+  },
+
   render: function () {
     var presentingText = "";
     var buttonClass = "btn btn-default btn-lg";
@@ -417,6 +422,9 @@ var Bar = UI.Bar = React.createClass({
           </button>
            <button type="button" className={buttonClass}>
             <span className="glyphicon glyphicon-cloud-upload"></span>
+          </button>
+          <button type="button" className={buttonClass} onClick={this.onActivityLog}>
+            <span className="glyphicon glyphicon-dashboard"></span>
           </button>
           <button id="btn-presenting" type="button" className={"handstyled " + presentingClass}
             style={{paddingRight: "4px", paddingLeft: "4px", borderRadius:"0px"}}
