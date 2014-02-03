@@ -401,7 +401,9 @@ var Bar = UI.Bar = React.createClass({
   },
 
   onActivityLog: function () {
-    window.open("../activitylog/index.html","_blank")
+    var base = location.href.replace(/\/[^\/]*$/, "");
+    addon.port.emit("visitPage", base + "/../activitylog/index.html");
+    return false;
   },
 
   render: function () {
