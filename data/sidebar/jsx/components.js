@@ -406,6 +406,11 @@ var Bar = UI.Bar = React.createClass({
     return false;
   },
 
+  onShareClick: function () {
+    UI.events.emit("shareToPeer", null);
+    return false;
+  },
+
   render: function () {
     var presentingText = "";
     var buttonClass = "btn btn-default btn-lg";
@@ -419,7 +424,8 @@ var Bar = UI.Bar = React.createClass({
       <div className="middlebar" className="handstyled" style={{margin:"0px", border:"0px", "backgroundColor":"#EEE"}}>
         <div className="btn-group">
           <button type="button" className={"handstyled " + buttonClass}
-            style={{borderRadius:"0px"}}>
+            style={{borderRadius:"0px"}}
+            onClick={this.onShareClick}>
             <span className="glyphicon glyphicon-export"></span>
           </button>
            <button type="button" className={buttonClass}>
