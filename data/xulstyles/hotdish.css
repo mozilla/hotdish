@@ -50,3 +50,32 @@
 	-moz-appearence: none !important;
 	background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);
 }
+
+
+
+
+
+
+
+
+
+
+/*Presenter tab style*/
+.hotdish #presenter-tab tab.tabbrowser-tab {
+  border-top: 1px solid #2ecc71;
+}
+
+
+/*Spectator tab style*/
+.hotdish #spectator-tab {
+    border-top: 1px solid #3498db;
+}
+
+
+/*Shared tab style*/
+.hotdish #shared-tab {
+
+}
+
+
+
