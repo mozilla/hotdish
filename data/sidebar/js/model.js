@@ -405,7 +405,7 @@ function renderBar() {
         } else {
           addon.port.emit("setPresenting", true);
         }
-        //addon.port.emit("pushPresenting", null);
+        addon.port.emit("pushPresenting", null);
       }
     });
     $("#bar-container").empty();
@@ -419,6 +419,7 @@ function renderBar() {
   });
   bar.setState({
     presenting: currentTabState == "presenting",
+    viewing: currentTabState == "viewing",
     peers: peers
   });
 }

@@ -58,7 +58,6 @@ var SelfAvatar = UI.SelfAvatar = PeerAvatar = UI.PeerAvatar = React.createClass(
     selfname = this.props.name;
     var style = {};
     if (this.props.avatar) {
-      console.log("@@have props!")
       style.background = "url(" + this.props.avatar + ")";
       style.backgroundRepeat = "no-repeat";
       style.backgroundSize = "100%";
@@ -166,7 +165,7 @@ var UserGrid = React.createClass({
       children.push(<InviteAvatar key={ 'blank' + blankId } n={blankId} waiting={waiting} />);
     }
     return (
-      <div id="users" class="container-fluid">
+      <div id="users" className="container-fluid">
         <div className="all-users-here-notification">Yay, everyone is here!</div>
         <div className="invites-sent-notification">Invites sent!</div>
 
@@ -413,33 +412,52 @@ var Bar = UI.Bar = React.createClass({
 
   render: function () {
     var presentingText = "";
+    var presentingTitle = "Present this page";
     var buttonClass = "btn btn-default btn-lg";
     var presentingClass = buttonClass;
     if (this.state.presenting) {
       presentingText = " Presenting";
       presentingClass += " active btn-success";
+      presentingTitle = "Click to stop presenting";
+    } else if (this.state.viewing) {
+      presentingText = " Viewing";
+      presentingClass += " active btn-warning";
+      presentingTitle = "You are viewing; close the tab to end";
     }
     return (
       /* justified is really hard to get working here! */
       <div className="middlebar" className="handstyled" style={{margin:"0px", border:"0px", "backgroundColor":"#EEE"}}>
         <div className="btn-group">
-          <button type="button" className={"handstyled " + buttonClass}
-            style={{borderRadius:"0px"}}
-            onClick={this.onShareClick}>
-            <span className="glyphicon glyphicon-export"></span>
-          </button>
-           <button type="button" className={buttonClass}>
-            <span className="glyphicon glyphicon-cloud-upload"></span>
-          </button>
-          <button type="button" className={buttonClass} onClick={this.onActivityLog}>
-            <span className="glyphicon glyphicon-dashboard"></span>
-          </button>
-          <button id="btn-presenting" type="button" className={"handstyled " + presentingClass}
-            style={{paddingRight: "4px", paddingLeft: "4px", borderRadius:"0px"}}
-            onClick={this.onPresentClick}>
-            <img src="assets/presenter.png" width="44" height="27" style={{padding:"0 6px 0 0"}} />
-            {presentingText}
-          </button>
+          <Tooltip>
+            <button type="button" className={"handstyled " + buttonClass}
+              title="Share this page with everyone"
+              style={{borderRadius:"0px"}}
+              onClick={this.onShareClick}>
+              <span className="glyphicon glyphicon-export"></span>
+            </button>
+          </Tooltip>
+          <Tooltip>
+            <button type="button" className={buttonClass}
+              title="Imaginary uploading">
+              <span className="glyphicon glyphicon-cloud-upload"></span>
+            </button>
+          </Tooltip>
+          <Tooltip>
+            <button type="button" className={buttonClass}
+              title="Open the Activity Log"
+              onClick={this.onActivityLog}>
+              <span className="glyphicon glyphicon-dashboard"></span>
+            </button>
+          </Tooltip>
+          <Tooltip>
+            <button id="btn-presenting" type="button" className={"handstyled " + presentingClass}
+              style={{paddingRight: "4px", paddingLeft: "4px", borderRadius:"0px"}}
+              title={presentingTitle}
+              onClick={this.onPresentClick}>
+              <img src="assets/presenter.png" width="44" height="27" style={{padding:"0 6px 0 0"}} />
+              {presentingText}
+            </button>
+          </Tooltip>
         </div>
         /*
         <div className="row text-center">

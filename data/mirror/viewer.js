@@ -11,11 +11,18 @@ document.addEventListener("focus", function (event) {
   event.preventDefault();
 }, true);
 
-//If you're a spectator, your cursor should :not-allowed
-$("body").css("cursor","not-allowed");
-
-// spectator's cursor should be :not-allowed
-$(".together-cursor").css("cursor","not-allowed");
+var style = document.createElement("style");
+style.textContent = [
+  "* {",
+  "  cursor: not-allowed;",
+  "}",
+  ".togetherjs-cursor {",
+  // I don't think this does anything:
+  "  cursor: not-allowed;",
+  "}"
+].join("\n");
+style.jsmirrorHide = true;
+document.head.appendChild(style);
 
 var viewer = document.getElementById("viewer");
 viewer.parentNode.removeChild(viewer);
