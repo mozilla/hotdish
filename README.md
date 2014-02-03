@@ -9,6 +9,12 @@ If you use Hotdish, or are just curious about what we're doing or thinking about
 
 This is developed as a Firefox addon.  We make no claims about future development, we're just trying things out.
 
+Problems we are trying to solve/explore
+-------------
+* can we consolidate native productivity and communication apps/tools into something that's useful in the browser?
+* can we successfully emulate the physical work place environment in a virtual ambient passive and active presence setting?
+* can we make people feel more connected while working together online?
+* can we bridge the gap of being alone online together?
 
 Install/Usage
 -------------
