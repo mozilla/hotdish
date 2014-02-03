@@ -13,6 +13,7 @@ document.addEventListener("focus", function (event) {
 
 var style = document.createElement("style");
 style.textContent = [
+  //If you're a spectator, your cursor should :not-allowed
   "* {",
   "  cursor: not-allowed;",
   "}",
