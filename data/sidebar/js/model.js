@@ -94,6 +94,15 @@ var Peer = Class(mixinEvents({
       }
     }
     renderActivity();
+  },
+
+  getActiveTab: function () {
+    for (var id in this.tabs) {
+      if (this.tabs[id].active) {
+        return this.tabs[id];
+      }
+    }
+    return null;
   }
 
 }));
