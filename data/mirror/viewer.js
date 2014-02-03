@@ -12,10 +12,12 @@ document.addEventListener("focus", function (event) {
 }, true);
 
 //If you're a spectator, your cursor should :not-allowed
-$("body").css("cursor","not-allowed");
+$("head").add($("<style />").text("* {cursor: not-allowed} .together-cursor {cursor: not-allowed}");
+//$('body').append("<strong>Hello</strong>");
+//$("body").css("cursor","not-allowed");
 
 // spectator's cursor should be :not-allowed
-$(".together-cursor").css("cursor","not-allowed");
+//$(".together-cursor").css("cursor","not-allowed");
 
 var viewer = document.getElementById("viewer");
 viewer.parentNode.removeChild(viewer);
