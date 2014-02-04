@@ -338,10 +338,10 @@ h4.media-heading.username {
 }
 
 li.media {
-  border-bottom: 1px solid rgba(0,0,0,0.0);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
   padding: 6px 15px;
   margin: 0px;
-  margin-left: -24px;
+  //margin-left: -24px;
 }
 
 li.media:hover {
@@ -384,7 +384,7 @@ li.media:hover {
   width: 32px;
   height: 32px;
   border: 1px solid rgba(255,255,255,1);
-  border-radius: 12px;
+  border-radius: 64px;
   background: #ccc;
 }
 
