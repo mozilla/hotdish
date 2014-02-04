@@ -361,6 +361,10 @@ self.port.on("mirror-doc", function (msg) {
   }
 });
 
+self.port.on("presentingOff", function () {
+  location.href = lastIncoming.url;
+});
+
 function processMirror(msg) {
   if (state != "viewing") {
     console.warn("Got mirror-doc without being in 'viewing' mode");
