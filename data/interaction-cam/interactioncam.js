@@ -22,6 +22,10 @@
         takeoff: audio[2]
       };
 
+  for (var i=0; i<audio.length; i++) {
+    audio[i].volume = 0.1;
+  }
+
   function init() {
     navigator.getMedia = ( navigator.getUserMedia ||
                            navigator.webkitGetUserMedia ||
