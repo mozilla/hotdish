@@ -1,0 +1,37 @@
+#takephoto {
+  margin-top: 100px;
+  background: url('../imgs/photo-bg.png') no-repeat fixed;
+  background-size: cover;
+  height: auto;
+}
+
+.bottomnav {
+  background: #ebebeb;
+}
+
+img.branding {
+  height: 30px;
+  width: 30px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+#takephoto .container.smrow {
+  max-width: 440px;
+}
+
+#takephoto .container {
+  max-width: 600px;
+}
+
+#takephoto .photo-area {
+  max-width: 400px;
+  //min-height: 400px;
+  //padding: 20%;
+  margin: 20px auto;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+}
+
+.addpadding {
+  padding-top: 10px;
+}

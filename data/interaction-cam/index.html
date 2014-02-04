@@ -2,28 +2,49 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Interaction Cam1</title>
-<link rel="stylesheet" href="interactioncam.css">
+  <title>Hotdish | Take your photo</title>
+  <link rel="stylesheet" href="interactioncam.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/bootstrap.min.js"></script>
 </head>
-<body class="reviewing">
-  <header>
-    <h1>Hotdish Cam</h1>
-    <p>press SPACE to take a selfie</p>
-    <p><label for="continuous">Continuous? <input type="checkbox" id="continuous"></label></p>
-  </header>
-  <div id="videocontainer">
-  <video id="video"></video>
-  </div>
-  <canvas id="canvas"></canvas>
 
-  <p id="about">To open Hotdish: <strong>View &gt; Sidebar &gt; Share with hotdishgroup</strong></p>
+<body id="takephoto">
 
-  <footer>
+  <section class="container">
+    <div class="row text-center">
+      <div class="col-xs-12">
+        <div class="panel panel-default photo-area">
+          <div id="videocontainer" class="panel-body">
+            <video id="video">Your photo is loading...</video>
+          </div>
+        </div>
+        <p><button class="btn btn-primary" id="btn-takephoto">Update your beautiful mug</button></p>
+      </div>
+    </div>
+  </section>
+  <nav class="bottomnav navbar navbar-fixed-bottom">
+    <div class="container-fluid">
+      <div class="">
+        <div class="container smrow">
+          <div class="col-xs-6">
+            <h4><img src="imgs/wrench-icon-120.png" class="branding">Hotdish</h4>
+          </div>
+          <div class="col-xs-6 addpadding">
+            <h6>A collaboration Firefox add-on.</h6>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <canvas id="canvas" style="display: none"></canvas>
+  <!-- <footer>
     <p>
       <a href="https://github.com/codepo8/interaction-cam">Original</a> by <a href="http://twitter.com/codepo8">Chris Heilmann</a>.
       <a href="https://github.com/mozilla/hotdish/">Fork Ours on GitHub<a>
     </p>
-  </footer>
+  </footer> -->
   <audio src="snap.wav"></audio>
   <!-- http://www.freesound.org/people/thecheeseman/sounds/51360/ -->
   <audio src="rip.wav"></audio>

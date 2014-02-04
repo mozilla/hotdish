@@ -10,8 +10,8 @@
 
  var ctx    = canvas.getContext('2d'),
      streaming    = false,
-     width  = 200,
-     height = 200;
+     width  = 100,
+     height = 100;
  var iconHeight = 128;
  var iconWidth = 128;
 
@@ -45,8 +45,8 @@
           video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
         }
         video.play();
-        video.style.width = width + 'px';
-        video.style.height = height + 'px';
+        video.style.width = width + '%';
+        video.style.height = height + '%';
       },
       function(err) {
         console.log("An error occured! " + err);
@@ -119,6 +119,13 @@
       takepicture();
     }
   },false);
+
+  //take photo button
+  var btnPhoto = document.getElementById('btn-takephoto');
+  btnPhoto.style.cursor = 'pointer';
+  btnPhoto.onclick = function() {
+      takepicture();
+  };
 
   video.addEventListener('click', function(ev){
     takepicture();
