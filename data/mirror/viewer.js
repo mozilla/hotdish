@@ -15,6 +15,7 @@ document.addEventListener("focus", function (event) {
 var transparentDiv = document.createElement("div");
 transparentDiv.id = 'hotdishTransparentDiv';
 transparentDiv.style.cssText = 'position:absolute;width:100%;height:100%;z-index:9999;background:red;top:0;left:0;';
+transparentDiv.jsmirrorHide = true;
 document.getElementsByTagName('body')[0].appendChild(transparentDiv);
 transparentDiv.innerHTML = "TEST";
 
