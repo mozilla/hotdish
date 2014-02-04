@@ -1,11 +1,10 @@
-#takephoto {
-  margin-top: 100px;
-  background: url('../imgs/photo-bg.png') no-repeat fixed;
-  background-size: cover;
-  height: auto;
+/*global*/
+
+.addpadding {
+  padding-top: 10px;
 }
 
-.bottomnav {
+.nav {
   background: #ebebeb;
 }
 
@@ -14,6 +13,52 @@ img.branding {
   width: 30px;
   margin-bottom: 5px;
   margin-right: 5px;
+}
+
+/*welcome*/
+
+#welcome {
+  background: url('../imgs/glasspane.jpg') no-repeat fixed;
+  background-size: cover;
+  height: auto;
+}
+
+#horizon {
+	color: black;
+	background-color: transparent;
+	text-align: center;
+	position: absolute;
+	top: 40%;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	overflow: visible;
+	visibility: visible;
+	display: block;
+}
+
+#content {
+	background-color: transparent;
+	margin-left: -125px;
+	position: absolute;
+	top: -35px;
+	left: 50%;
+	width: 250px;
+	height: 70px;
+	visibility: visible;
+}
+
+
+
+
+
+/*take photo page*/
+
+#takephoto {
+  margin-top: 100px;
+  background: url('../imgs/photo-bg.png') no-repeat fixed;
+  background-size: cover;
+  height: auto;
 }
 
 #takephoto .container.smrow {
@@ -32,6 +77,3 @@ img.branding {
   box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
 }
 
-.addpadding {
-  padding-top: 10px;
-}
