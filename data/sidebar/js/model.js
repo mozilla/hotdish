@@ -395,6 +395,16 @@ function renderUsers() {
 
 var activityList;
 
+function ignoreUrl(url) {
+  if (url.indexOf("about:") === 0) {
+    return true;
+  }
+  if (url.search(/^resource:.*interaction-cam/) != -1) {
+    return true;
+  }
+  return false;
+}
+
 function renderActivity() {
   if (! activityList) {
     activityList = UI.ActivityList();
@@ -405,7 +415,7 @@ function renderActivity() {
   allPeers().forEach(function (p) {
     var tabs = [];
     p.allTabs().forEach(function (t) {
-      if (t.current().url.indexOf("about:") !== 0) {
+      if (! ignoreUrl(t.current().url)) {
         sorted.push(t);
       }
     }, this);
