@@ -1,5 +1,8 @@
 #takephoto {
   margin-top: 100px;
+  background: url('../imgs/photo-bg.png') no-repeat fixed;
+  background-size: cover;
+  height: auto;
 }
 
 .bottomnav {
