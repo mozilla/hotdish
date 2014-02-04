@@ -14,10 +14,10 @@ document.addEventListener("focus", function (event) {
 // #239 adding transparent div on the body if you're a spectator so you can't do anything on the page.
 var transparentDiv = document.createElement("div");
 transparentDiv.id = 'hotdishTransparentDiv';
-transparentDiv.style.cssText = 'position:absolute;width:100%;height:100%;z-index:9999;background:red;top:0;left:0;';
+transparentDiv.style.cssText = 'position:fixed;width:100%;height:100%;z-index:9999;background:none;top:0;right:0;bottom:0;left:0;';
 transparentDiv.jsmirrorHide = true;
 document.getElementsByTagName('body')[0].appendChild(transparentDiv);
-transparentDiv.innerHTML = "TEST";
+transparentDiv.innerHTML = "";
 
 var style = document.createElement("style");
 style.textContent = [
