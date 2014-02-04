@@ -216,7 +216,6 @@ var emitterTimeout = null;
 
 function activatePresenting() {
   disablePresenting();
-  console.log("activating with tabId", tabId);
   activateTogetherJS(tabId, {
     isSamePage: function () {return true;}
   });

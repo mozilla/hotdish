@@ -199,8 +199,11 @@ var Activity = React.createClass({
 });
 
 var Tooltip = React.createClass({
-  componentDidMount: function() {
+  componentDidMount: function () {
     $(this.getDOMNode()).tooltip();
+  },
+  componentDidUpdate: function () {
+    $(this.getDOMNode()).tooltip("fixTitle");
   },
   render: function () {
     return this.props.children;
