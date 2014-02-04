@@ -1,0 +1,17 @@
+#takephoto {
+
+}
+
+#takephoto .container {
+  max-width: 600px;
+}
+
+#takephoto img {
+  width: 60px;
+}
+
+#takephoto .photo-area {
+  max-width: 400px;
+  min-height: 400px;
+  margin: 20px auto;
+}
