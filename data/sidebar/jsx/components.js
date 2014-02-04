@@ -210,6 +210,19 @@ var Tooltip = React.createClass({
   }
 });
 
+var Dropdown = React.createClass({
+  componentDidMount: function () {
+    $(this.getDOMNode()).find("button").dropdown();
+  },
+  render: function () {
+    return (
+      <div>
+        {this.props.children}
+      </div>
+    );
+  }
+});
+
 /* This is a page visit activity */
 var PageVisit = React.createClass({
   onSpectateClick: function () {
@@ -404,6 +417,7 @@ var Bar = UI.Bar = React.createClass({
   getInitialState: function () {
     return {presenting: false, peers: []};
   },
+
   onPresentClick: function () {
     var presenting = ! this.state.presenting;
     this.setState({presenting: presenting});
@@ -435,6 +449,17 @@ var Bar = UI.Bar = React.createClass({
       presentingClass += " active btn-warning";
       presentingTitle = "You are viewing; close the tab to end";
     }
+    var userList = [];
+    this.state.peers.forEach(function (peerInfo) {
+      userList.push(
+        <li key={peerInfo.peer.id}>
+          <a href="#" className="share-peer" data-peer-id={peerInfo.peer.id}>
+            <span className="glyphicon glyphicon-ok" style={ {opacity: peerInfo.sharing ? "1" : "0"} }></span>
+            {peerInfo.peer.name}
+          </a>
+        </li>
+      );
+    });
     return (
       /* justified is really hard to get working here! */
       <div className="middlebar" className="handstyled" style={ {margin:"0px", border:"0px", backgroundColor: "#EEE"} }>
@@ -442,11 +467,26 @@ var Bar = UI.Bar = React.createClass({
           <Tooltip>
             <button type="button" className={"handstyled " + buttonClass}
               title="Share this page with everyone"
-              style={{borderRadius:"0px"}}
+              style={ {borderRadius: "0px"} }
               onClick={this.onShareClick}>
               <span className="glyphicon glyphicon-export"></span>
             </button>
           </Tooltip>
+          <div style={ {display: "none"} }>
+          <Dropdown>
+            <Tooltip>
+              <button type="button" className={"handstyled " + buttonClass}
+                title="Share with someone specific"
+                style={ {borderRadius: "0px"} }>
+                <span className="caret"></span>
+                <span className="sr-only">Toggle Dropdown</span>
+              </button>
+            </Tooltip>
+            <ul className="dropdown-menu" role="menu">
+              {userList}
+            </ul>
+          </Dropdown>
+          </div>
           <Tooltip>
             <button type="button" className={buttonClass}
               title="Imaginary uploading">
