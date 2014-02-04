@@ -46,8 +46,14 @@
 .togetherjs-dock-person-tooltip {
   left: 68px !important;
   right: auto !important;
+  display: none !important;
 }
 
 .togetherjs-person-tooltip-arrow-r {
   display: none !important;
+}
+
+.togetherjs-button:hover {
+  background: none !important;
+  cursor: pointer;
 }
