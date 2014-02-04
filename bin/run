@@ -14,6 +14,7 @@ urls=
 forever=
 make_only=
 no_autostart=
+upload_xpi=
 
 while [[ -n "$1" ]] ; do
     case "$1" in
@@ -42,6 +43,9 @@ while [[ -n "$1" ]] ; do
         --no-autostart)
             no_autostart=1
             ;;
+        --upload-xpi)
+            upload_xpi=1
+            ;;
         *)
             break
             ;;
@@ -68,6 +72,9 @@ if [[ -n "$help" ]] ; then
     echo "      Make components.js, don't run cfx run"
     echo "  --no-autostart"
     echo "      Don't autostart Hotdish on startup"
+    echo "  --upload-xpi"
+    echo "      Make the hotdish.xpi and upload it to https://togetherjs.com/hotdish/hotdish.xpi"
+    echo "      (requires ssh access)"
     echo "All other options are passed to cfx run"
     if [[ -n "$help_message" ]] ; then
         exit
@@ -165,7 +172,11 @@ run () {
 
 break="$(python -c 'import os; print "*"*int(os.environ.get("COLUMNS", 80))')"
 
-if [[ -n "$make_only" ]] ; then
+if [[ -n "$upload_xpi" ]] ; then
+    make_jsx
+    cfx xpi
+    scp -i ~/.ssh/moz-ec2 hotdish.xpi ubuntu@ec2-54-227-175-75.compute-1.amazonaws.com:/var/www/togetherjs/public/hotdish/hotdish.xpi
+elif [[ -n "$make_only" ]] ; then
     make_jsx
 elif [[ -z "$forever" ]] ; then
     run "$@"
