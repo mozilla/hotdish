@@ -168,12 +168,12 @@ var UserGrid = React.createClass({
         <div className="invites-sent-notification">Invites sent!</div>
 
         <div className="row">
-          <div className="col-xs-4 nopad murderers-row">{children[0]}</div>
-          <div className="col-xs-4 nopad murderers-row">{children[1]}</div>
-          <div className="col-xs-4 nopad murderers-row">{children[2]}</div>
-          <div className="col-xs-4 nopad murderers-row">{children[3]}</div>
-          <div className="col-xs-4 nopad murderers-row">{children[4]}</div>
-          <div className="col-xs-4 nopad murderers-row">{children[5]}</div>
+          <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[0]} </div>
+          <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[1]}</div>
+          <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[2]}</div>
+          <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[3]}</div>
+          <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[4]}</div>
+          <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[5]}</div>
         </div>
       </div>
     );

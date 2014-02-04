@@ -563,6 +563,13 @@ body.debug #debug-listener {
   height:100px;
 }
 
+.murderers-row:hover {
+  cursor: pointer;
+}
+
+.murderers-row .avatarOverlay { width: 100%; height: 2px; position: absolute; top: 0; left: 0; right:0; bottom:0; display: none; background-color: #3498db; z-index: 0; }
+.murderers-row:hover .avatarOverlay { display: block; }
+
 .fullheight {
   height:100%;
 }
