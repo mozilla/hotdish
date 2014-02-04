@@ -442,7 +442,7 @@ function renderChatField() {
 }
 
 var bar;
-var currentTabState = null;
+var currentTabState = "normal";
 
 function renderBar() {
   if (! bar) {
@@ -454,8 +454,8 @@ function renderBar() {
           // Do nothing
         } else {
           addon.port.emit("setPresenting", true);
+          addon.port.emit("pushPresenting", null);
         }
-        addon.port.emit("pushPresenting", null);
       }
     });
     $("#bar-container").empty();
