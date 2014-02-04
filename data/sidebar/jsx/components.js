@@ -126,7 +126,7 @@ var InviteUser = React.createClass({
   render: function () {
     // lineHeight is the height of the div, thus centering vertically
     return (
-      <div style={{fontSize: "50", lineHeight:"100px"}} onClick={this.clickInvite}>+
+      <div className="inviteUserBtn" style={{fontSize: "50", lineHeight:"100px"}} onClick={this.clickInvite}>+
       </div>
     )
   }

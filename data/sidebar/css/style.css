@@ -238,6 +238,11 @@ h4.media-heading.username {
   opacity: 1;
 }
 
+.inviteUserBtn:hover {
+  cursor: pointer;
+  background: #bdc3c7;
+}
+
 .overlay .row {
   padding-top: 2%;
 }
