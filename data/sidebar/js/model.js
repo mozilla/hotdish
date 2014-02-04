@@ -470,7 +470,7 @@ function renderBar() {
         if (currentTabState == "presenting") {
           addon.port.emit("setPresenting", false);
         } else if (currentTabState == "viewing") {
-          // Do nothing
+          addon.port.emit("closeViewing");
         } else {
           addon.port.emit("setPresenting", true);
           addon.port.emit("pushPresenting", null);

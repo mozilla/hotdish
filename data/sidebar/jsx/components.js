@@ -419,9 +419,7 @@ var Bar = UI.Bar = React.createClass({
   },
 
   onPresentClick: function () {
-    var presenting = ! this.state.presenting;
-    this.setState({presenting: presenting});
-    this.props.onPresentClick(presenting);
+    this.props.onPresentClick();
     return false;
   },
 
