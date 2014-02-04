@@ -423,13 +423,13 @@ var Bar = UI.Bar = React.createClass({
     return false;
   },
 
-  onActivityLog: function () {
-    UI.events.emit("activityLog");
+  onShareClick: function () {
+    UI.events.emit("shareToPeer", null);
     return false;
   },
 
-  onShareClick: function () {
-    UI.events.emit("shareToPeer", null);
+  onOpenNotesClick: function () {
+    UI.events.emit("openNotes", null);
     return false;
   },
 
@@ -493,8 +493,8 @@ var Bar = UI.Bar = React.createClass({
           </Tooltip>
           <Tooltip>
             <button type="button" className={buttonClass}
-              title="Open the Activity Log"
-              onClick={this.onActivityLog}>
+              title=""
+              onClick={this.onOpenNotesClick}>
               <span className="glyphicon glyphicon-dashboard"></span>
             </button>
           </Tooltip>
