@@ -225,13 +225,17 @@ var ChatMessage = Class({
 });
 
 addon.port.on("chat", function (msg) {
-  var peer = getPeer(msg.clientId);
-  var chatMessage = ChatMessage(peer, msg.text);
+  addChatActivity(msg.clientId, msg.text);
+});
+
+function addChatActivity(peerId, text) {
+  var peer = getPeer(peerId);
+  var chatMessage = ChatMessage(peer, text);
   if (activities.length) {
     var last = activities[activities.length-1];
     if (last instanceof ChatMessage && last.peer == peer &&
         last.time + CHAT_COMBINE_CUTOFF > Date.now()) {
-      last.text += "\n" + msg.text;
+      last.text += "\n" + text;
       last.time = Date.now();
       renderActivity();
       return;
@@ -239,7 +243,7 @@ addon.port.on("chat", function (msg) {
   }
   activities.push(chatMessage);
   renderActivity();
-});
+}
 
 var JoinActivity = Class({
   constructor: function (peer) {
@@ -432,8 +436,7 @@ function renderChatField() {
     chatField = UI.ChatField({
       onChatSubmit: function (text) {
         addon.port.emit("chat", text);
-        activities.push(ChatMessage(getPeer(clientId), text));
-        renderActivity();
+        addChatActivity(clientId, text);
       }
     });
     $("#chat-field-container").empty();
