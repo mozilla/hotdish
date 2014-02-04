@@ -34,10 +34,13 @@ setInterval(function () { // age them, every 10 sec.
 
 
 /* This is the avatar of yourself in the header */
-var SelfAvatar = UI.SelfAvatar = PeerAvatar = UI.PeerAvatar = React.createClass({
-  showCamera: function () {
-    console.log('show the camera!');
-    window.open("../interaction-cam/index.html","_blank");
+var PeerAvatar = UI.PeerAvatar = React.createClass({
+  avatarClick: function () {
+    if (this.props.isSelf) {
+      UI.events.emit("showCamera");
+    } else {
+      UI.events.emit("avatarClick", this.props.id);
+    }
   },
   goToMe: function() {
     console.log('go to me');
@@ -54,8 +57,6 @@ var SelfAvatar = UI.SelfAvatar = PeerAvatar = UI.PeerAvatar = React.createClass(
           Profile
         </a>
     */
-    var me = this.props.me;
-    selfname = this.props.name;
     var style = {};
     if (this.props.avatar) {
       style.background = "url(" + this.props.avatar + ")";
@@ -66,8 +67,8 @@ var SelfAvatar = UI.SelfAvatar = PeerAvatar = UI.PeerAvatar = React.createClass(
     }
     return (
       // should be show camera, if self, or go to person if not.  might have to split this!
-      <div onClick={this.showCamera} className="text-center fullheight selfAvatar" style={ style }>
-      <p className='uname'>{selfname}</p>
+      <div onClick={this.avatarClick} className="text-center fullheight selfAvatar" style={ style } key={this.props.id}>
+        <p className='uname'>{this.props.name}</p>
       </div>
     );
   }
@@ -103,10 +104,7 @@ var InviteAvatar = UI.InviteAvatar = React.createClass({
   render: function () {
     var colorList = "#AF81C9, #F89A7E, #F2CA85, #54D1F1, #7C71AD, #445569".split(", ");
     var bgcolor = colorList[this.props.n];
-    var inviteOrWait = null;
     var inviteOrWait = this.props.waiting ? <WaitingForUser /> : <InviteUser /> ;
-    // <AvatarBlankWrapper key={this.props.key}>
-
     var style = {
       backgroundColor: bgcolor
     };
@@ -128,7 +126,7 @@ var InviteUser = React.createClass({
     return (
       <div className="inviteUserBtn" style={{fontSize: "50", lineHeight:"100px"}} onClick={this.clickInvite}>+
       </div>
-    )
+    );
   }
 });
 
@@ -400,8 +398,7 @@ var Bar = UI.Bar = React.createClass({
   },
 
   onActivityLog: function () {
-    var base = location.href.replace(/\/[^\/]*$/, "");
-    addon.port.emit("visitPage", base + "/../activitylog/index.html");
+    UI.events.emit("activityLog");
     return false;
   },
 
@@ -426,7 +423,7 @@ var Bar = UI.Bar = React.createClass({
     }
     return (
       /* justified is really hard to get working here! */
-      <div className="middlebar" className="handstyled" style={{margin:"0px", border:"0px", "backgroundColor":"#EEE"}}>
+      <div className="middlebar" className="handstyled" style={ {margin:"0px", border:"0px", backgroundColor: "#EEE"} }>
         <div className="btn-group">
           <Tooltip>
             <button type="button" className={"handstyled " + buttonClass}
@@ -470,7 +467,7 @@ var Bar = UI.Bar = React.createClass({
         </div>
         */
       </div>
-    )
+    );
   }
 });
 

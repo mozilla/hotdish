@@ -139,6 +139,9 @@ var Tab = Class({
       return blank;
     }
   },
+  setActive: function () {
+    this.peer.setActiveTab(this.id);
+  },
   addPage: function (page) {
     if (this.history.length && page.url == this.history[this.history.length-1].url) {
       // A re-add of an existing page
@@ -174,6 +177,9 @@ hub.on("pageshow", function (msg) {
   var page = Page(msg.tab.url, msg.tab.title);
   var tab = msg.peer.getTab(msg.tab.id);
   tab.addPage(page);
+  if (msg.tab.active) {
+    tab.setActive();
+  }
   renderActivity();
 });
 
@@ -182,6 +188,9 @@ hub.on("tab-init", function (msg) {
     var page = Page(t.url, t.title);
     var tab = msg.peer.getTab(t.id);
     tab.addPage(page);
+    if (t.active) {
+      tab.setActive();
+    }
   });
   renderActivity();
 });
@@ -331,6 +340,26 @@ UI.events.on("spectate", function (page) {
   addon.port.emit("spectate", page.tab.id);
 });
 
+UI.events.on("showCamera", function () {
+  var base = location.href.replace(/\/[^\/]*$/, "");
+  addon.port.emit("visitPage", base + "/../interaction-cam/index.html");
+});
+
+UI.events.on("avatarClick", function (peerId) {
+  var peer = getPeer(peerId);
+  var tab = peer.getActiveTab();
+  if (! tab) {
+    return;
+  }
+  var url = tab.current().url;
+  addon.port.emit("visitPage", url);
+});
+
+UI.events.on("activityLog", function () {
+  var base = location.href.replace(/\/[^\/]*$/, "");
+  addon.port.emit("visitPage", base + "/../activitylog/index.html");
+});
+
 /************************************************************
  * Rendering
  ************************************************************/
@@ -343,12 +372,23 @@ function renderUsers() {
     $("#user-container").empty();
     React.renderComponent(userGrid, $("#user-container")[0]);
   }
-  var users = [UI.SelfAvatar({name:selfIdentity.name, avatar:selfIdentity.avatar})];
+  var users = [UI.PeerAvatar({
+    isSelf: true,
+    id: selfIdentity.id,
+    name: selfIdentity.name,
+    avatar: selfIdentity.avatar
+  })];
   allPeers().forEach(function (p) {
     if (p.isSelf) {
       return;
     }
-    users.push(UI.PeerAvatar({me: false, avatar: p.avatar, name: p.name, key: "peer"+p.id}));
+    users.push(UI.PeerAvatar({
+      isSelf: false,
+      id: p.id,
+      avatar: p.avatar,
+      name: p.name,
+      key: "peer"+p.id
+    }));
   });
   userGrid.setState({users: users, waiting: pendingInvites});
 }
