@@ -129,6 +129,7 @@ var Tab = Class({
     this.currentTitle = null;
     this.currentUrl = null;
     this.time = Date.now();
+    this.state = "normal";
   },
   current: function () {
     if (this.history.length) {
@@ -157,6 +158,8 @@ var Tab = Class({
     return UI.PageVisit({
       name: this.peer.name,
       avatar: this.peer.avatar,
+      active: this.active,
+      state: this.state,
       page: this.current()
     });
   }
@@ -180,6 +183,19 @@ hub.on("pageshow", function (msg) {
   if (msg.tab.active) {
     tab.setActive();
   }
+  tab.state = msg.tab.state;
+  renderActivity();
+});
+
+hub.on("titleupdate", function (msg) {
+  var tab = msg.peer.getTab(msg.tab.id);
+  tab.current().title = tab.currentTitle = msg.tab.title;
+  renderActivity();
+});
+
+hub.on("stateChange", function (msg) {
+  var tab = msg.peer.getTab(msg.tab.id);
+  tab.state = msg.tab.state;
   renderActivity();
 });
 

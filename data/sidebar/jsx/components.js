@@ -221,10 +221,21 @@ var PageVisit = React.createClass({
     if (! this.props.page.tab.peer.isSelf) {
       joinLink = <Tooltip><a data-myid={this._myid} className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left" onClick={this.onSpectateClick}></a></Tooltip>;
     }
+    var title = this.props.page.title;
+    if (this.props.state == "presenting") {
+      title = "Presenting: " + title;
+    } else if (this.props.state == "viewing") {
+      title = "Viewing: " + title;
+    }
+    var star = null;
+    if (this.props.active) {
+      star = <span style={ {marginLeft: "4px", color: "#FFC40C"} } className="glyphicon glyphicon-star"></span>;
+    }
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
         {joinLink}
-        <a target="_blank" className="current-location" href={this.props.page.url}>{this.props.page.title}</a>
+        <a target="_blank" className="current-location" href={this.props.page.url}>{title}</a>
+        {star}
       </Activity>
     );
   }
