@@ -58,11 +58,10 @@ img.branding {
 }
 
 #gettingstarted #horizon {
-	color: black;
+	color: #000;
 	background-color: transparent;
-	//text-align: center;
 	position: absolute;
-	top: 40%;
+	top: 20%;
 	left: 0px;
 	width: 100%;
 	height: 1px;
@@ -73,13 +72,10 @@ img.branding {
 
 #gettingstarted #content {
 	background-color: transparent;
-	margin-left: -125px;
-	position: absolute;
-	top: -35px;
-	left: 50%;
-	width: 250px;
-	height: 70px;
-	visibility: visible;
+}
+
+.insidecontent {
+  max-width: 600px;
 }
 
 
