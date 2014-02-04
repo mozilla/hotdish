@@ -20,8 +20,11 @@ while [[ -n "$1" ]] ; do
         -h | --help)
             help=1
             ;;
-        -s | --second)
+        -s | --second | -2)
             profile=second
+            ;;
+        -3)
+            profile=third
             ;;
         -u | --url)
             if [[ -n "$urls" ]] ; then
@@ -52,8 +55,10 @@ if [[ -n "$help" ]] ; then
     fi
     echo "Usage: $(basename $0) -s -u URL"
     echo "Options:"
-    echo "  -s | --second"
+    echo "  -2 | -s | --second"
     echo "      Use a second test profile (for running two instances of the browser)"
+    echo "  -3"
+    echo "      Use a third test profile"
     echo "  -u URL | --url URL"
     echo "      Open the given URL on startup"
     echo "  -f | --forever"
@@ -83,6 +88,11 @@ case "$profile" in
         profiledir="--profiledir Profile2"
         extra_ops="\"+username\": \"Second $USER\","
         terminal_title="hotdish fx2"
+        ;;
+    third)
+        profiledir="--profiledir Profile3"
+        extra_ops="\"+username\": \"Third $USER\","
+        terminal_title="hotdish fx3"
         ;;
     *)
         fail "Unknown profile setup: $profile"
