@@ -128,7 +128,12 @@ Freeze.serializeElement = function (el) {
     Freeze.trackElement(el);
   }
   if (el.tagName == 'CANVAS') {
-    return ['IMG', el.jsmirrorId, {src: el.toDataURL('image/png')}, []];
+    try {
+      return ['IMG', el.jsmirrorId, {src: el.toDataURL('image/png')}, []];
+    } catch (e) {
+      console.warn("Could not serialize image:", e);
+      return ['SPAN', el.jsmirrorId, {"data-fills-iframe": "1"}, []];
+    }
   }
   var attrs = Freeze.serializeAttributes(el);
   var children;
@@ -726,7 +731,11 @@ Freeze.setAttributes = function (el, attrs) {
       continue;
     }
     attrLength++;
-    el.setAttribute(i, attrs[i]);
+    try {
+      el.setAttribute(i, attrs[i]);
+    } catch (e) {
+      console.warn("Error setting attribute", i, "=", attrs[i], "error:", e);
+    }
     if (i == 'value') {
       el.value = attrs[i];
     }
