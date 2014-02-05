@@ -137,17 +137,19 @@
 
   var runnerId;
 
-  continuous.addEventListener('change', function() {
-    var state = continuous.checked;
-    if (! state) {
-      clearTimeout(runnerId);
-    } else {
-      runnerId = setInterval(function () {
-        // FIXME: should have something here to check if the hotdish
-        // window is in the foreground
-        takepicture();
-      }, 1000 * 60 * 5);
-    }
-  }, false);
+  if (continuous) {
+    continuous.addEventListener('change', function() {
+      var state = continuous.checked;
+      if (! state) {
+        clearTimeout(runnerId);
+      } else {
+        runnerId = setInterval(function () {
+          // FIXME: should have something here to check if the hotdish
+          // window is in the foreground
+          takepicture();
+        }, 1000 * 60 * 5);
+      }
+    }, false);
+  }
 
 })();
