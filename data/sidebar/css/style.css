@@ -424,7 +424,7 @@ li.media:hover {
   //padding-top: -10px !important;
 }
 
-.btn-currently-presenting {
+.btn-currently-presenting, .btn-warning {
   font-size: 8px;
 }
 
@@ -450,6 +450,7 @@ li.media:hover {
 
 #bar-container .btn-warning {
   background-color: #592854;
+  border:1px solid #452442;
 }
 
 #bar-container .btn-warning:hover {
@@ -557,7 +558,7 @@ body.debug #debug-listener {
   position:fixed;
   bottom:0px;
   padding: 10px;
-  background: #707070;
+  background: rgba(112,122,122,0.9);
   width:100%;
 }
 
