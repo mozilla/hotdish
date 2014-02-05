@@ -142,6 +142,8 @@ function activateTogetherJS(roomName, overrides) {
             }
           });
         }
+        // Mute the ding:
+        document.querySelector("#togetherjs-notification").volume = 0;
       }
     }
   };
@@ -442,7 +444,7 @@ function processMirror(msg) {
 
 function activateLive() {
   var url = location.href.replace(/#.*/, "");
-  var urlHash = url.replace(/[^a-zA-Z0-9_]/, "");
+  var urlHash = url.replace(/[^a-zA-Z0-9_]/g, "_");
   activateTogetherJS(urlHash);
 }
 
