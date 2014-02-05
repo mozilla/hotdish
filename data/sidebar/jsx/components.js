@@ -460,8 +460,8 @@ var Bar = UI.Bar = React.createClass({
     });
     return (
       /* justified is really hard to get working here! */
-      <div className="middlebar" className="handstyled" style={ {margin:"0px", border:"0px", backgroundColor: "#EEE"} }>
-        <div className="btn-group">
+      <div className="middlebar" className="" className="handstyled btn-group btn-group-justified" style={ {margin:"0px", border:"0px", backgroundColor: "#EEE"} }>
+        <div className="btn-group" style={ {display:"table-cell", float:"none"} }>
           <Tooltip>
             <button type="button" className={"handstyled " + buttonClass}
               title="Share this page with everyone"
@@ -485,12 +485,16 @@ var Bar = UI.Bar = React.createClass({
             </ul>
           </Dropdown>
           </div>
+        </div>
+        <div className="btn-group" style={ {display:"table-cell", float:"none"} }>
           <Tooltip>
             <button type="button" className={buttonClass}
               title="Imaginary uploading">
               <span className="glyphicon glyphicon-cloud-upload"></span>
             </button>
           </Tooltip>
+        </div>
+        <div className="btn-group" style={ {display:"table-cell", float:"none"} }>
           <Tooltip>
             <button type="button" className={buttonClass}
               title=""
@@ -498,6 +502,8 @@ var Bar = UI.Bar = React.createClass({
               <span className="glyphicon glyphicon-dashboard"></span>
             </button>
           </Tooltip>
+        </div>
+        <div className="btn-group" style={ {display:"table-cell", float:"none"} }>
           <Tooltip>
             <button id="btn-presenting" type="button" className={"handstyled " + presentingClass}
               style={{paddingRight: "4px", paddingLeft: "4px", borderRadius:"0px"}}

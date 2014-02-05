@@ -406,6 +406,15 @@ li.media:hover {
   font-size: 14px;
 }
 
+#bar-container .btn-group-justified .btn {
+  width: 100%;
+}
+
+/*#bar-container .btn-group {
+  float: none;
+  display: table-cell;
+}*/
+
 .btn-minimize {
   margin: -20px 0px;
 }
