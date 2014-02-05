@@ -461,7 +461,7 @@ var Bar = UI.Bar = React.createClass({
     return (
       /* justified is really hard to get working here! */
       <div className="middlebar" className="" className="handstyled btn-group btn-group-justified" style={ {margin:"0px", border:"0px", backgroundColor: "#EEE"} }>
-        <div className="btn-group" style={ {display:"table-cell", float:"none"} }>
+        <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
             <button type="button" className={"handstyled " + buttonClass}
               title="Share this page with everyone"
@@ -486,7 +486,7 @@ var Bar = UI.Bar = React.createClass({
           </Dropdown>
           </div>
         </div>
-        <div className="btn-group" style={ {display:"table-cell", float:"none"} }>
+        <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
             <button type="button" className={buttonClass}
               title="Imaginary uploading">
@@ -494,7 +494,7 @@ var Bar = UI.Bar = React.createClass({
             </button>
           </Tooltip>
         </div>
-        <div className="btn-group" style={ {display:"table-cell", float:"none"} }>
+        <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
             <button type="button" className={buttonClass}
               title=""
@@ -503,7 +503,7 @@ var Bar = UI.Bar = React.createClass({
             </button>
           </Tooltip>
         </div>
-        <div className="btn-group" style={ {display:"table-cell", float:"none"} }>
+        <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
             <button id="btn-presenting" type="button" className={"handstyled " + presentingClass}
               style={{paddingRight: "4px", paddingLeft: "4px", borderRadius:"0px"}}
