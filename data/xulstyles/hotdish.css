@@ -42,13 +42,13 @@
 .hotdish #hotdish-widget,
 .hotdish #hotdish-button,
 .hotdish #australis-hotdish-button {
-	background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);
+	//background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);
 }
 
 .hotdish #hotdish-button .toolbarbutton-icon,
 .hotdish #australis-hotdish-button .toolbarbutton-icon {
 	-moz-appearence: none !important;
-	background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);
+	//background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);
 }
 
 
