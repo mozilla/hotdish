@@ -427,9 +427,9 @@ UI.events.on("avatarClick", function (peerId) {
   addon.port.emit("visitPage", url);
 });
 
-UI.events.on("activityLog", function () {
-  var base = location.href.replace(/\/[^\/]*$/, "");
-  addon.port.emit("visitPage", base + "/../activitylog/index.html");
+UI.events.on("openNotes", function () {
+  var notesUrl = "https://etherpad.mozilla.org/" + groupId + "-session-log";
+  addon.port.emit("visitPage", notesUrl);
 });
 
 /************************************************************
