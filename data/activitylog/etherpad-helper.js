@@ -11,7 +11,7 @@ function insertAtEnd(text) {
 }
 
 var findEditorTimeout = setInterval(function () {
-  if (! unsafeWindow.padeditor) {
+  if (! (unsafeWindow.padeditor && unsafeWindow.padeditor.ace)) {
     return;
   }
   // If we start doing stuff with the editor before it is fully ready things
