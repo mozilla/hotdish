@@ -524,7 +524,7 @@ var Bar = UI.Bar = React.createClass({
               style={{paddingRight: "4px", paddingLeft: "4px", borderRadius:"0px"}}
               title={presentingTitle}
               onClick={this.onPresentClick}>
-              <img src="assets/presenter.png" width="44" height="27" style={{padding:"0 6px 0 0"}} />
+              <img src="assets/icn-present-btn.png" style={{ width: "27px", height: "27px" }}/>
               {presentingText}
             </button>
           </Tooltip>
