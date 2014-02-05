@@ -228,8 +228,12 @@ h4.media-heading.username {
   //display: none;
 }
 
-#user-container {
-
+#users {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 8888;
 }
 
 #users .username {
@@ -344,7 +348,7 @@ h4.media-heading.username {
   overflow: auto;
   //max-height:300px;
   padding: 0;
-  margin: 0 0 20px;
+  margin: 250px 0 46px;
 }
 
 .activity-stream a {
@@ -426,6 +430,12 @@ li.media:hover {
 
 .btn-currently-presenting, .btn-warning {
   font-size: 8px;
+}
+
+#bar-container {
+  position: fixed;
+  top: 200px;
+  width: 100%;
 }
 
 #bar-container .btn-group-justified .btn {
