@@ -436,7 +436,7 @@ var Bar = UI.Bar = React.createClass({
   render: function () {
     var presentingText = "";
     var presentingTitle = "Present this page";
-    var buttonClass = "btn btn-default btn-lg";
+    var buttonClass = "btn btn-primary btn-lg";
     var presentingClass = buttonClass;
     if (this.state.presenting) {
       presentingText = " Presenting";

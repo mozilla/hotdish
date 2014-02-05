@@ -414,6 +414,14 @@ li.media:hover {
   width: 100%;
 }
 
+#bar-container .btn-primary {
+  background-color: #2c8fbf;
+}
+
+#bar-container .btn-primary:hover {
+  background-color: #3686ad;
+}
+
 /*#bar-container .btn-group {
   float: none;
   display: table-cell;
@@ -509,6 +517,10 @@ body.debug #debug-listener {
   background: rgb(44, 143, 191);
   color: rgb(255, 255, 255);
   border: 1px solid #3e7088;
+}
+
+#chat-field .btn:hover {
+  background: #3686ad;
 }
 
 .waitingforuser {
