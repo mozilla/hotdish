@@ -64,6 +64,7 @@ var Peer = Class(mixinEvents({
     this.color = null;
     this.isSelf = this.id == clientId;
     this.tabs = {};
+    this.pagesByUrl = {};
     this.lastMessage = Date.now();
     setTimeout(function () {
       renderUsers();
@@ -93,6 +94,14 @@ var Peer = Class(mixinEvents({
       result.push(this.tabs[id]);
     }
     return result;
+  },
+
+  addPage: function (page) {
+    var shortUrl = page.url.replace(/#.*/, "");
+    if (this.pagesByUrl[shortUrl]) {
+      this.pagesByUrl[shortUrl].duplicated = true;
+    }
+    this.pagesByUrl[shortUrl] = page;
   },
 
   setActiveTab: function (tabId) {
@@ -168,6 +177,7 @@ var Tab = Class({
     this.currentTitle = page.title;
     this.currentUrl = page.url;
     this.time = Math.max(this.time, page.time);
+    this.peer.addPage(page);
   },
 
   activityComponent: function () {
@@ -194,11 +204,15 @@ var Page = Class({
     this.title = title;
     this.tab = null;
     this.historyIndex = null;
+    this.duplicated = false;
     this.time = time;
   },
 
   activityComponent: function () {
     var current = this.tab.current() == this;
+    if (this.duplicated) {
+      return null;
+    }
     if (ignoreUrl(this.url)) {
       if (current && this.tab.active) {
         // Show an ignored URL if it's the thing the person is actually looking at
