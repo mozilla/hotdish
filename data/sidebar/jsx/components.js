@@ -124,7 +124,9 @@ var InviteUser = React.createClass({
   render: function () {
     // lineHeight is the height of the div, thus centering vertically
     return (
-      <div className="inviteUserBtn" style={{fontSize: "50", lineHeight:"100px"}} onClick={this.clickInvite}>+
+      <div className="inviteUserBtn" style={{fontSize: "40", lineHeight:"100px"}} onClick={this.clickInvite}>
+      <div className="inviteOverlay"></div>
+      +
       </div>
     );
   }
@@ -168,7 +170,7 @@ var UserGrid = React.createClass({
         <div className="invites-sent-notification">Invites sent!</div>
 
         <div className="row">
-          <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[0]} </div>
+          <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[0]}</div>
           <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[1]}</div>
           <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[2]}</div>
           <div className="col-xs-4 nopad murderers-row"><div className="avatarOverlay" /> {children[3]}</div>
@@ -454,13 +456,13 @@ var Bar = UI.Bar = React.createClass({
     var buttonClass = "btn btn-primary btn-lg";
     var presentingClass = buttonClass;
     if (this.state.presenting) {
-      presentingText = " Presenting";
+      presentingText = "Presenting";
       presentingClass += " active btn-success btn-currently-presenting";
       presentingTitle = "Click to stop presenting";
     } else if (this.state.viewing) {
-      presentingText = " Viewing";
+      presentingText = "Viewing";
       presentingClass += " active btn-warning";
-      presentingTitle = "You are viewing; close the tab to end";
+      presentingTitle = "You are viewing; close this tab to end";
     }
     var userList = [];
     this.state.peers.forEach(function (peerInfo) {
@@ -478,7 +480,7 @@ var Bar = UI.Bar = React.createClass({
       <div className="middlebar" className="" className="handstyled btn-group btn-group-justified" style={ {margin:"0px", border:"0px", backgroundColor: "#EEE"} }>
         <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
-            <button type="button" className={"handstyled " + buttonClass}
+            <button id="btn-share-everyone" type="button" className={"handstyled " + buttonClass}
               title="Share this page with everyone"
               style={ {borderRadius: "0px"} }
               onClick={this.onShareClick}>
@@ -503,7 +505,7 @@ var Bar = UI.Bar = React.createClass({
         </div>
         <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
-            <button type="button" className={buttonClass}
+            <button id="btn-upload" type="button" className={buttonClass}
               title="Upload">
               <span className="glyphicon glyphicon-cloud-upload"></span>
             </button>
@@ -511,7 +513,7 @@ var Bar = UI.Bar = React.createClass({
         </div>
         <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
-            <button type="button" className={buttonClass}
+            <button id="btn-activity-log" type="button" className={buttonClass}
               title="Activity Log"
               onClick={this.onOpenNotesClick}>
               <span className="glyphicon glyphicon-dashboard"></span>
@@ -524,7 +526,7 @@ var Bar = UI.Bar = React.createClass({
               style={{paddingRight: "4px", paddingLeft: "4px", borderRadius:"0px"}}
               title={presentingTitle}
               onClick={this.onPresentClick}>
-              <img src="assets/icn-present-btn.png" style={{ width: "27px", height: "27px" }}/>
+              <img src="assets/icn-present-btn.png" style={{ width: "27px", height: "27px" }}/><br/>
               {presentingText}
             </button>
           </Tooltip>
