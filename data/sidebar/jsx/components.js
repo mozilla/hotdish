@@ -231,7 +231,8 @@ var PageVisit = React.createClass({
   },
   render: function () {
     var joinLink = null;
-    if (! this.props.page.tab.peer.isSelf) {
+    if ((! this.props.page.tab.peer.isSelf) &&
+        (this.props.state == "normal" || this.props.state == "live" || this.props.state == "presenting")) {
       joinLink = <Tooltip><a data-myid={this._myid} className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left" onClick={this.onSpectateClick}></a></Tooltip>;
     }
     var title = this.props.page.title;
@@ -244,11 +245,16 @@ var PageVisit = React.createClass({
     if (this.props.active) {
       star = <span style={ {marginLeft: "4px", color: "#FFC40C"} } className="glyphicon glyphicon-star"></span>;
     }
+    var dead = null;
+    if (this.props.state == "dead") {
+      dead = <span title="no longer loaded">*</span>;
+    }
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
         {joinLink}
         <a target="_blank" className="current-location" href={this.props.page.url}>{title}</a>
         {star}
+        {dead}
       </Activity>
     );
   }

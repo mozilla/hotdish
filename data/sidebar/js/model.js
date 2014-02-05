@@ -1,7 +1,12 @@
 /* These are models for all the stuff we're keeping track of
    Ideally no UI will be in here */
 
+// If the last update was a chat from a person, and another chat comes
+// in in this amount of time, we combine the two into one message:
 var CHAT_COMBINE_CUTOFF = 60*1000; // 1 minute
+// If a page lasts less than this amount of time, we don't bother
+// showing it:
+var PAGE_CUTOFF_TIME = 5000; // 5 seconds
 
 var peers = {};
 var activities = [];
@@ -118,6 +123,7 @@ addon.port.on("peer", function (msg, joined) {
 });
 
 var Tab = Class({
+
   constructor: function (peer, tabId) {
     this.peer = peer;
     this.id = tabId;
@@ -131,6 +137,7 @@ var Tab = Class({
     this.time = Date.now();
     this.state = "normal";
   },
+
   current: function () {
     if (this.history.length) {
       return this.history[this.history.length-1];
@@ -140,20 +147,24 @@ var Tab = Class({
       return blank;
     }
   },
+
   setActive: function () {
     this.peer.setActiveTab(this.id);
   },
+
   addPage: function (page) {
     if (this.history.length && page.url == this.history[this.history.length-1].url) {
       // A re-add of an existing page
       return;
     }
     page.tab = this;
+    page.tabIndex = this.history.length;
     this.history.push(page);
     this.currentTitle = page.title;
     this.currentUrl = page.url;
-    this.time = Date.now();
+    this.time = Math.max(this.time, page.time);
   },
+
   activityComponent: function () {
     return UI.PageVisit({
       name: this.peer.name,
@@ -162,22 +173,55 @@ var Tab = Class({
       state: this.state,
       page: this.current()
     });
+  },
+
+  updateTime: function (time) {
+    this.time = Math.max(this.time, time);
   }
 });
 
 var Page = Class({
-  constructor: function (url, title) {
+
+  constructor: function (url, title, time) {
     // FIXME: wish we had a stable ID here
     this.id = makeId("page");
     this.url = url;
     this.title = title;
     this.tab = null;
-    this.time = Date.now();
+    this.historyIndex = null;
+    this.time = time;
+  },
+
+  activityComponent: function () {
+    var current = this.tab.current() == this;
+    if (ignoreUrl(this.url)) {
+      if (current && this.tab.active) {
+        // Show an ignored URL if it's the thing the person is actually looking at
+      } else {
+        return null;
+      }
+    }
+    if (! current) {
+      var next = this.tab.history[this.tabIndex + 1];
+      if (next.time - this.time < PAGE_CUTOFF_TIME) {
+        return null;
+      }
+    }
+    if ((! this.tab.live) && current && (this.tab.time - this.time < PAGE_CUTOFF_TIME)) {
+      return null;
+    }
+    return UI.PageVisit({
+      name: this.tab.peer.name,
+      avatar: this.tab.peer.avatar,
+      active: this.tab.active && this == current,
+      state: current ? this.tab.state : "dead",
+      page: this
+    });
   }
 });
 
 hub.on("pageshow", function (msg) {
-  var page = Page(msg.tab.url, msg.tab.title);
+  var page = Page(msg.tab.url, msg.tab.title, Date.now() - msg.tab.lastPageShowAgo);
   var tab = msg.peer.getTab(msg.tab.id);
   tab.addPage(page);
   if (msg.tab.active) {
@@ -201,7 +245,7 @@ hub.on("stateChange", function (msg) {
 
 hub.on("tab-init", function (msg) {
   msg.tabs.forEach(function (t) {
-    var page = Page(t.url, t.title);
+    var page = Page(t.url, t.title, Date.now() - t.lastEventAgo);
     var tab = msg.peer.getTab(t.id);
     tab.addPage(page);
     if (t.active) {
@@ -213,12 +257,15 @@ hub.on("tab-init", function (msg) {
 
 hub.on("activate", function (msg) {
   var tab = msg.peer.setActiveTab(msg.tab.id);
+  // Update time? Does it matter?
   renderActivity();
 });
 
 hub.on("close", function (msg) {
   var tab = msg.peer.getTab(msg.tab.id);
   tab.live = false;
+  tab.state = "dead";
+  tab.time = msg.tab.closedAgo ? Date.now() - tab.closedAgo : Date.now();
   renderActivity();
 });
 
@@ -422,6 +469,10 @@ function ignoreUrl(url) {
   if (url.search(/^resource:.*interaction-cam/) != -1) {
     return true;
   }
+  var logUrl = "https://etherpad.mozilla.org/" + groupId + "-session-log";
+  if (url.indexOf(logUrl) === 0) {
+    return true;
+  }
   return false;
 }
 
@@ -435,14 +486,20 @@ function renderActivity() {
   allPeers().forEach(function (p) {
     var tabs = [];
     p.allTabs().forEach(function (t) {
-      if (! ignoreUrl(t.current().url)) {
-        sorted.push(t);
-      }
+      t.history.forEach(function (page) {
+        sorted.push(page);
+      });
     }, this);
   }, this);
   sorted.sort(function (a, b) {return a.time < b.time;});
-  var children = sorted.map(function (i) {return i.activityComponent();});
-  activityList.setState({activities: children});
+  var components = [];
+  sorted.forEach(function (i) {
+    var component = i.activityComponent();
+    if (component) {
+      components.push(component);
+    }
+  });
+  activityList.setState({activities: components});
 }
 
 var chatField;
