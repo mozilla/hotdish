@@ -112,6 +112,10 @@
   }, false);
 
   document.addEventListener('keydown', function(ev) {
+    if (document.activeElement && document.activeElement.tagName == "INPUT") {
+      // If in a form, don't do anything
+      return;
+    }
     if (ev.which === 32 || ev.which === 37 || ev.which === 39) {
       ev.preventDefault();
     }

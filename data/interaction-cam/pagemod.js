@@ -13,5 +13,28 @@
 "use strict";
 
 window.addEventListener("set-avatar",function(evt) {
-	self.port.emit('set-avatar',evt.detail.imgdata);
-})
+  self.port.emit('set-avatar',evt.detail.imgdata);
+});
+
+var nameInput = document.querySelector("#name-input");
+self.port.on("set-name", function (name) {
+  nameInput.value = name;
+});
+
+
+function updateName() {
+  if (nameInput.value) {
+    self.port.emit("set-name", nameInput.value);
+  }
+}
+
+var updater;
+function updateNameSoon() {
+  clearTimeout(updater);
+  updater = setTimeout(updateName, 500);
+}
+
+nameInput.addEventListener("change", updateName, false);
+nameInput.addEventListener("keyup", updateNameSoon, false);
+
+self.port.emit("ready");
