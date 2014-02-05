@@ -462,7 +462,7 @@ var Bar = UI.Bar = React.createClass({
     } else if (this.state.viewing) {
       presentingText = "Viewing";
       presentingClass += " active btn-warning";
-      presentingTitle = "You are viewing; close this tab to end";
+      presentingTitle = "You are viewing; click to stop viewing";
     }
     var userList = [];
     this.state.peers.forEach(function (peerInfo) {
