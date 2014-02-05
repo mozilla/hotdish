@@ -473,7 +473,7 @@ var Bar = UI.Bar = React.createClass({
               title="Share this page with everyone"
               style={ {borderRadius: "0px"} }
               onClick={this.onShareClick}>
-              <span className="glyphicon glyphicon-export"></span>
+              <img src="assets/icn-push-btn.png" style={{ width: "27px", height: "27px" }}/>
             </button>
           </Tooltip>
           <div style={ {display: "none"} }>
@@ -495,7 +495,7 @@ var Bar = UI.Bar = React.createClass({
         <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
             <button type="button" className={buttonClass}
-              title="Imaginary uploading">
+              title="Upload">
               <span className="glyphicon glyphicon-cloud-upload"></span>
             </button>
           </Tooltip>
@@ -503,7 +503,7 @@ var Bar = UI.Bar = React.createClass({
         <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
             <button type="button" className={buttonClass}
-              title=""
+              title="Activity Log"
               onClick={this.onOpenNotesClick}>
               <span className="glyphicon glyphicon-dashboard"></span>
             </button>
