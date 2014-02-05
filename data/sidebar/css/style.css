@@ -344,9 +344,8 @@ h4.media-heading.username {
 
 li.media {
   border-bottom: 1px solid rgba(0,0,0,0.2);
-  padding: 6px 15px;
+  padding: 6px;
   margin: 0px;
-  //margin-left: -24px;
 }
 
 li.media:hover {
@@ -401,6 +400,10 @@ li.media:hover {
   //margin-right: 10px;
   //margin-top: -14px !important;
   //padding-top: -10px !important;
+}
+
+.btn-currently-presenting {
+  font-size: 14px;
 }
 
 .btn-minimize {

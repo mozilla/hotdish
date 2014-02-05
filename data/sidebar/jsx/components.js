@@ -440,7 +440,7 @@ var Bar = UI.Bar = React.createClass({
     var presentingClass = buttonClass;
     if (this.state.presenting) {
       presentingText = " Presenting";
-      presentingClass += " active btn-success";
+      presentingClass += " active btn-success btn-currently-presenting";
       presentingTitle = "Click to stop presenting";
     } else if (this.state.viewing) {
       presentingText = " Viewing";
