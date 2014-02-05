@@ -1,3 +1,5 @@
+var TogetherJSConfig_ignoreForms = ["*"];
+
 (function() {
 
   var API_KEY = 'eb18642b5b220484864483b8e21386c3';
