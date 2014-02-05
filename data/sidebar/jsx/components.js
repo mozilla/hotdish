@@ -181,6 +181,15 @@ var UserGrid = React.createClass({
 });
 UI.UserGrid = UserGrid;
 
+UI.notifyAllUsersHere = function () {
+  $(".all-users-here-notification").animate({
+    "top": "+=33px"
+  }, 500).delay(4000);
+  $(".all-users-here-notification").animate({
+    "top": "-=33px"
+  }, 500);
+};
+
 var Activity = React.createClass({
   render: function () {
     return (

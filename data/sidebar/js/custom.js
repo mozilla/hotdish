@@ -68,15 +68,6 @@
       });
     });
 
-    function notificationDropDown() {
-      $(".all-users-here-notification").animate({
-        "top": "+=33px"
-      }, 500).delay(4000);
-      $(".all-users-here-notification").animate({
-        "top": "-=33px"
-      }, 500);
-    }
-
     function notificationDropDownInvites() {
       $(".invites-sent-notification").animate({
         "top": "+=33px"

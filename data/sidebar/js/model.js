@@ -21,9 +21,14 @@ makeId.counter = 0;
 var pendingInvites = 0;
 var INVITE_EXPIRE_TIME = 5*60*1000;
 function addPendingInvites(n) {
+  var origPendingInvites = pendingInvites;
   pendingInvites += n;
   if (pendingInvites < 0) {
     pendingInvites = 0;
+  }
+  if (origPendingInvites && ! pendingInvites) {
+    UI.notifyAllUsersHere();
+    addon.port.emit("allUsersHere");
   }
   if (n > 0) {
     clearTimeout(addPendingInvites.timeoutId);
