@@ -38,44 +38,55 @@
 .hotdish sidebarheader .tabs-closebutton {}
 
 
+
 /* this isn't working old firefoxes!  */
 .hotdish #hotdish-widget,
 .hotdish #hotdish-button,
 .hotdish #australis-hotdish-button {
-	//background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);
+	/*background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);*/
 }
 
 .hotdish #hotdish-button .toolbarbutton-icon,
 .hotdish #australis-hotdish-button .toolbarbutton-icon {
 	-moz-appearence: none !important;
-	//background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);
+	/*background: -moz-radial-gradient(center, circle, rgba(255,255,255,1) 0%, rgba(255,155,0,1) 100%);*/
 }
-
-
-
-
-
-
-
-
 
 
 /*Presenter tab style*/
-.hotdish #presenter-tab tab.tabbrowser-tab {
-  border-top: 1px solid #2ecc71;
+.hotdish tab.tabbrowser-tab[hotdish=presenting] .tab-background-start,
+.hotdish tab.tabbrowser-tab[hotdish=presenting] .tab-background-middle,
+.hotdish tab.tabbrowser-tab[hotdish=presenting] .tab-background-end
+{
+  background-color: #2ecc71 !important;
+}
+
+/*Live tab style*/
+.hotdish tab.tabbrowser-tab[hotdish=live] .tab-background-start,
+.hotdish tab.tabbrowser-tab[hotdish=live] .tab-background-middle,
+.hotdish tab.tabbrowser-tab[hotdish=live] .tab-background-end
+{
+    background-color: 2px solid #3498db !important!;
+}
+
+/*Viewing tab style*/
+.hotdish tab.tabbrowser-tab[hotdish=viewing] .tab-background-start,
+.hotdish tab.tabbrowser-tab[hotdish=viewing] .tab-background-middle,
+.hotdish tab.tabbrowser-tab[hotdish=viewing] .tab-background-end
+{
+    background-color: red !important;
 }
 
 
-/*Spectator tab style*/
-.hotdish #spectator-tab {
-    border-top: 1px solid #3498db;
+/*Normal tab style*/
+.hotdish tab.tabbrowser-tab[hotdish=normal] .tab-background-start,
+.hotdish tab.tabbrowser-tab[hotdish=normal] .tab-background-middle,
+.hotdish tab.tabbrowser-tab[hotdish=normal] .tab-background-end
+{
+    background-color: inherit !important;
 }
 
 
-/*Shared tab style*/
-.hotdish #shared-tab {
-
-}
 
 
 
