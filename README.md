@@ -42,18 +42,25 @@ You'll probably find lots of bugs, this is pretty alpha, but [feel free to open 
 Developing
 ----------
 
-This is developed as a Firefox addon, requiring Firefox 26 or later, and uses the [Addon-SDK](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/). You should install the [SDK from Github master](https://github.com/mozilla/addon-sdk).
+This is developed as a Firefox addon, requiring Firefox 26 or later. We do development both on the released version of Firefox and on [Firefox Nightly](http://nightly.mozilla.org/).
 
-You probably should use `--profiledir Profile` to keep a fixed profile as you develop Hotdish, this allows you to maintain your user settings, and if you turn on the pref for restoring tabs then you can continue your session.  Hotdish is all about dogfooding, and we encourage anyone developing it to eat its dogfood from the very beginning.
+The addon uses the [Addon-SDK](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/). We are using the `firefox26` branch, you should get it like:
 
-When using `cfx` you can use the `--staticargs` command-line option, which takes a JSON object as an argument.  That object accepts the arguments:
+    $ git clone -b firefox26 git://github.com/mozilla/addon-sdk.git
 
-`debug: true`: turns on "debug" mode, opens the sidebar as content
+I'd recommend adding a script like this to your `~/bin/` or other place on your path:
 
-`prefs: {name: value}` sets some preferences (as found in `about:config`), or `+localPref`, like `{"+username": "my name"}`
+    #!/bin/sh
+    exec ~/[checkouts]/addon-sdk/bin/cfx "$@"
 
-`staticAvatar: true` if true, gives you a fixed avatar (Gregg drinking coffee)
+Additionally you must install the `jsx` command from [Facebook React](http://facebook.github.io/react/).  Install like:
 
-`bgTabs: [urls]` gives URLs to open in the background (to book up with some context)
+    $ npm install -g react-tools
 
-`focusTab: index` focuses a particular tab (0-indexed) on startup
+We have a script in `bin/run` ([source](https://github.com/mozilla/hotdish/blob/master/bin/run)) which we use for development.  It does some building (specifically the [jsx file](https://github.com/mozilla/hotdish/blob/master/data/sidebar/jsx/components.js)). It also starts the Add-on SDK `cfx` command, and so starts a browser with the addon setup.  You can use `bin/run -h` to always get an up-to-date list of options.
+
+This also starts up Hotdish in our `hotdishgroup` group, which is what we all use for development and... everything.  So you'll get to say hi!  Though somewhat peculiar, seeing the development patterns of other people is also fun.
+
+If you make any changes you'll need to restart the browser to see those changes -- including even changes to content in the `data/` directory.
+
+If you want to test something that involves two browsers communicating, you can use `bin/run` to start two browsers with different profiles.  Use `bin/run -2` (in a separate console) to start up a second instance.  We find it is useful to change the preferences under *General* to *When Firefox starts: Show my windows and tabs from last time*.
