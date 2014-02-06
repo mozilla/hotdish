@@ -1,6 +1,7 @@
 var groupId;
 var selfIdentity;
 var clientId;
+var INVITE_BASE;
 
 var hub = mixinEvents({});
 
@@ -8,6 +9,9 @@ addon.port.on("init", function (initData) {
   groupId = initData.groupId;
   selfIdentity = initData.selfIdentity;
   clientId = initData.selfIdentity.clientId;
+  if (initData.INVITE_BASE) {
+    INVITE_BASE = initData.INVITE_BASE;
+  }
   if (docReady) {
     init();
   }
@@ -38,17 +42,21 @@ function init() {
     message(msg);
   });
 
-  $(document).bind("click", ".request-current", function () {
-    addon.port.emit("shareTab");
-  });
-
   function send(msg) {
     addon.port.emit("send", msg);
   }
 
-  $(document).on("click", ".push", function (ev) {
-    addon.port.emit("push");
-    return false;
+  var inviteUrl = INVITE_BASE + groupId;
+  $("#hotdish-invite").val(inviteUrl);
+  $("#hotdish-invite").change(function () {
+    $("#hotdish-invite").val(inviteUrl);
+  });
+  $("#hotdish-invite-copy").click(function () {
+    addon.port.emit("copyToClipboard", inviteUrl);
+    $("#hotdish-invite-copy").text("copied!");
+    setTimeout(function () {
+      $("#hotdish-invite-copy").text("copy");
+    }, 1000);
   });
 
   function updateSelf() {
