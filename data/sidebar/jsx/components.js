@@ -386,6 +386,9 @@ var ChatField = UI.ChatField = React.createClass({
             <button className="btn btn-default" type="submit">Send</button>
           </span>
         </form>
+        <div id="temp-feedback">
+          <a href="mailto:hotdish@mozilla.com?subject=Feedback on Hotdish.">Send us feedback!</a>
+        </div>
       </div>
     );
   }

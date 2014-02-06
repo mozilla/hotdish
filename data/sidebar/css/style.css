@@ -569,6 +569,21 @@ body.debug #debug-listener {
   height: 10em;
 }
 
+#temp-feedback {
+  margin-bottom: -9px;
+  font-size: 10px;
+  text-align: center;
+  padding: 6px 0px;
+}
+
+#temp-feedback a {
+  color: #fff;
+}
+
+#temp-feedback a:hover {
+  text-decoration: underline;
+}
+
 #chat-field {
   position:fixed;
   bottom:0px;
