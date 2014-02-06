@@ -277,7 +277,7 @@ var Page = Class({
     return UI.PageVisit({
       name: this.tab.peer.name,
       avatar: this.tab.peer.avatar,
-      active: this.tab.active && this == current,
+      active: this.tab.active && current,
       state: current ? this.tab.state : "dead",
       page: this,
       participants: participants
