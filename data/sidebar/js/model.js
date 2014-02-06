@@ -229,12 +229,30 @@ var Page = Class({
     if ((! this.tab.live) && current && (this.tab.time - this.time < PAGE_CUTOFF_TIME)) {
       return null;
     }
+    var participants = [];
+    if (current) {
+      allPeers().forEach(function (p) {
+        if (p == this.tab.peer) {
+          return;
+        }
+        var shortUrl = this.url.replace(/#.*/, "");
+        var otherPage = p.pagesByUrl[shortUrl];
+        if (! otherPage) {
+          return;
+        }
+        if (otherPage != otherPage.tab.current() || otherPage.tab.state == "dead") {
+          return;
+        }
+        participants.push(p);
+      }, this);
+    }
     return UI.PageVisit({
       name: this.tab.peer.name,
       avatar: this.tab.peer.avatar,
       active: this.tab.active && this == current,
       state: current ? this.tab.state : "dead",
-      page: this
+      page: this,
+      participants: participants
     });
   }
 });
