@@ -233,7 +233,7 @@ h4.media-heading.username {
   top: 0px;
   left: 0px;
   width: 100%;
-  z-index: 8888;
+  z-index: 4;
 }
 
 #users .username {
@@ -366,6 +366,8 @@ h4.media-heading.username {
 .spectate-page {
   margin-left: 10px;
   margin-top: 2px;
+  position: relative;
+  z-index: 2;
 }
 
 li.media {
@@ -398,6 +400,8 @@ li.media:hover {
   text-transform: uppercase;
   margin-left: 10px;
   float: right;
+  position: relative;
+  z-index: 3;
 }
 
 #private-messages-list li:hover {
@@ -436,6 +440,7 @@ li.media:hover {
   position: fixed;
   top: 200px;
   width: 100%;
+  z-index: 5;
 }
 
 #bar-container .btn-group-justified .btn {
@@ -570,6 +575,7 @@ body.debug #debug-listener {
   padding: 10px;
   background: rgba(112,122,122,0.9);
   width:100%;
+  z-index: 6;
 }
 
 #chat-field .btn {
