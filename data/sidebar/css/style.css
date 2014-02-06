@@ -538,7 +538,19 @@ li.media:hover {
 }
 
 #invite-panel .btn-cancel-invites {
-  margin-top: 2px;
+  margin: 4px 0px;
+}
+
+#invite-panel .panel-heading {
+  padding: 6px 10px !important;
+}
+
+#invite-panel .sendinvites .list-group {
+  margin-bottom: 10px;
+}
+
+#invite-panel .sendinvites .panel-body {
+  padding-bottom: 0px;
 }
 
 #invite-panel .headerrow {
@@ -546,6 +558,10 @@ li.media:hover {
   color: #fff;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.headerrow h4 {
+  font-size: 14px;
 }
 
 #invite-panel .copyandpasteinvites {
