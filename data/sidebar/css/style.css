@@ -610,6 +610,10 @@ body.debug #debug-listener {
   height: 10em;
 }
 
+.deadTabClass {
+  opacity: 0.2;
+}
+
 #temp-feedback {
   margin-bottom: -9px;
   font-size: 10px;

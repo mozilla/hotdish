@@ -258,7 +258,8 @@ var PageVisit = React.createClass({
     }
     var dead = null;
     if (this.props.state == "dead") {
-      dead = <span title="no longer loaded">*</span>;
+      dead = "deadTabClass";
+      //dead = <span title="no longer loaded">*</span>;
     }
     var other = null;
     if (this.props.participants && this.props.participants.length) {
@@ -269,9 +270,8 @@ var PageVisit = React.createClass({
     return (
       <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
         {joinLink}
-        <a target="_blank" className="current-location" href={this.props.page.url}>{title}</a>
+        <a target="_blank" className={"current-location "+ dead}  href={this.props.page.url}>{title}</a>
         {star}
-        {dead}
         {other}
       </Activity>
     );
