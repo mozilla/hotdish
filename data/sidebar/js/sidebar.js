@@ -53,9 +53,9 @@ function init() {
   });
   $("#hotdish-invite-copy").click(function () {
     addon.port.emit("copyToClipboard", inviteUrl);
-    $("#hotdish-invite-copy").text("copied!");
+    $("#hotdish-invite-copy").text("Copied!");
     setTimeout(function () {
-      $("#hotdish-invite-copy").text("copy");
+      $("#hotdish-invite-copy").text("Copy");
     }, 1000);
   });
 

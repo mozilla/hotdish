@@ -54,7 +54,12 @@
           <div class="panel panel-default">
             <div class="panel-heading"><h5>Copy and paste this link to your friends:</h5></div>
             <div class="panel-body">
-              <input type="text" onClick="this.select();" id="hotdish-invite" class="form-control"> <button id="hotdish-invite-copy">copy</button>
+              <div class="input-group">
+                <input type="text" onClick="this.select();" id="hotdish-invite" class="form-control">
+                <span class="input-group-btn">
+                  <button id="hotdish-invite-copy" class="btn btn-primary" type="button">Copy</button>
+                </span>
+              </div><!-- /input-group -->
             </div>
           </div>
         </div>
