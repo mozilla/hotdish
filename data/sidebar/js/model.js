@@ -65,6 +65,7 @@ var Peer = Class(mixinEvents({
     this.isSelf = this.id == clientId;
     this.tabs = {};
     this.pagesByUrl = {};
+    this.viewingPagesByTab = {};
     this.lastMessage = Date.now();
     setTimeout(function () {
       renderUsers();
@@ -102,6 +103,10 @@ var Peer = Class(mixinEvents({
       this.pagesByUrl[shortUrl].duplicated = true;
     }
     this.pagesByUrl[shortUrl] = page;
+    var viewingTabId = page.viewingTabId();
+    if (viewingTabId) {
+      this.viewingPagesByTab[viewingTabId] = page;
+    }
   },
 
   setActiveTab: function (tabId) {
@@ -195,6 +200,8 @@ var Tab = Class({
   }
 });
 
+var resourceDataBase = location.href.replace(/\/[^\/]*\/[^\/]*$/, "");
+
 var Page = Class({
 
   constructor: function (url, title, time) {
@@ -206,6 +213,15 @@ var Page = Class({
     this.historyIndex = null;
     this.duplicated = false;
     this.time = time;
+  },
+
+  viewingTabId: function () {
+    /* Returns the tabId this page is viewing, or null if it's not doing so */
+    if (this.url.indexOf(resourceDataBase) !== 0) {
+      return null;
+    }
+    var match = (/mirror\/blank.html\?tabId=([^&]*)/).exec(this.url.replace(/#.*/, ""));
+    return match ? match[1] : null;
   },
 
   activityComponent: function () {
@@ -237,14 +253,26 @@ var Page = Class({
         }
         var shortUrl = this.url.replace(/#.*/, "");
         var otherPage = p.pagesByUrl[shortUrl];
-        if (! otherPage) {
-          return;
+        if (otherPage && otherPage == otherPage.tab.current() && otherPage.tab.state != "dead") {
+          participants.push(p);
+        } else {
+          otherPage = p.viewingPagesByTab[this.tab.id];
+          if (otherPage && otherPage == otherPage.tab.current() && otherPage.tab.state != "dead") {
+            participants.push(p);
+          }
         }
-        if (otherPage != otherPage.tab.current() || otherPage.tab.state == "dead") {
-          return;
-        }
-        participants.push(p);
       }, this);
+      var thisViewing = this.viewingTabId();
+      if (thisViewing) {
+        allPeers().forEach(function (p) {
+          if (p == this.tab.peer) {
+            return;
+          }
+          if (p.tabs[thisViewing]) {
+            participants.push(p);
+          }
+        }, this);
+      }
     }
     return UI.PageVisit({
       name: this.tab.peer.name,
