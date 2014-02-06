@@ -43,23 +43,37 @@
     </div>
 
     <div id="invite-panel" class="main-content"> <!-- Invite panel -->
-      <div class="row">
+      <div class="row headerrow">
         <div class="col-xs-12">
-          <h4>Invite your friends!</h4>
+          <h4 class="pull-left">Invite your friends!</h4>
+          <button type="submit" class="btn btn-default btn-cancel-invites pull-right">Cancel</button>
         </div>
       </div>
-      <div class="row">
+      <div class="row copyandpasteinvites">
         <div class="col-xs-12">
-          <strong>Your contacts</strong>
-          <ul class="list-group">
-            <li class="list-group-item"><input type="checkbox" checked="yes" name="invitee" value="Ilana" class="create-switch" /> Ilana</li>
-            <li class="list-group-item"><input type="checkbox" checked="yes" name="invitee" value="Gregg" class="create-switch" /> Gregg</li>
-            <li class="list-group-item"><input type="checkbox" checked="yes" name="invitee" value="Ian" class="create-switch" /> Ian</li>
-          </ul>
-          <p class="text-right">
-            <button type="submit" class="btn btn-default btn-cancel-invites">Cancel</button>
-            <button type="submit" class="btn btn-default btn-primary btn-send-invites">Send invites</button>
-          </p>
+          <div class="panel panel-default">
+            <div class="panel-heading"><h5>Copy and paste this link to your friends:</h5></div>
+            <div class="panel-body">
+              <input type="text" class="form-control" placeholder="This Hotdish session URL">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row sendinvites">
+        <div class="col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h5>Send invite to your contacts:</h5></div>
+            <div class="panel-body">
+              <ul class="list-group">
+                <li class="list-group-item"><input type="checkbox" checked="yes" name="invitee" value="Ilana" class="create-switch" /> Ilana</li>
+                <li class="list-group-item"><input type="checkbox" checked="yes" name="invitee" value="Gregg" class="create-switch" /> Gregg</li>
+                <li class="list-group-item"><input type="checkbox" checked="yes" name="invitee" value="Ian" class="create-switch" /> Ian</li>
+              </ul>
+              <p class="text-right">
+                <button type="submit" class="btn btn-default btn-primary btn-send-invites">Send invites</button>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

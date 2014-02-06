@@ -246,6 +246,8 @@ h4.media-heading.username {
   opacity: 1;
 }
 
+
+
 .inviteUserBtn:hover {
   cursor: pointer;
   color: #fff;
@@ -533,6 +535,29 @@ li.media:hover {
   height: 100%;
   z-index: 9999;
   box-shadow: 1px 1px rgba(0,0,0,0.2);
+}
+
+#invite-panel .btn-cancel-invites {
+  margin-top: 2px;
+}
+
+#invite-panel .headerrow {
+  background: #363636;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#invite-panel .copyandpasteinvites {
+  margin-bottom: 0px;
+}
+
+#invite-panel .sendinvites {
+
+}
+
+#invite-panel .btn-primary {
+  background-color: rgb(44, 143, 191);
 }
 
 /* Some debug overrides: */
