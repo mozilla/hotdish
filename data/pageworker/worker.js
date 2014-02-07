@@ -127,7 +127,7 @@ function activateTogetherJS(roomName, overrides) {
       ready: function () {
         //console.log("Got TJS clientId,", unsafeWindow.TogetherJS.require("session").clientId);
         if (shareTabId) {
-          // FIXME: hacky way to extra clientId
+          // FIXME: hacky way to extract clientId
           var clientId = shareTabId.replace(/_.*/, "");
           var peers = unsafeWindow.TogetherJS.require("peers");
           peers.on("new-peer", function (peer) {
@@ -144,6 +144,9 @@ function activateTogetherJS(roomName, overrides) {
         }
         // Mute the ding:
         document.querySelector("#togetherjs-notification").volume = 0;
+        if (avoidFirstRun) {
+          unsafeWindow.TogetherJS.require("session").firstRun = false;
+        }
       }
     }
   };
@@ -183,6 +186,11 @@ function activateTogetherJS(roomName, overrides) {
   }
 }
 
+var avoidFirstRun = false;
+self.port.on("avoidFirstRun", function () {
+  avoidFirstRun = true;
+});
+
 function removeTogetherJsNodes() {
   return function () {};
   var doc = unsafeWindow.document;
@@ -218,6 +226,7 @@ var emitterTimeout = null;
 
 function activatePresenting() {
   disablePresenting();
+  avoidFirstRun = true;
   activateTogetherJS(tabId, {
     isSamePage: function () {return true;}
   });
