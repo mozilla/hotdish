@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="css/site-styles.css">
   <script src="js/jquery-1.10.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script>
+    document.addEventListener("hotdish-message", function (event) {
+      $("#groupId").text(event.detail.groupId);
+    }, false);
+  </script>
 </head>
 <body id="startpage">
   <div id="top" class="container">
@@ -19,7 +24,7 @@
 			    <img src="assets/hotdish-icon-120.png" class="logo"><h1 class="maintitle">Hotdish</h1>
 			  </div>
 			  <div class="clearfix"></div>
-        <p class="livecollab text-center">You are now in live collaboration with group: <strong>Foobar</strong></p>
+        <p class="livecollab text-center">You are now in live collaboration with group: <strong id="groupId">Foobar</strong></p>
 			  <p class="changepic text-center">Change your <i>picture</i> and <i>name</i> by clicking your avatar in the upper left.</p>
 			  <p>
 			</div>
