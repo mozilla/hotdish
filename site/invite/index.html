@@ -26,6 +26,11 @@
       if (!isFirefox) {
         $(".install").html("<span class='alert alert-warning'>Oops! You need to use <a href='http://www.mozilla.org/en-US/firefox/new/' target='_blank'>Firefox</a> for this add-on.</span>");
       }
+
+      var match = /#.*group=([^&]*)/.exec(location.href);
+      if (match) {
+        $("#groupId").text(match[1]);
+      }
     });
   </script>
 </head>
@@ -34,7 +39,7 @@
 		<div id="middle" class="row">
 			<div class="col-md-8 col-md-offset-2 main">
 			  <div class="invite-msg alert alert-success text-center">
-		      You've been invited to Hotdish group: <strong class="groupname">Foobar</strong>
+		      You've been invited to Hotdish group: <strong id="groupId" class="groupname">???<</strong>
 		    </div>
 			  <div class="text-center">
 			    <img src="../assets/hotdish-icon-120.png" class="logo"><h1 class="maintitle">Hotdish</h1>
