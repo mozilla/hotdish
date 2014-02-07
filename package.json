@@ -1,8 +1,9 @@
 {
-  "name": "hotdish",
-  "fullName": "hotdish",
+  "name": "Hotdish",
+  "fullName": "Hotdish",
+  "icon": "icon.png",
   "id": "hotdish@mozilla.com",
-  "description": "Work together!",
+  "description": "A delicious Firefox add-on that makes it easier for you to work and communicate in the browser.",
   "author": "Mozilla Hotdish Team",
   "license": "MPL 2.0",
   "version": "1",
