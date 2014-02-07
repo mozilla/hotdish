@@ -15,6 +15,7 @@ forever=
 make_only=
 no_autostart=
 upload_xpi=
+update_site=
 
 while [[ -n "$1" ]] ; do
     case "$1" in
@@ -46,6 +47,9 @@ while [[ -n "$1" ]] ; do
         --upload-xpi)
             upload_xpi=1
             ;;
+        --update-site)
+            update_site=1
+            ;;
         *)
             break
             ;;
@@ -74,6 +78,9 @@ if [[ -n "$help" ]] ; then
     echo "      Don't autostart Hotdish on startup"
     echo "  --upload-xpi"
     echo "      Make the hotdish.xpi and upload it to https://togetherjs.com/hotdish/hotdish.xpi"
+    echo "      (requires ssh access)"
+    echo "  --update-site"
+    echo "      Update the togetherjs.com/hotdish/ site from the site/ directory"
     echo "      (requires ssh access)"
     echo "All other options are passed to cfx run"
     if [[ -n "$help_message" ]] ; then
@@ -172,7 +179,16 @@ run () {
 
 break="$(python -c 'import os; print "*"*int(os.environ.get("COLUMNS", 80))')"
 
-if [[ -n "$upload_xpi" ]] ; then
+if [[ -n "$update_site" ]] ; then
+    if [[ -n "$upload_xpi" ]] ; then
+        make_jsx
+        cfx xpi
+        cp hotdish.xpi site/hotdish.xpi
+    else
+        rm -f site/hotdish.xpi
+    fi
+    rsync -r -e "ssh -i $HOME/.ssh/moz-ec2" ./site/ ubuntu@ec2-54-227-175-75.compute-1.amazonaws.com:/var/www/togetherjs/public/hotdish/
+elif [[ -n "$upload_xpi" ]] ; then
     make_jsx
     cfx xpi
     scp -i ~/.ssh/moz-ec2 hotdish.xpi ubuntu@ec2-54-227-175-75.compute-1.amazonaws.com:/var/www/togetherjs/public/hotdish/hotdish.xpi
