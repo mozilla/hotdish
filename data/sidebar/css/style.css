@@ -646,7 +646,7 @@ body.debug #debug-listener {
   border-radius: 4px;
   background: #592854;
   color: #fff;
-  //margin-left: 4px;
+  margin-right: 4px;
 }
 
 .prStyle {
@@ -662,7 +662,7 @@ body.debug #debug-listener {
   border-radius: 4px;
   background: #636363;
   color: #fff;
-  //margin-left: 4px;
+  margin-left: 4px;
 }
 
 #temp-feedback {

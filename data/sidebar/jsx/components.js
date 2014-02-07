@@ -200,7 +200,7 @@ var Activity = React.createClass({
     }
     var activeClass = "";
     if (this.props.activeTab) {
-      activeClass = <span style={ {float: "left", width: "18px", height: "18px", marginTop: "20px", marginRight: "-60px"} } className="glyphicon"><img src="assets/icn-currentlocation.png" /></span>;
+      activeClass = <span style={ {float: "left", width: "18px", height: "18px", marginTop: "12px", marginBottom: "0px", marginRight: "-60px"} } className="glyphicon"><img src="assets/icn-currentlocation.png" /></span>;
     }
     return (
       <li className={liClass} key={this.props.key}>
