@@ -1,1 +1,49 @@
-Put the Hotdish front page here
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Mozilla | Hotdish</title>
+  <meta name="description" content="A delicious Firefox add-on that makes it easier for you to work and communicate in the browser.">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/site-styles.css">
+  <script src="js/jquery-1.10.2.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" charset="utf-8">
+    // Detect Browser
+    var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+        // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
+    var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+        // At least Safari 3+: "[object HTMLElementConstructor]"
+    var isChrome = !!window.chrome && !isOpera;              // Chrome 1+
+    var isIE = /*@cc_on!@*/false || !!document.documentMode; // At least IE6
+
+    // if Browser is not Firefox
+    $(function() {
+      if (!isFirefox) {
+        $(".install").html("<span class='alert alert-warning'>Oops! You need to use <a href='http://www.mozilla.org/en-US/firefox/new/' target='_blank'>Firefox</a> for this add-on.</span>");
+      }
+    });
+  </script>
+</head>
+<body id="landing">
+  <div id="top" class="container">
+		<div id="middle" class="row">
+			<div class="col-md-8 col-md-offset-2 main">
+			  <div class="text-center">
+			    <img src="assets/hotdish-icon-120.png" class="logo"><h1 class="maintitle">Hotdish</h1>
+			  </div>
+			  <div class="clearfix"></div>
+        <h5 class="subtitle text-center">A delicious Firefox add-on that makes it easier for you to work and communicate in the browser.</h5>
+        <div class="install text-center">
+          <a href="https://togetherjs.com/hotdish/hotdish.xpi" class="btn btn-primary btn-lg btn-install">Install the add-on</a>
+        </div>
+			</div>
+		</div>
+	</div>
+	<span id="photo-credit"><a href="http://www.hoteatsandcoolreads.com/2013/03/loaded-chicken-and-bacon-tator-tot.html" target="_blank">Photo by hoteatsandcoolreads.com</a></span>
+</body>
+</html>

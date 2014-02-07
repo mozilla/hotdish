@@ -1,0 +1,153 @@
+/*global*/
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
+body {
+  background: url('../assets/bg.png') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+	line-height: 20px;
+}
+
+.addpadding {
+  padding-top: 10px;
+}
+
+.nav {
+  background: #ebebeb;
+}
+
+img.branding {
+  height: 30px;
+  width: 30px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+#photo-credit a {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-size: 10px;
+  padding: 6px;
+  color: #fff;
+}
+
+#top {
+  margin-top: 180px;
+  max-width: 600px;
+}
+
+#middle img {
+  width: 62px;
+  position: relative;
+  top: -11px;
+  left: -7px;
+}
+
+.btn-install {
+  padding: 20px 40px;
+  font-size: 22px;
+  background: #2c8fbf;
+}
+
+.btn-install:hover {
+  background: #3783a8;
+}
+
+h1.maintitle {
+  display: inline;
+  padding-right: 7px;
+  font-size: 48px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.main {
+}
+
+.subtitle {
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 30px;
+  line-height: 22px;
+  padding: 0px 50px;
+}
+
+
+/*gettingstarted*/
+
+#gettingstarted {
+  background: url('../imgs/glasspane-getstarted.png') no-repeat fixed;
+  background-size: cover;
+  height: auto;
+}
+
+#gettingstarted #horizon {
+	color: #000;
+	background-color: transparent;
+	position: absolute;
+	top: 45%;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	overflow: visible;
+	visibility: visible;
+	display: block;
+}
+
+#gettingstarted #content {
+	background-color: transparent;
+}
+
+.insidecontent {
+  max-width: 600px;
+}
+
+.arrowicons {
+  padding-right: 20px;
+}
+
+.inviteFriendsRow {
+  margin-top: 86px;
+}
+
+#floatbox {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  //background: black;
+  //width: 100px;
+  height: 200px;
+  padding: 20px;
+}
+
+
+
+
+
+/*take photo page*/
+
+#takephoto {
+  margin-top: 100px;
+  background: url('../imgs/photo-bg.png') no-repeat fixed;
+  background-size: cover;
+  height: auto;
+}
+
+#takephoto .container.smrow {
+  max-width: 440px;
+}
+
+#takephoto .container {
+  max-width: 600px;
+}
+
+#takephoto .photo-area {
+  max-width: 400px;
+  min-height: 400px;
+  padding: 20%;
+  margin: 20px auto;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+}
+
