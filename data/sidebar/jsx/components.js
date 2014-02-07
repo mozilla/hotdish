@@ -194,10 +194,19 @@ UI.notifyAllUsersHere = function () {
 
 var Activity = React.createClass({
   render: function () {
+    var liClass = "media";
+    if (this.props.old) {
+      liClass += " deadTabClass";
+    }
+    var activeClass = "";
+    if (this.props.activeTab) {
+      activeClass = <span style={ {float: "left", width: "18px", height: "18px", marginTop: "20px", marginRight: "-60px"} } className="glyphicon"><img src="assets/icn-currentlocation.png" /></span>;
+    }
     return (
-      <li className="media" key={this.props.key}>
+      <li className={liClass} key={this.props.key}>
         <a className="pull-left" href="#">
           <div className="sm-avatar">
+            {activeClass}
             <img className="media-object user-avatar" src={this.props.avatar} alt="" />
           </div>
         </a>
@@ -244,35 +253,51 @@ var PageVisit = React.createClass({
     var joinLink = null;
     if ((! this.props.page.tab.peer.isSelf) &&
         (this.props.state == "normal" || this.props.state == "live" || this.props.state == "presenting")) {
-      joinLink = <Tooltip><a data-myid={this._myid} className="glyphicon glyphicon-eye-open pull-right spectate-page" href="#" title="Spectate on their page" data-toggle="tooltip" data-placement="left" onClick={this.onSpectateClick}></a></Tooltip>;
+      joinLink = <Tooltip><a data-myid={this._myid} className="glyphicon pull-right spectate-page" href="#" title="View on their page" data-toggle="tooltip" data-placement="left" onClick={this.onSpectateClick}>View</a></Tooltip>;
     }
     var title = this.props.page.title;
     if (this.props.state == "presenting") {
-      title = "Presenting: " + title;
+      title = title;
     } else if (this.props.state == "viewing") {
-      title = "Viewing: " + title;
+      title = title;
+    }
+    var titlePresView = "";
+    var presentationStyle = "";
+    if (this.props.state == "presenting") {
+      titlePresView = "Presenting: ";
+      presentationStyle = "prStyle";
+    } else if (this.props.state == "viewing") {
+      titlePresView = "Viewing: ";
+      presentationStyle = "viewStyle";
     }
     var star = null;
     if (this.props.active) {
-      star = <span style={ {marginLeft: "4px", color: "#FFC40C"} } className="glyphicon glyphicon-star"></span>;
+      star = "activeTab";
+      //star = <span style={ {marginLeft: "4px", color: "#FFC40C"} } className="glyphicon glyphicon-star"></span>;
     }
     var dead = null;
     if (this.props.state == "dead") {
       dead = "deadTabClass";
-      //dead = <span title="no longer loaded">*</span>;
     }
     var other = null;
+    var names = [];
+
     if (this.props.participants && this.props.participants.length) {
-      var names = this.props.participants.map(function (p) {return p.name});
-      names = names.join(", ");
-      other = " with " + names;
+      this.props.participants.forEach(function (p) {
+        if (this.props.state == "presenting") {
+          var participantStateVC = "participantViewer";
+        } else {
+          participantStateVC = "participantCollaborator";
+        }
+        names.push(<span className={participantStateVC}> {p.name} </span>)
+      }, this);
     }
     return (
-      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
+      <Activity activeTab={this.props.active} old={this.props.state == "dead"} name={this.props.name} avatar={this.props.avatar} key={this.props.page.id}>
         {joinLink}
-        <a target="_blank" className={"current-location "+ dead}  href={this.props.page.url}>{title}</a>
-        {star}
-        {other}
+        <strong className={presentationStyle}>{titlePresView}</strong>
+        <a target="_blank" className="current-location"  href={this.props.page.url}>{title}</a><br/>
+        {names}
       </Activity>
     );
   }
