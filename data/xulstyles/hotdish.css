@@ -58,7 +58,7 @@
 .hotdish tab.tabbrowser-tab[hotdish=presenting] .tab-background-middle,
 .hotdish tab.tabbrowser-tab[hotdish=presenting] .tab-background-end
 {
-  background-color: #2ecc71 !important;
+  background-color: #5db899 !important;
 }
 
 /*Live tab style*/
@@ -74,7 +74,7 @@
 .hotdish tab.tabbrowser-tab[hotdish=viewing] .tab-background-middle,
 .hotdish tab.tabbrowser-tab[hotdish=viewing] .tab-background-end
 {
-    background-color: red !important;
+    background-color: #592854 !important;
 }
 
 
