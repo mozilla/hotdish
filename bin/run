@@ -16,6 +16,7 @@ make_only=
 no_autostart=
 upload_xpi=
 update_site=
+run_scratch=
 
 while [[ -n "$1" ]] ; do
     case "$1" in
@@ -50,6 +51,9 @@ while [[ -n "$1" ]] ; do
         --update-site)
             update_site=1
             ;;
+        --run-scratch)
+            run_scratch=1
+            ;;
         *)
             break
             ;;
@@ -76,6 +80,8 @@ if [[ -n "$help" ]] ; then
     echo "      Make components.js, don't run cfx run"
     echo "  --no-autostart"
     echo "      Don't autostart Hotdish on startup"
+    echo "  --run-scratch"
+    echo "      Run a scratch Firefox, opened up to the site page"
     echo "  --upload-xpi"
     echo "      Make the hotdish.xpi and upload it to https://togetherjs.com/hotdish/hotdish.xpi"
     echo "      (requires ssh access)"
@@ -179,7 +185,31 @@ run () {
 
 break="$(python -c 'import os; print "*"*int(os.environ.get("COLUMNS", 80))')"
 
-if [[ -n "$update_site" ]] ; then
+if [[ -n "$run_scratch" ]] ; then
+    make_jsx
+    cfx xpi
+    cp hotdish.xpi site/
+    if [[ ! -e ProfileScratch/cookies.sqlite ]] ; then
+        mkdir -p ProfileScratch
+        echo "You must create a new profile in the next screen"
+        echo "  put it in the directory $(pwd)/ProfileScratch"
+        echo "  name it 'Hotdish Scratch'"
+        echo "  After that, quit and start again."
+        echo "Press enter to continue"
+        read x
+        /Applications/Firefox.app/Contents/MacOS/firefox-bin -no-remote -foreground -ProfileManager
+        exit
+    fi
+    if [[ -e ProfileScratch.backup/cookies.sqlite ]] ; then
+        echo "Restoring backup"
+        cp -r ProfileScratch.backup/* ProfileScratch/
+    else
+        echo "Creating backup"
+        rm -rf ProfileScratch.backup
+        cp -r ProfileScratch ProfileScratch.backup
+    fi
+    /Applications/Firefox.app/Contents/MacOS/firefox-bin -no-remote -foreground -P 'Hotdish Scratch'
+elif [[ -n "$update_site" ]] ; then
     if [[ -n "$upload_xpi" ]] ; then
         make_jsx
         cfx xpi
@@ -187,7 +217,7 @@ if [[ -n "$update_site" ]] ; then
     else
         rm -f site/hotdish.xpi
     fi
-    rsync -r -e "ssh -i $HOME/.ssh/moz-ec2" ./site/ ubuntu@ec2-54-227-175-75.compute-1.amazonaws.com:/var/www/togetherjs/public/hotdish/
+    rsync --progress -r --copy-links -e "ssh -i $HOME/.ssh/moz-ec2" ./site/ ubuntu@ec2-54-227-175-75.compute-1.amazonaws.com:/var/www/togetherjs/public/hotdish/
 elif [[ -n "$upload_xpi" ]] ; then
     make_jsx
     cfx xpi
