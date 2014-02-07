@@ -20,6 +20,12 @@ body {
 
 }
 
+.disclaimer {
+  font-size: 12px;
+  line-height: 18px;
+  padding-top: 20px;
+}
+
 #startpage .havefun {
   font-size: 14px;
 }

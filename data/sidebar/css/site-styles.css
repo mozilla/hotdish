@@ -18,6 +18,12 @@ body {
   background: #ebebeb;
 }
 
+.disclaimer {
+  font-size: 12px;
+  line-height: 18px;
+  padding-top: 20px;
+}
+
 img.branding {
   height: 30px;
   width: 30px;
