@@ -19,7 +19,7 @@ Problems we are trying to solve/explore
 Install/Usage
 -------------
 
-1. Click https://togetherjs.com/hotdish/hotdish.xpi
+1. Click https://togetherjs.com/hotdish/hotdish.xpi (if you downloaded from a people.mozilla.org link you got a really old version!)
 2. In Firefox, go to `View > Sidebar > Share with hotdishgroup`
 3. Close the Sidebar to stop collaborating.
 4. Be aware everyone in the group sees everything you open *in that window*.
