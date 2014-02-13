@@ -10,6 +10,10 @@ function insertAtEnd(text) {
   unsafeWindow.padeditor.ace.replaceRange([lastLine, 0], [lastLine, 0], text + "\n");
 }
 
+function insertAtBeginning(text) {
+  unsafeWindow.padeditor.ace.replaceRange([0, 0], [0, 0], text + "\n");
+}
+
 var findEditorTimeout = setInterval(function () {
   if (! (unsafeWindow.padeditor && unsafeWindow.padeditor.ace)) {
     return;
@@ -65,7 +69,8 @@ function processMessage(msg) {
     text = '"' + msg.text + '"';
   }
   if (text) {
-    insertAtEnd(text);
+    //insertAtEnd(text);
+    insertAtBeginning(text);
   }
 }
 
