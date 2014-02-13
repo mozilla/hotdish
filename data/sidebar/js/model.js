@@ -574,7 +574,9 @@ function renderChatField() {
     chatField = UI.ChatField({
       onChatSubmit: function (text) {
         addon.port.emit("chat", text);
-        addChatActivity(clientId, text);
+        if (text.indexOf("/") !== 0) {
+          addChatActivity(clientId, text);
+        }
       }
     });
     $("#chat-field-container").empty();
