@@ -517,7 +517,7 @@ var Bar = UI.Bar = React.createClass({
         <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
           <Tooltip>
             <button id="btn-share-everyone" type="button" className={"handstyled " + buttonClass}
-              title="Share this page with everyone"
+              title="Push this page with everyone"
               style={ {borderRadius: "0px"} }
               onClick={this.onShareClick}>
               <img src="assets/icn-push-btn.png" style={{ width: "27px", height: "27px" }}/>
@@ -527,7 +527,7 @@ var Bar = UI.Bar = React.createClass({
           <Dropdown>
             <Tooltip>
               <button type="button" className={"handstyled " + buttonClass}
-                title="Share with someone specific"
+                title="Push to someone specific"
                 style={ {borderRadius: "0px"} }>
                 <span className="caret"></span>
                 <span className="sr-only">Toggle Dropdown</span>
@@ -539,7 +539,7 @@ var Bar = UI.Bar = React.createClass({
           </Dropdown>
           </div>
         </div>
-        <div className="btn-group" style={ {display:"table-cell", float:"none", borderRadius: "0px"} }>
+        <div className="btn-group" style={ {display: "table-cell", "float": "none", borderRadius: "0px"} }>
           <Tooltip>
             <button id="btn-upload" type="button" className={buttonClass}
               title="Upload">
