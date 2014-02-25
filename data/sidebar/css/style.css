@@ -283,28 +283,28 @@ h4.media-heading.username {
   background: url('../temp-images/avatar-1.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
 }
 
 .user-two {
   background: url('../temp-images/avatar-2.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
 }
 
 .user-three {
   background: url('../temp-images/avatar-3.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
 }
 
 .user-four {
   background: url('../temp-images/avatar-4.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center center;
 }
 
 .avatar-box:hover {
