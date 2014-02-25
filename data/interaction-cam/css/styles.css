@@ -1,8 +1,11 @@
 #takephoto {
   margin-top: 100px;
+  height: auto;
+}
+
+body.in-group #takephoto {
   background: url('../imgs/photo-bg.png') no-repeat fixed;
   background-size: cover;
-  height: auto;
 }
 
 .bottomnav {
@@ -34,4 +37,8 @@ img.branding {
 
 .addpadding {
   padding-top: 10px;
+}
+
+#group-list button {
+  margin-bottom: 5px;
 }

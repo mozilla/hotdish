@@ -38,6 +38,13 @@
     "description": "The location of togetherjs-min.js",
     "type": "string",
     "value": "https://togetherjs.com/versions/0.1HOTDISH/togetherjs-min.js"
+  },
+  {
+    "name": "knownGroups",
+    "title": "Known (remembered) Hotdish groups",
+    "description": "A package of all the known Hotdish groups",
+    "type": "string",
+    "value": ""
   }
   ]
 }

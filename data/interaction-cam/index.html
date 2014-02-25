@@ -4,39 +4,81 @@
   <meta charset="utf-8">
   <title>Hotdish | Take your photo</title>
   <link rel="stylesheet" href="interactioncam.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="../sidebar/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/bootstrap.min.js"></script>
+  <script src="../sidebar/js/jquery-1.10.2.min.js"></script>
+  <script src="../sidebar/js/bootstrap.min.js"></script>
 </head>
 
 <body id="takephoto">
 
   <section class="container">
-    <div class="row text-center">
-      <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-6 text-center">
         <div class="panel panel-default photo-area">
           <div id="videocontainer" class="panel-body">
             <video id="video">Your photo is loading...</video>
           </div>
         </div>
         <p><button class="btn btn-primary" id="btn-takephoto">Update your beautiful mug</button></p>
-      </div>
-    </div>
-    <div class="row">
-      <hr/>
-      <div class="col-xs-12">
+
+        <hr/>
+
         <div class="form-horizontal" role="form">
           <div class="form-group" style="margin: 0 80px">
             <div class="col-xs-2">
-              <label for="" class="control-label">Name</label>
+              <label for="name-input" class="control-label">Name</label>
             </div>
             <div class="col-xs-10">
-              <input type="" class="form-control" id="name-input" placeholder="Type in your name">
+              <input type="text" class="form-control" id="name-input" placeholder="Type in your name">
             </div>
           </div>
         </div>
+      </div><!-- end left panel -->
+
+      <div class="col-xs-6">
+
+        <div id="this-group">
+          <div class="form-group">
+            <label for="group-name" class="control-label">Group name:</label>
+            <input type="text" class="form-control" id="group-name" placeholder="Give the group a name to save it">
+          </div><!-- /.form-group -->
+          <div class="form-group">
+            <label for="invite-link" class="control-label">Invite link:</label>
+            <div class="form-inline" role="form">
+              <input type="text" class="form-control" id="invite-link">
+              <button id="copy-invite-link" class="btn">copy</button>
+            </div>
+          </div><!-- /.form-group -->
+
+          <div>
+            <button class="btn btn-large btn-danger" id="end-session">End Session</button>
+          </div>
+        </div><!-- /#this-group -->
+
+        <div id="group-list">
+          <div id="group-list-items"></div>
+          <button class="btn btn-primary btn-lg btn-block" id="start-new-group">Start new group</button>
+          <div>
+            <label for="open-in-current" class="control-label">
+              Open in current window?
+              <input type="checkbox" id="open-in-current">
+            </label>
+          </div>
+        </div>
+
+      </div><!-- end right panel -->
+
+    </div>
+    <div style="display: none">
+      <div id="group-template">
+        <button class="start btn btn-default btn-lg">[group name]</button>
+        <button class="remove btn btn-sm btn-danger">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
       </div>
     </div>
+
   </section>
   <nav class="bottomnav navbar navbar-fixed-bottom">
     <div class="container-fluid">
