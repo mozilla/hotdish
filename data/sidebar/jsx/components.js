@@ -318,6 +318,19 @@ var Join = React.createClass({
 });
 UI.Join = Join;
 
+var Leave = React.createClass({
+  render: function () {
+    return (
+      <Activity name={this.props.name} avatar={this.props.avatar} key={this.props.key}>
+        <Timestamp time={this.props.time} pullRight={false} />
+        <h4 className="media-heading username">{this.props.name}</h4>
+        Left the session.
+      </Activity>
+    );
+  }
+});
+UI.Leave = Leave;
+
 var Invited = React.createClass({
   render: function () {
     var invitees = "";

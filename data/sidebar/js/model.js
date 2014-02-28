@@ -51,7 +51,9 @@ function getPeer(id) {
 function allPeers() {
   var result = [];
   for (var id in peers) {
-    result.push(getPeer(id));
+    if (! getPeer(id).gone) {
+      result.push(getPeer(id));
+    }
   }
   return result;
 }
@@ -80,6 +82,17 @@ var Peer = Class(mixinEvents({
     renderUsers();
     renderBar();
     renderActivity();
+  },
+
+  setGone: function (gone) {
+    var changed = ((! this.gone) && gone) || (this.gone && ! gone);
+    this.gone = gone;
+    if (changed) {
+      if (gone) {
+        activities.push(LeaveActivity(this));
+      }
+      renderUsers();
+    }
   },
 
   getTab: function (tabId) {
@@ -381,6 +394,22 @@ var JoinActivity = Class({
   },
   activityComponent: function () {
     return UI.Join({
+      name: this.peer.name,
+      avatar: this.peer.avatar,
+      time: this.time,
+      key: this.id
+    });
+  }
+});
+
+var LeaveActivity = Class({
+  constructor: function (peer) {
+    this.id = makeId("leave");
+    this.peer = peer;
+    this.time = Date.now();
+  },
+  activityComponent: function () {
+    return UI.Leave({
       name: this.peer.name,
       avatar: this.peer.avatar,
       time: this.time,

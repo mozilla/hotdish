@@ -30,6 +30,10 @@ function init() {
     msg.peer.lastMessage = Date.now();
     if (msg.type == "hello" || msg.type == "hello-back") {
       msg.peer.update(msg);
+      msg.peer.setGone(false);
+    }
+    if (msg.type == "bye") {
+      msg.peer.setGone(true);
     }
     hub.emit(msg.type, msg);
   };
