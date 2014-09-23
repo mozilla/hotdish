@@ -80,7 +80,7 @@ Freeze.skipElement = function (el) {
 };
 
 Freeze.ignoreElement = function (el) {
-  return el.jsmirrorHide ||
+  return el && el.jsmirrorHide ||
       (el.className && el.className.indexOf("togetherjs") != -1) ||
       el.id == "togetherjs-stylesheet" ||
       el.id == "togetherjs-extra-style";
