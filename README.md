@@ -5,7 +5,7 @@ This is an exploration social tab and general browser experience sharing.
 
 The first exploration and prototype is being implemented as an add-on. This adds a sidebar to shared Firefox windows, which gives users a context to see each other's activity, and gives a launching point for more intimate sharing experiences.
 
-If you use Hotdish, or are just curious about what we're doing or thinking about, please [tell us what you think](hotdish@mozilla.com).
+If you use Hotdish, or are just curious about what we're doing or thinking about, please [tell us what you think](mailto:hotdish@mozilla.com).
 
 This is developed as a Firefox addon.  We make no claims about future development, we're just trying things out.
 
